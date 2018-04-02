@@ -16,11 +16,16 @@ var Fabric_Client = require('fabric-client');
 var path          = require('path');
 var util          = require('util');
 var os            = require('os');
-var chaincodeId   = 'ziontech4';
+
+var chaincodeId   = 'ziontech6';
 
 
 module.exports = (function() {
 return{
+	get_user_role: function(req, res){
+		console.log(req.get('role'));
+		res.send(req.get('role'));
+	},
 	get_all_wine: function(req, res){
 		console.log("getting all tuna from database: ");
 
@@ -283,7 +288,8 @@ return{
 		    console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
 		    // changeTunaHolder - requires 2 args , ex: args: ['1', 'Barry'],
-		    // send proposal to endorser
+			// send proposal to endorser
+			console.log(data);
 		    var request = {
 		        //targets : --- letting this default to the peers assigned to the channel
 		        chaincodeId: chaincodeId,

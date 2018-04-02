@@ -4,8 +4,8 @@ var wine = require('./controller.js');
 
 module.exports = function(app){
 
-  app.get('/get_tuna/:id', function(req, res){
-    wine.get_tuna(req, res);
+  app.get('/get_user_role', function(req, res){
+    wine.get_user_role(req, res);
   });
   app.post('/add_wine', function(req, res){
     wine.add_wine(req, res);
@@ -13,24 +13,23 @@ module.exports = function(app){
   app.get('/get_all_wine', function(req, res){
     wine.get_all_wine(req, res);
   });
-  app.get('/vinery', function(req, res){
+  app.post('/vinery', function(req, res){
     var data = req.body;
     console.log(data);
-    var args = [];
+    var args = [data.key, data.actualWeight, data.volume, 'from', 'to', data.bottlingCompany];
 
     wine.updateWine(req, res, {
       funcName: "changedByVinery",
-      args: args
+      args
     });
   });
-  app.get('/bottling', function(req, res){
+  app.post('/bottler', function(req, res){
     var data = req.body;
     console.log(data);
-    var args = [];
-
+    var args = [data.key, data.label, data.corkCap, data.status, data.seller, data.brand];
     wine.updateWine(req, res, {
-      funcName: "changedByBottling",
-      args: args
+      funcName: "changedByBottler",
+      args
     });
   });
 }
