@@ -1,0 +1,38 @@
+{
+  "name": "example-create-react-app-express",
+  "version": "1.0.0",
+  "description": "Example on using create-react-app with a Node Express Backend",
+  "author": {
+    "name": "Esau Silva",
+    "email": "esausilva85@gmail.com",
+    "url": "https://esausilva.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "fabric-ca-client": "^1.0.2",
+    "fabric-client": "^1.0.2",
+    "grpc": "^1.6.0",
+    "express": "^4.16.3",
+    "body-parser": "latest"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esausilva/example-create-react-app-express.git"
+  },
+  "bugs": {
+    "url": "https://github.com/esausilva/example-create-react-app-express/issues"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "create-react-app"
+  ]
+}
