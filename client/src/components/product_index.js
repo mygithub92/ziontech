@@ -15,10 +15,16 @@ class ProductIndex extends Component {
       return (
             <tr key={product.Key}>
               <th scope="row">{product.Key}</th>
+              <td>{product.Record.companyName}</td>
               <td>{product.Record.region}</td>
-              <td>{product.Record.Variety}</td>
+              <td>{product.Record.vineyard}</td>
+              <td>{product.Record.block}</td>
+              <td>{product.Record.rowRange}</td>
+              <td>{product.Record.variety}</td>
               <td>{product.Record.vintage}</td>
+              <td>{product.Record.dateDelivered}</td>
               <td>{product.Record.vinery}</td>
+              <td>{product.Record.estimatedWeight}</td>
             </tr>
       );
     });
@@ -37,10 +43,16 @@ class ProductIndex extends Component {
           <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Company Name</th>
               <th scope="col">Region</th>
+              <th scope="col">Vineyard</th>
+              <th scope="col">Block</th>
+              <th scope="col">Row Range</th>
               <th scope="col">Variety</th>
               <th scope="col">Vintage</th>
+              <th scope="col">Date Delivered</th>
               <th scope="col">Vinery</th>
+              <th scope="col">Estimated Weight</th>
             </tr>
           </thead>
           <tbody>

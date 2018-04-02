@@ -9,7 +9,7 @@ const ROOT_URL = "/get_all_tuna";
 const API_KEY = "?key=PAPERCLIP1234";
 
 export function fetchProducts() {
-  const request = axios.get(ROOT_URL);
+  const request = axios.get("/get_all_wine");
 
   return {
     type: FETCH_PRODUCTS,
@@ -18,8 +18,9 @@ export function fetchProducts() {
 }
 
 export function createProduct(values, callback) {
+  console.log(values);
   const request = axios
-    .post(`${ROOT_URL}/posts${API_KEY}`, values)
+    .post('/add_wine', values)
     .then(() => callback());
 
   return {

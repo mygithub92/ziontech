@@ -1,23 +1,36 @@
 //SPDX-License-Identifier: Apache-2.0
 
-var tuna = require('./controller.js');
+var wine = require('./controller.js');
 
 module.exports = function(app){
 
-  app.get('/api/hello', (req, res) => {
-    res.send({ express: 'Hello From Express11111' });
-  });
-
   app.get('/get_tuna/:id', function(req, res){
-    tuna.get_tuna(req, res);
+    wine.get_tuna(req, res);
   });
-  app.get('/add_tuna/:tuna', function(req, res){
-    tuna.add_tuna(req, res);
+  app.post('/add_wine', function(req, res){
+    wine.add_wine(req, res);
   });
-  app.get('/get_all_tuna', function(req, res){
-    tuna.get_all_tuna(req, res);
+  app.get('/get_all_wine', function(req, res){
+    wine.get_all_wine(req, res);
   });
-  app.get('/change_holder/:holder', function(req, res){
-    tuna.change_holder(req, res);
+  app.get('/vinery', function(req, res){
+    var data = req.body;
+    console.log(data);
+    var args = [];
+
+    wine.updateWine(req, res, {
+      funcName: "changedByVinery",
+      args: args
+    });
+  });
+  app.get('/bottling', function(req, res){
+    var data = req.body;
+    console.log(data);
+    var args = [];
+
+    wine.updateWine(req, res, {
+      funcName: "changedByBottling",
+      args: args
+    });
   });
 }

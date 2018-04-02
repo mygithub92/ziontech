@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import { connect } from "react-redux";
 import { createProduct } from "../actions";
 
 class ProductNew extends Component {
-  state = {
-    selectedOption: '',
-  }
 
   renderField(field) {
     const { meta: { touched, error } } = field;
@@ -18,8 +13,8 @@ class ProductNew extends Component {
     return (
       <div className={className}>
         <label className="col-sm-2 col-form-label">{field.label}:</label>
-        <div class="col-sm-8">
-          <input className="form-control" type="text" {...field.input} placeholder={field.label}/>
+        <div className="col-sm-8">
+          <input className="form-control" type="text" {...field.input} placeholder={field.label} value={field.preValue}/>
           <div className="text-help">
             {touched ? error : ""}
           </div>
@@ -28,12 +23,6 @@ class ProductNew extends Component {
     );
   }
 
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
-  }
-
-
   onSubmit(values) {
     this.props.createProduct(values, () => {
       this.props.history.push("/");
@@ -41,56 +30,72 @@ class ProductNew extends Component {
   }
 
   render() {
-    const { selectedOption } = this.state;
-  	const value = selectedOption && selectedOption.value;
-
     const { handleSubmit } = this.props;
-    const companies = [{value:'Hoggies Estate',label:'Hoggies Estate'}, {value: 'Hoggies Estate', label:'Hoggies Estate'}];
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
          <Field
-          label="Company Name"
-          name="companyName"
+          label="Product ID"
+          name="id"
           component={this.renderField}
         />
          <Field
+          label="Company Name"
+          name="companyName"
+          preValue="Hoggies Estate"
+          component={this.renderField}
+          />
+         <Field
           label="Region"
           name="region"
+          preValue="Coonawarra"
           component={this.renderField}
-        />
+          />
         <Field
           label="Vineyard"
           name="vineyard"
+          preValue="Gartner"
           component={this.renderField}
         />
         <Field
           label="Block"
           name="block"
+          preValue="4"
           component={this.renderField}
         />
         <Field
           label="Row Range"
           name="rowRange"
-          component={this.renderField}
-        />
-        <Field
-          label="Vintage"
-          name="vintage"
+          preValue="4-12"
           component={this.renderField}
         />
         <Field
           label="Variety"
           name="variety"
+          preValue="Sauvignon Blanc"
+          component={this.renderField}
+        />
+        <Field
+          label="Vintage"
+          name="vintage"
+          preValue="2015"
           component={this.renderField}
         />
         <Field
           label="Date Delivered"
           name="dateDelivered"
+          preValue="2017-12-23"
+          component={this.renderField}
+        />
+        <Field
+          label="Vinery"
+          name="vinery"
+          preValue="Rymills"
           component={this.renderField}
         />
         <Field
           label="Estimated Weight"
           name="estimatedWeight"
+          preValue="35"
           component={this.renderField}
         />
         <button type="submit" className="btn btn-primary">Submit</button>
@@ -105,8 +110,8 @@ function validate(values) {
   const errors = {};
 
   // Validate the inputs from 'values'
-  if (!values.title) {
-    errors.title = "Enter a title";
+  if (!values.companyName) {
+    errors.companyName = "Enter Company Name";
   }
   if (!values.categories) {
     errors.categories = "Enter some categories";
