@@ -27,7 +27,7 @@ return{
 		res.send(req.get('role'));
 	},
 	get_all_wine: function(req, res){
-		console.log("getting all tuna from database: ");
+		console.log("getting all wines from database: ");
 
 		var fabric_client = new Fabric_Client();
 
@@ -64,7 +64,7 @@ return{
 		        throw new Error('Failed to get user1.... run registerUser.js');
 		    }
 
-		    // queryAllTuna - requires no arguments , ex: args: [''],
+		    // queryAllWine - requires no arguments , ex: args: [''],
 		    const request = {
 		        chaincodeId: chaincodeId,
 		        txId: tx_id,
@@ -137,7 +137,7 @@ return{
 		    tx_id = fabric_client.newTransactionID();
 		    console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-		    // recordTuna - requires 5 args, ID, vessel, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'], 
+		    // recordWine - requires 5 args, ID, vessel, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'], 
 		    // send proposal to endorser
 		    const request = {
 		        //targets : --- letting this default to the peers assigned to the channel
@@ -245,7 +245,7 @@ return{
 	},
 	
 	updateWine: function(req, res, data){
-		console.log("changing holder of tuna catch: ");
+		console.log("changing holder of wine catch: ");
 
 		var fabric_client = new Fabric_Client();
 
@@ -287,7 +287,7 @@ return{
 		    tx_id = fabric_client.newTransactionID();
 		    console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-		    // changeTunaHolder - requires 2 args , ex: args: ['1', 'Barry'],
+		    // changeWineHolder - requires 2 args , ex: args: ['1', 'Barry'],
 			// send proposal to endorser
 			console.log(data);
 		    var request = {
@@ -372,7 +372,7 @@ return{
 		        return Promise.all(promises);
 		    } else {
 		        console.error('Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...');
-		        res.send("Error: no tuna catch found");
+		        res.send("Error: no wine catch found");
 		        // throw new Error('Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...');
 		    }
 		}).then((results) => {
@@ -383,7 +383,7 @@ return{
 		        res.json(tx_id.getTransactionID())
 		    } else {
 		        console.error('Failed to order the transaction. Error code: ' + response.status);
-		        res.send("Error: no tuna catch found");
+		        res.send("Error: no wine catch found");
 		    }
 
 		    if(results && results[1] && results[1].event_status === 'VALID') {
@@ -394,7 +394,7 @@ return{
 		    }
 		}).catch((err) => {
 		    console.error('Failed to invoke successfully :: ' + err);
-		    res.send("Error: no tuna catch found");
+		    res.send("Error: no wine catch found");
 		});
 
 	}

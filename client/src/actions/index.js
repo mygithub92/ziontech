@@ -6,7 +6,6 @@ export const CREATE_PRODUCT = "create_product";
 export const VINERY_UPDATE = "vinery_update";
 export const BOTTLER_UPDATE = "bottler_update";
 
-const ROOT_URL = "/get_all_tuna";
 const API_KEY = "?key=PAPERCLIP1234";
 
 export function fetchUserRole() {
