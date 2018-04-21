@@ -14,7 +14,7 @@ class ProductNew extends Component {
       <div className={className}>
         <label className="col-sm-2 col-form-label">{field.label}:</label>
         <div className="col-sm-8">
-          <input className="form-control" type="text" {...field.input} placeholder={field.label} value={field.preValue}/>
+          <input className="form-control" type="text" {...field.input} placeholder={field.label}/>
           <div className="text-help">
             {touched ? error : ""}
           </div>
@@ -87,7 +87,7 @@ class ProductNew extends Component {
           component={this.renderField}
         />
         <Field
-          label="Vinery"
+          label="Winery"
           name="vinery"
           preValue="Rymills"
           component={this.renderField}

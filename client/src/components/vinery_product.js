@@ -37,7 +37,7 @@ class Vinery extends Component {
 
     return (
       <div>
-        <h3>Products (Vinery View)</h3>
+        <h3>Products (Winery View)</h3>
         <table className="table table-striped">
           <thead>
             <tr>

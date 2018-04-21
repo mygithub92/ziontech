@@ -9,7 +9,7 @@ import Bottler from "./bottler_product";
 import Seller from "./seller_product";
 
 
-const ROLES = {grower: 'grower', vinery: 'vinery', bottler: 'bottler', seller: 'seller'}
+const ROLES = {grower: 'grower', winery: 'winery', bottler: 'bottler', seller: 'seller'}
 
 class ProductIndex extends Component {
   componentDidMount() {
@@ -21,7 +21,7 @@ class ProductIndex extends Component {
     if(role === ROLES.grower){
       return <Grower/>; 
     }
-    if(role === ROLES.vinery){
+    if(role === ROLES.winery){
       return <Vinery/>; 
     }
     if(role === ROLES.bottler){

@@ -46,7 +46,7 @@ class App extends Component {
                         <div className="sidebar-nav">
                             <ul className="nav">
                                 <li className="active"><Link to="/">Grower</Link></li>
-                                <li><Link to="/">Vinery</Link></li>
+                                <li><Link to="/">Winery</Link></li>
                                 <li><Link to="/">Bottler</Link></li>
                                 <li className="nav-divider"></li>
                                 <li><Link to="/transactions">Transaction</Link></li>

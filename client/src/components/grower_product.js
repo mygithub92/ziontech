@@ -55,7 +55,7 @@ class Grower extends Component {
               <th scope="col">Variety</th>
               <th scope="col">Vintage</th>
               <th scope="col">Date Delivered</th>
-              <th scope="col">Vinery</th>
+              <th scope="col">Winery</th>
               <th scope="col">Estimated Weight</th>
             </tr>
           </thead>
