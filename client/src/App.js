@@ -59,6 +59,7 @@ class App extends Component {
                           <Route path="/product/new" component={ProductNew} />
                           <Route path="/product/vinery/:key" component={VineryUpdate} />
                           <Route path="/product/bottler/:key" component={BottlerUpdate} />
+                          <Route path="/transactions/:key" component={Transactions} />
                           <Route path="/transactions" component={Transactions} />
                           <Route path="/" component={ProductIndex} />
                         </Switch>

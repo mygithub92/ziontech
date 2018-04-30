@@ -10,6 +10,15 @@ module.exports = function(app){
   app.post('/add_wine', function(req, res){
     wine.add_wine(req, res);
   });
+  app.get('/getQRImage', function(req, res) {
+    wine.getQRImage(req, res);
+  })
+  app.get('/getWine', function(req, res){
+    wine.getWine(req, res);
+  })
+  app.get('/qr', function(req, res) {
+    wine.qr(req, res);
+  })
   app.get('/get_all_wine', function(req, res){
     wine.get_all_wine(req, res);
   });

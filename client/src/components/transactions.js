@@ -13,7 +13,7 @@ class Grower extends Component {
     return _.map(this.props.products, product => {
       return (
             <tr key={product.Key}>
-              <th scope="row">{product.Key}</th>
+              <th scope="row"><Link to={`/transactions/${product.Key}`}>{product.Key}</Link></th>
               <td>{product.Record.companyName}</td>
               <td>{product.Record.region}</td>
               <td>{product.Record.vineyard}</td>

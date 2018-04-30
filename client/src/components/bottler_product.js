@@ -19,7 +19,6 @@ class Bottler extends Component {
               <td>{product.Record.companyName}</td>
               <td>{product.Record.variety}</td>
               <td>{product.Record.vintage}</td>
-              <td>{product.Record.actualWeight}</td>
               <td>{product.Record.volume}</td>
               <td>{product.Record.brand}</td>
               <td>{product.Record.label}</td>
@@ -47,7 +46,6 @@ class Bottler extends Component {
               <th scope="col">Company Name</th>
               <th scope="col">Variety</th>
               <th scope="col">Vintage</th>
-              <th scope="col">Actual Weight</th>
               <th scope="col">Volume</th>
               <th scope="col">Brand</th>
               <th scope="col">Label</th>
