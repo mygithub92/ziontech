@@ -32,8 +32,8 @@ class Grower extends Component {
   renderProducts() {
     return _.map(this.props.products, product => {
       return (
-            <tr key={product.Key}>
-              <th scope="row"><RaisedButton label={product.Key} onClick={() => this.handleOpen(product.Key)} /></th>
+            <tr key={product.Key} onClick={() => this.handleOpen(product.Key)}>
+              <th scope="row" >{product.Key}</th>
               <td>{product.Record.companyName}</td>
               <td>{product.Record.region}</td>
               <td>{product.Record.vineyard}</td>

@@ -36,24 +36,21 @@ module.exports = (function() {
 		},
 
 		genereateQR: function(id) {
-			const url = `http://http://18.221.40.162/getWine?wineId=${id}`;
+			const url = `http://18.221.40.162/getWine?id=${id}`;
 			var qr_svg = qr.image(url);
 			qr_svg.pipe(require('fs').createWriteStream(`client/public/qr/qr${id}.png`));
 
 		},
 
 		qr: function(req, res) {
-			res.send(this.genereateQR(2));
-		},
-
-		getQRImage: function(req, res) {
-			const wineId = req.query.wineId;
-			res.sendFile(path.join(__dirname, `client/public/qr/qr${wineId}.png`));
+			if(req.query.id){
+				res.send(this.genereateQR(req.query.id));
+			}
 		},
 
 		getWine: function(req, res) {
 			console.log("getting wine from database: ");
-			const wineId = req.query.wineId;
+			const wineId = req.query.id;
 			this.authUser({
 				chaincodeId: chaincodeId,
 				fcn: 'queryWine',
@@ -67,7 +64,9 @@ module.exports = (function() {
 						console.error("error from query = ", query_responses[0]);
 					} else {
 						console.log("Response is ", query_responses[0].toString());
-						res.json(JSON.parse(query_responses[0].toString()));
+						// res.json(JSON.parse(query_responses[0].toString()));
+						const result = JSON.parse(query_responses[0].toString());
+						res.render('index', result);
 					}
 				} else {
 					console.log("No payloads were returned from query");

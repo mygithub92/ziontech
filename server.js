@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 
 // this line requires and runs the code from our routes.js file and passes it app
 require('./routes.js')(app);
+app.set('view engine', 'pug');
 
 // set up a static file server that points to the "client" directory
 //app.use(express.static(path.join(__dirname, './client')));

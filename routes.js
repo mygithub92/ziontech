@@ -1,9 +1,10 @@
 //SPDX-License-Identifier: Apache-2.0
-
 var wine = require('./controller.js');
 
 module.exports = function(app){
-
+  app.get('/qr', function(req, res){
+    res.sendFile(require('path').join(__dirname, `client/public/qr/qr${req.query.id}.png`));
+  });
   app.get('/get_user_role', function(req, res){
     wine.get_user_role(req, res);
   });
