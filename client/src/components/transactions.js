@@ -3,8 +3,28 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../actions";
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 class Grower extends Component {
+
+  state = {
+    open: false,
+    imgUrl: ''
+  };
+
+  handleOpen = (key) => {
+    const t = {open: true, imgUrl: `/qr/qr${key}.png`};
+    console.log(t)
+    this.setState(t);
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   componentDidMount() {
     this.props.fetchProducts();
   }
@@ -13,7 +33,7 @@ class Grower extends Component {
     return _.map(this.props.products, product => {
       return (
             <tr key={product.Key}>
-              <th scope="row"><Link to={`/transactions/${product.Key}`}>{product.Key}</Link></th>
+              <th scope="row"><RaisedButton label={product.Key} onClick={() => this.handleOpen(product.Key)} /></th>
               <td>{product.Record.companyName}</td>
               <td>{product.Record.region}</td>
               <td>{product.Record.vineyard}</td>
@@ -43,8 +63,28 @@ class Grower extends Component {
       return <div>Loading...</div>;
     }
 
+    const actions = [
+      <FlatButton
+        label="OK"
+        primary={true}
+        onClick={this.handleClose}
+      />
+    ];
     return (
       <div>
+        <MuiThemeProvider>
+        <Dialog
+          autoScrollBodyContent="true"
+          title="Please scan."
+          style={{width: "500px"}}
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          <img src={this.state.imgUrl}/>
+        </Dialog>
+
         <h3>Products</h3>
         <div className="table-responsive">
           <table className="table table-striped">
@@ -76,6 +116,7 @@ class Grower extends Component {
             </tbody>
           </table>
         </div>
+        </MuiThemeProvider>
       </div>
     );
   }

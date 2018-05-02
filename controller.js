@@ -38,7 +38,7 @@ module.exports = (function() {
 		genereateQR: function(id) {
 			const url = `http://http://18.221.40.162/getWine?wineId=${id}`;
 			var qr_svg = qr.image(url);
-			qr_svg.pipe(require('fs').createWriteStream(`qr/qr${id}.png`));
+			qr_svg.pipe(require('fs').createWriteStream(`client/public/qr/qr${id}.png`));
 
 		},
 
@@ -48,7 +48,7 @@ module.exports = (function() {
 
 		getQRImage: function(req, res) {
 			const wineId = req.query.wineId;
-			res.sendFile(path.join(__dirname, `qr/qr${wineId}.png`));
+			res.sendFile(path.join(__dirname, `client/public/qr/qr${wineId}.png`));
 		},
 
 		getWine: function(req, res) {
