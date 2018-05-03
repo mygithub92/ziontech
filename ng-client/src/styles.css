@@ -2,5 +2,14 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
-    padding: 20px;
+    background-color: lightslategray;
+}
+
+.sidebar {
+    min-height: 500px;
+    max-height: 500px;
+}
+
+.top-banner {
+    background-color: rgb(140, 161, 189);
 }

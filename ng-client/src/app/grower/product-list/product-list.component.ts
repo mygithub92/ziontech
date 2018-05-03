@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HyperledgerService } from '../../services/hyperledger.service';
+import { HyperledgerMockService } from '../../services/hyperledger.mock.service';
 
 @Component({
   selector: 'app-product-list',
@@ -7,12 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor() { }
+  dataSource: any[];
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  constructor(private service: HyperledgerMockService) { }
+
+  displayedColumns = [
+    'key',
+    'companyName',
+    'region',
+    'vineyard',
+    'block',
+    'rowRange',
+    'variety',
+    'vintage',
+    'dateDelivered',
+    'vinery',
+    'estimatedWeight'
+  ];
 
   ngOnInit() {
+    this.service.getHyperledgers().subscribe(response => {
+      this.dataSource = response.map(record => {
+        return {
+          key: record['Key'],
+          ...record['Record']
+        };
+      });
+      console.log(this.dataSource);
+    });
   }
 
 }

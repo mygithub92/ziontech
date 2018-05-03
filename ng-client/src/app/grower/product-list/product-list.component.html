@@ -1,3 +1,6 @@
+<div class="button-row">
+  <button mat-raised-button color="primary" [routerLink]="['/grower/new']">Add</button>
+</div>
 <div class="example-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
 
@@ -5,27 +8,62 @@
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    <ng-container matColumnDef="key">
+      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.key}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    <ng-container matColumnDef="companyName">
+      <mat-header-cell *matHeaderCellDef> Company Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.companyName}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    <ng-container matColumnDef="region">
+      <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.region}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    <ng-container matColumnDef="vineyard">
+      <mat-header-cell *matHeaderCellDef> Vineyard </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.vineyard}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="block">
+      <mat-header-cell *matHeaderCellDef> Block </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.block}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="rowRange">
+      <mat-header-cell *matHeaderCellDef> Row Range </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.rowRange}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="variety">
+      <mat-header-cell *matHeaderCellDef> Variety </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.variety}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="vintage">
+      <mat-header-cell *matHeaderCellDef> Vintage </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.vintage}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateDelivered">
+      <mat-header-cell *matHeaderCellDef> Date Delivered </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dateDelivered}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="vinery">
+      <mat-header-cell *matHeaderCellDef> Winery </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.vinery}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estimatedWeight">
+      <mat-header-cell *matHeaderCellDef> Estimated Weight </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.estimatedWeight}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

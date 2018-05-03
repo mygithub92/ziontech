@@ -1,3 +1,24 @@
-<p>
-  add-product works!
-</p>
+<div class="example-container">
+    <mat-form-field
+        [floatLabel]="true">
+      <input matInput placeholder="Simple placeholder" required>
+    </mat-form-field>
+  
+    <mat-form-field [floatLabel]="true">
+      <mat-label>Both a label and a placeholder</mat-label>
+      <input matInput placeholder="Simple placeholder">
+    </mat-form-field>
+  
+    <mat-form-field
+        [floatLabel]="true">
+      <mat-select required>
+        <mat-option>-- None --</mat-option>
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+      <mat-placeholder><mat-icon>favorite</mat-icon> <b> Fancy</b> <i> placeholder</i></mat-placeholder>
+    </mat-form-field>
+  </div>
+  <div class="button-row">
+      <button mat-raised-button color="primary" [routerLink]="['/grower']">Submit</button>
+      <button mat-raised-button color="warn" [routerLink]="['/grower']">Cancel</button>
+  </div>

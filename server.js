@@ -11,6 +11,7 @@ var fs            = require('fs');
 var path          = require('path');
 var util          = require('util');
 var os            = require('os');
+var cors          = require('cors');
 
 // Load all of our middleware
 // configure app to use bodyParser()
@@ -28,6 +29,8 @@ app.set('view engine', 'pug');
 
 // set up a static file server that points to the "client" directory
 //app.use(express.static(path.join(__dirname, './client')));
+
+app.use(cors());
 
 if ( process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
