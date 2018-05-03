@@ -10,7 +10,7 @@ module.exports = function(app){
   });
   app.get('/shengcheng', function(req, res){
     wine.genereateQR(req.query.id);
-    res.send('done');
+    res.send('done: ' + req.query.id);
   });
   app.post('/add_wine', function(req, res){
     wine.add_wine(req, res);
