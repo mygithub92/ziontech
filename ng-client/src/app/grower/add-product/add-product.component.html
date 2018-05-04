@@ -1,24 +1,89 @@
-<div class="example-container">
-    <mat-form-field
-        [floatLabel]="true">
-      <input matInput placeholder="Simple placeholder" required>
-    </mat-form-field>
-  
-    <mat-form-field [floatLabel]="true">
-      <mat-label>Both a label and a placeholder</mat-label>
-      <input matInput placeholder="Simple placeholder">
-    </mat-form-field>
-  
-    <mat-form-field
-        [floatLabel]="true">
-      <mat-select required>
-        <mat-option>-- None --</mat-option>
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-      <mat-placeholder><mat-icon>favorite</mat-icon> <b> Fancy</b> <i> placeholder</i></mat-placeholder>
-    </mat-form-field>
+<form [formGroup]="form">
+  <div class="example-container">
+    <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Key</mat-label>
+          <input matInput placeholder="Key" formControlName="key">
+          <mat-error *ngIf="form.get('key').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>
+            <mat-icon>favorite</mat-icon>
+            <b> Fancy</b>
+            <i> Company name </i>
+          </mat-label>
+          <mat-select formControlName="companyName" required>
+            <mat-option>-- None --</mat-option>
+            <mat-option *ngFor="let company of companies" value="company">{{ company }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('companyName').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Vineyard</mat-label>
+          <input matInput placeholder="Vineyard" formControlName="vineyard">
+          <mat-error *ngIf="form.get('vineyard').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Block</mat-label>
+          <input matInput placeholder="Block" formControlName="block">
+          <mat-error *ngIf="form.get('block').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Row range</mat-label>
+          <input matInput placeholder="Row range" formControlName="rowRange">
+          <mat-error *ngIf="form.get('rowRange').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Variety</mat-label>
+          <input matInput placeholder="Variety" formControlName="variety">
+          <mat-error *ngIf="form.get('variety').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Vintage</mat-label>
+          <input matInput placeholder="Vintage" formControlName="vintage">
+          <mat-error *ngIf="form.get('vintage').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Date delivered</mat-label>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateDelivered">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('dateDelivered').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Winery</mat-label>
+          <input matInput placeholder="Winery" formControlName="vinery">
+          <mat-error *ngIf="form.get('vinery').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Estimated weight</mat-label>
+          <input matInput placeholder="Estimated weight" formControlName="estimatedWeight">
+          <mat-error *ngIf="form.get('estimatedWeight').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
   <div class="button-row">
-      <button mat-raised-button color="primary" [routerLink]="['/grower']">Submit</button>
-      <button mat-raised-button color="warn" [routerLink]="['/grower']">Cancel</button>
+    <button mat-raised-button color="primary" [routerLink]="['/grower']">Submit</button>
+    <button mat-raised-button color="warn" [routerLink]="['/grower']">Cancel</button>
   </div>
+</form>

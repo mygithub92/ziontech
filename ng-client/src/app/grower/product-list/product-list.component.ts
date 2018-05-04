@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HyperledgerService } from '../../services/hyperledger.service';
 import { HyperledgerMockService } from '../../services/hyperledger.mock.service';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-product-list',
@@ -9,7 +10,9 @@ import { HyperledgerMockService } from '../../services/hyperledger.mock.service'
 })
 export class ProductListComponent implements OnInit {
 
-  dataSource: any[];
+  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: HyperledgerMockService) { }
 
@@ -29,16 +32,25 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.service.getHyperledgers().subscribe(response => {
-      this.dataSource = response.map(record => {
-        return {
-          key: record['Key'],
-          ...record['Record']
-        };
+      setTimeout(() => {
+        const result = response.map(record => {
+          return {
+            key: record['Key'],
+            ...record['Record']
+          };
+        });
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
-      console.log(this.dataSource);
     });
   }
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
 }
 
 

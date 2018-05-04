@@ -1,8 +1,16 @@
-<div class="button-row">
-  <button mat-raised-button color="primary" [routerLink]="['/grower/new']">Add</button>
-</div>
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource">
+  <div class="row">
+    <div class="col-1 button-row">
+      <button mat-raised-button color="primary" [routerLink]="['/grower/new']">Add</button>
+    </div>
+    <div class="col-3 example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -69,4 +77,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+  </mat-paginator>
 </div>
