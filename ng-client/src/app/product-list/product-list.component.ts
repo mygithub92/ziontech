@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HyperledgerService } from '../services/hyperledger.service';
 import { HyperledgerMockService } from '../services/hyperledger.mock.service';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +19,11 @@ export class ProductListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: HyperledgerMockService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private service: HyperledgerMockService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialog: MatDialog) { }
 
   displayedColumns = [];
 
@@ -144,11 +149,21 @@ export class ProductListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  navigateTo(row) {
+  rowClick(row) {
     if (this.rowClickable) {
       this.router.navigateByUrl('/grower/new');
     }
   }
+
+  openDialog() {
+    this.dialog.open(QrDialogComponent, {
+      data: {
+        id: 1
+      }
+    }).afterClosed()
+    .subscribe(result => console.log(result));
+  }
+
 }
 
 
