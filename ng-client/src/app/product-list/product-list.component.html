@@ -25,7 +25,7 @@
   <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
   </mat-paginator>
 </div>
-<div class="button-row">
+<div class="button-row" *ngIf="showAddButton">
     <button mat-raised-button color="primary" [routerLink]="['/grower/new']">Add</button>
 </div>
   

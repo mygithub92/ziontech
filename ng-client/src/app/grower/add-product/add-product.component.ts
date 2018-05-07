@@ -8,11 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddProductComponent implements OnInit {
   form;
-  companies = [];
+  companies = ['Penley', 'Hoggies Estate'];
 
   constructor(fb: FormBuilder) {
-
-    this.companies = ['Penley', 'Hoggies Estate'];
 
     this.form = fb.group(
       {

@@ -1,4 +1,8 @@
-<p>
-  qr-dialog works!
-</p>
-<button mat-raised-button mat-dialog-close="yes">Yes</button>
+<h2 mat-dialog-title>Please scan...</h2>
+<mat-dialog-content>
+  <img [src]="imagePath" alt="">
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close="yes">Ok</button>
+</mat-dialog-actions>
+

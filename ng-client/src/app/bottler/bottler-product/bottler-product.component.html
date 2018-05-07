@@ -1,0 +1,57 @@
+<form [formGroup]="form">
+  <div class="example-container">
+    <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Brand</mat-label>
+          <input matInput placeholder="Brand" formControlName="brand">
+          <mat-error *ngIf="form.get('brand').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Label</mat-label>
+          <input matInput placeholder="Label" formControlName="label">
+          <mat-error *ngIf="form.get('label').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Cork Cap</mat-label>
+          <input matInput placeholder="Cork Cap" formControlName="corkCap">
+          <mat-error *ngIf="form.get('corkCap').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>
+            <mat-icon>domain</mat-icon>
+            <i> Seller </i>
+          </mat-label>
+          <mat-select formControlName="seller" required>
+            <mat-option>-- None --</mat-option>
+            <mat-option *ngFor="let seller of sellers" value="seller">{{ seller }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('seller').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>
+            <mat-icon>domain</mat-icon>
+            <i> Status </i>
+          </mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option>-- None --</mat-option>
+            <mat-option *ngFor="let status of statuses" value="status">{{ status }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('status').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="button-row">
+    <button mat-raised-button color="primary" [routerLink]="['/products','bottler']">Submit</button>
+    <button mat-raised-button color="warn" [routerLink]="['/products','bottler']">Cancel</button>
+  </div>
+</form>

@@ -14,6 +14,8 @@ import { HyperledgerService } from './services/hyperledger.service';
 import { AppErrorHandler } from './common/app-error-handler';
 import { HyperledgerMockService } from './services/hyperledger.mock.service';
 import { appRoutes } from './routes';
+import { BottlerProductComponent } from './bottler/bottler-product/bottler-product.component';
+import { WineryProductComponent } from './winery/winery-product/winery-product.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { appRoutes } from './routes';
     ProductListComponent,
     AddProductComponent,
     MainComponent,
-    QrDialogComponent
+    QrDialogComponent,
+    BottlerProductComponent,
+    WineryProductComponent
   ],
   entryComponents: [
     QrDialogComponent

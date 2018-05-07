@@ -14,7 +14,10 @@ export class ProductListComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   columns: any;
+  role: string;
   rowClickable = true;
+  transaction = false;
+  showAddButton = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -29,8 +32,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const role = params['role'];
-      this.populateMetaData(role);
+      this.role = params['role'];
+      this.populateMetaData();
 
       this.service.getHyperledgers().subscribe(response => {
         setTimeout(() => {
@@ -48,9 +51,8 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  populateMetaData(role: string) {
-    console.log(role);
-    switch (role) {
+  populateMetaData() {
+    switch (this.role) {
       case 'grower':
         this.populateGrowerMetaData();
         break;
@@ -73,6 +75,8 @@ export class ProductListComponent implements OnInit {
 
   populateGrowerMetaData() {
     this.rowClickable = false;
+    this.transaction = false;
+    this.showAddButton = true;
     this.columns = [
       { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
@@ -90,6 +94,8 @@ export class ProductListComponent implements OnInit {
 
   populateWineryMetaData() {
     this.rowClickable = true;
+    this.transaction = false;
+    this.showAddButton = false;
     this.columns = [
       { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
@@ -105,6 +111,8 @@ export class ProductListComponent implements OnInit {
 
   populateBottlerMetaData() {
     this.rowClickable = true;
+    this.transaction = false;
+    this.showAddButton = false;
     this.columns = [
       { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
@@ -121,6 +129,8 @@ export class ProductListComponent implements OnInit {
 
   populateTransactionMetaData() {
     this.rowClickable = true;
+    this.transaction = true;
+    this.showAddButton = false;
     this.columns = [
       { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
@@ -150,18 +160,26 @@ export class ProductListComponent implements OnInit {
   }
 
   rowClick(row) {
+    if (this.transaction) {
+      this.openDialog(row.key);
+      return;
+    }
     if (this.rowClickable) {
-      this.router.navigateByUrl('/grower/new');
+      switch (this.role) {
+        case 'winery':
+          this.router.navigateByUrl(`/winery/product/${row.key}`);
+          break;
+        case 'bottler':
+          this.router.navigateByUrl(`/bottler/product/${row.key}`);
+          break;
     }
   }
+}
 
-  openDialog() {
+  openDialog(id) {
     this.dialog.open(QrDialogComponent, {
-      data: {
-        id: 1
-      }
-    }).afterClosed()
-    .subscribe(result => console.log(result));
+      data: { id }
+    });
   }
 
 }

@@ -8,8 +8,10 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class QrDialogComponent implements OnInit {
 
+  imagePath: string;
+
   constructor(@Inject(MAT_DIALOG_DATA) data: any) {
-    console.log(data);
+    this.imagePath = `assets/qr/qr${data.id}.png`;
    }
 
   ngOnInit() {

@@ -1,0 +1,37 @@
+<form [formGroup]="form">
+  <div class="example-container">
+    <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Actual Weight</mat-label>
+          <input matInput placeholder="Actual Weight" formControlName="actualWeight">
+          <mat-error *ngIf="form.get('actualWeight').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Volume</mat-label>
+          <input matInput placeholder="Actual Weight" formControlName="volume">
+          <mat-error *ngIf="form.get('volume').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>
+            <mat-icon>domain</mat-icon>
+            <i> Bottling Company Name </i>
+          </mat-label>
+          <mat-select formControlName="bottlingCompany" required>
+            <mat-option>-- None --</mat-option>
+            <mat-option *ngFor="let company of bottlingCompanies" value="company">{{ company }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('bottlingCompany').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="button-row">
+    <button mat-raised-button color="primary" [routerLink]="['/products','winery']">Submit</button>
+    <button mat-raised-button color="warn" [routerLink]="['/products','winery']">Cancel</button>
+  </div>
+</form>
