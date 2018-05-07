@@ -4,7 +4,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './grower/product-list/product-list.component';
+import { ProductListComponent } from './product-list/product-list.component';
 import { AddProductComponent } from './grower/add-product/add-product.component';
 import { MainComponent } from './main/main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

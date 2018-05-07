@@ -4,3 +4,9 @@
 body {
     background-color: lightslategray;
 }
+
+
+.button-row {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}

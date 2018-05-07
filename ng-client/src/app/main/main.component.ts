@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -9,7 +10,7 @@ import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,5 +23,4 @@ export class MainComponent implements OnInit {
     }).afterClosed()
     .subscribe(result => console.log(result));
   }
-
 }

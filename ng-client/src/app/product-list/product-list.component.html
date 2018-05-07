@@ -1,0 +1,31 @@
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="filterValue">
+    <button mat-button *ngIf="filterValue" matSuffix mat-icon-button aria-label="Clear" (click)="filterValue='';applyFilter('')">
+        <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.header }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ column.cell(element)}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="navigateTo(row)"
+      [ngClass]="{'clickable-row': rowClickable}"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+<div class="button-row">
+    <button mat-raised-button color="primary" [routerLink]="['/grower/new']">Add</button>
+</div>
+  

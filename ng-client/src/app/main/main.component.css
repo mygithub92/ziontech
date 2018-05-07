@@ -8,3 +8,8 @@
 .top-banner {
     background-color: rgb(140, 161, 189);
 }
+
+.nav > .nav-item > .nav-link.active {
+    color: rgb(14, 126, 116);
+}
+

@@ -24,17 +24,17 @@
     <div class="sidebar bg-dark" id="sidebar" role="navigation">
         <ul class="nav flex-column sidebar">
           <li class="nav-item active">
-              <a class="nav-link" routerLink="grower" routerLinkActive="active">Grower</a>
+              <a class="nav-link" [routerLink]="['/products','grower']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Grower</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active">Winery</a>
+            <a class="nav-link" [routerLink]="['/products','winery']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Winery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active">Bottler</a>
+            <a class="nav-link" [routerLink]="['/products','bottler']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Bottler</a>
           </li>
           <li class="nav-divider"><mat-divider></mat-divider></li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active">Transaction</a>
+            <a class="nav-link" [routerLink]="['/products','transaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction</a>
           </li>
         </ul>
     </div>

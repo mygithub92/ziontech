@@ -19,7 +19,8 @@ import {
   MatToolbarModule,
   MatDividerModule,
   MatGridListModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSortModule
 } from '@angular/material';
 
 @NgModule({
@@ -42,7 +43,8 @@ import {
   MatToolbarModule,
   MatDividerModule,
   MatGridListModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSortModule
  ]
 })
 export class MatComponentsModule { }
