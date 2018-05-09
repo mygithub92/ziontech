@@ -3,11 +3,20 @@ import { WineryProductComponent } from './winery/winery-product/winery-product.c
 import { BottlerProductComponent } from './bottler/bottler-product/bottler-product.component';
 import { MainComponent } from './main/main.component';
 import { AddProductComponent } from './grower/add-product/add-product.component';
+import { LoginComponent } from './login/login.component';
 
 export const appRoutes = [
-    { path: '', redirectTo: 'products', pathMatch: 'full' },
-    { path: 'products/:role', component: ProductListComponent },
-    { path: 'grower/new', component: AddProductComponent },
-    { path: 'winery/product/:id', component: WineryProductComponent },
-    { path: 'bottler/product/:id', component: BottlerProductComponent }
-  ];
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'home',
+    component: MainComponent,
+    children: [
+      { path: '', redirectTo: 'products/grower', pathMatch: 'full' },
+      { path: 'products/:role', component: ProductListComponent },
+      { path: 'grower/new', component: AddProductComponent },
+      { path: 'winery/product/:id', component: WineryProductComponent },
+      { path: 'bottler/product/:id', component: BottlerProductComponent }
+    ]
+  }
+];

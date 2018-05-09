@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private router: Router) { }
+  constructor(private dialog: MatDialog, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -22,5 +23,10 @@ export class MainComponent implements OnInit {
       }
     }).afterClosed()
     .subscribe(result => console.log(result));
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, BaseRequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -16,6 +16,19 @@ import { HyperledgerMockService } from './services/hyperledger.mock.service';
 import { appRoutes } from './routes';
 import { BottlerProductComponent } from './bottler/bottler-product/bottler-product.component';
 import { WineryProductComponent } from './winery/winery-product/winery-product.component';
+import { LoginComponent } from './login/login.component';
+import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './auth-guard.service';
+import { AdminAuthGuard } from './admin-auth-guard.service';
+import { fakeBackendProvider } from './helper/fake-backend';
+import { MockBackend } from '@angular/http/testing';
+
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'token'
+  }), http);
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +38,8 @@ import { WineryProductComponent } from './winery/winery-product/winery-product.c
     MainComponent,
     QrDialogComponent,
     BottlerProductComponent,
-    WineryProductComponent
+    WineryProductComponent,
+    LoginComponent
   ],
   entryComponents: [
     QrDialogComponent
@@ -41,8 +55,21 @@ import { WineryProductComponent } from './winery/winery-product/winery-product.c
   ],
   providers: [
     HyperledgerMockService,
-    { provide: ErrorHandler, useClass: AppErrorHandler }
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    AuthService,
+    AuthGuard,
+    AdminAuthGuard,
+    AuthHttp,
+    {
+      provide: AuthHttp,
+      useFactory: getAuthHttp,
+      deps: [Http]
+    },
 
+    // For creating a mock back-end. You don't need these in a real app. 
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

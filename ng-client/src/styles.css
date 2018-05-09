@@ -12,10 +12,24 @@ body {
 }
 
 
-.mat-form-field {
+form .example-container .mat-form-field {
     display: inline-block;
     position: relative;
     text-align: left;
     width: 100%;
     padding: 0 20px
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.mat-table {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.mat-paginator {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }

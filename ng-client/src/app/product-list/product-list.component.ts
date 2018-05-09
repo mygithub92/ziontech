@@ -167,10 +167,10 @@ export class ProductListComponent implements OnInit {
     if (this.rowClickable) {
       switch (this.role) {
         case 'winery':
-          this.router.navigateByUrl(`/winery/product/${row.key}`);
+          this.router.navigateByUrl(`/home/winery/product/${row.key}`);
           break;
         case 'bottler':
-          this.router.navigateByUrl(`/bottler/product/${row.key}`);
+          this.router.navigateByUrl(`/home/bottler/product/${row.key}`);
           break;
     }
   }

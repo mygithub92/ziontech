@@ -3,6 +3,8 @@
     min-height: 500px;
     max-height: 500px;
     width: 200px;
+    margin: 10px;
+    border-radius: 5px;
 }
 
 .top-banner {
@@ -11,5 +13,10 @@
 
 .nav > .nav-item > .nav-link.active {
     color: rgb(14, 126, 116);
+}
+
+.nav-divider {
+    padding-right: 15px;
+    margin-right: 15px;
 }
 

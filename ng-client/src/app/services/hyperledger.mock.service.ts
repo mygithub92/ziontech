@@ -10,15 +10,15 @@ import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 
 const wines = [{
-    Key:'1',
+    Key: '1',
     Record: {
         companyName: 'Hoggies Estate',
-        region: 'Merbein', 
+        region: 'Merbein',
         vineyard: 'Thompson',
         block: '2',
         rowRange: '1-3',
-        variety: 'Muscat of Alexandria', 
-        vintage: '2018', 
+        variety: 'Muscat of Alexandria',
+        vintage: '2018',
         dateDelivered: '2018-04-12',
         vinery: 'Trentham Estate',
         estimatedWeight: '20',
@@ -35,15 +35,15 @@ const wines = [{
     }
 },
 {
-    Key:'2',
+    Key: '2',
     Record: {
         companyName: 'Penley',
-        region: 'Coonawarra', 
+        region: 'Coonawarra',
         vineyard: 'Ladbroke',
         block: '3',
         rowRange: '4-10',
-        variety: 'Shiraz', 
-        vintage: '2016', 
+        variety: 'Shiraz',
+        vintage: '2016',
         dateDelivered: '2017-12-23',
         vinery: 'Limestone Coast Wines',
         estimatedWeight: '35',
@@ -62,7 +62,7 @@ const wines = [{
 
 @Injectable()
 export class HyperledgerMockService {
-   
+
   constructor() { }
 
   getHyperledgers() {

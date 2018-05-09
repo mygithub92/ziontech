@@ -1,3 +1,6 @@
+<div class="button-row" *ngIf="showAddButton">
+  <button mat-raised-button color="primary" [routerLink]="['/home/grower/new']">Add</button>
+</div>
 <div class="example-header">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="filterValue">
@@ -21,11 +24,6 @@
       [ngClass]="{'clickable-row': rowClickable}"
     ></mat-row>
   </mat-table>
-
-  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
-  </mat-paginator>
-</div>
-<div class="button-row" *ngIf="showAddButton">
-    <button mat-raised-button color="primary" [routerLink]="['/grower/new']">Add</button>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
 </div>
   
