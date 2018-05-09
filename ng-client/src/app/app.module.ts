@@ -12,7 +12,6 @@ import { MatComponentsModule } from './mat-components/mat-components.module';
 import { QrDialogComponent } from './qr-dialog/qr-dialog.component';
 import { HyperledgerService } from './services/hyperledger.service';
 import { AppErrorHandler } from './common/app-error-handler';
-import { HyperledgerMockService } from './services/hyperledger.mock.service';
 import { appRoutes } from './routes';
 import { BottlerProductComponent } from './bottler/bottler-product/bottler-product.component';
 import { WineryProductComponent } from './winery/winery-product/winery-product.component';
@@ -28,12 +27,6 @@ import { fakeBackendProvider } from './helper/fake-backend';
 import { MockBackend } from '@angular/http/testing';
 import { NoAccessComponent } from './no-access/no-access.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
-export function getAuthHttp(http) {
-  return new AuthHttp(new AuthConfig({
-    tokenName: 'token'
-  }), http);
-}
 
 @NgModule({
   declarations: [
@@ -61,25 +54,15 @@ export function getAuthHttp(http) {
     MatComponentsModule
   ],
   providers: [
-    HyperledgerMockService,
-    { provide: ErrorHandler, useClass: AppErrorHandler },
+    HyperledgerService,
+    // { provide: ErrorHandler, useClass: AppErrorHandler },
     AuthService,
     AuthGuard,
     AdminAuthGuard,
     GrowerAuthGuardService,
     WineryAuthGuardService,
     BottlerAuthGuardService,
-    AuthHttp,
-    {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    },
-
-    // For creating a mock back-end. You don't need these in a real app.
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions
+    AuthHttp
   ],
   bootstrap: [AppComponent]
 })

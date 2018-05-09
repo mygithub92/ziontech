@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HyperledgerService } from '../services/hyperledger.service';
-import { HyperledgerMockService } from '../services/hyperledger.mock.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
@@ -23,7 +22,7 @@ export class ProductListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private service: HyperledgerMockService,
+    private service: HyperledgerService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog) { }
@@ -35,7 +34,8 @@ export class ProductListComponent implements OnInit {
       this.role = params['role'];
       this.populateMetaData();
 
-      this.service.getHyperledgers().subscribe(response => {
+      this.service.getHyperledgers()
+      .subscribe(response => {
         setTimeout(() => {
           const result = response.map(record => {
             return {

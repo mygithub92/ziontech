@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HyperledgerService } from '../../services/hyperledger.service';
+import { Router } from '@angular/router';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-add-product',
@@ -10,11 +13,11 @@ export class AddProductComponent implements OnInit {
   form;
   companies = ['Penley', 'Hoggies Estate'];
 
-  constructor(fb: FormBuilder) {
+  constructor(private service: HyperledgerService, private router: Router, fb: FormBuilder) {
 
     this.form = fb.group(
       {
-        key: ['', Validators.required],
+        id: ['', Validators.required],
         companyName: ['', Validators.required],
         region: ['', Validators.required],
         vineyard: ['', Validators.required],
@@ -27,6 +30,12 @@ export class AddProductComponent implements OnInit {
         estimatedWeight: ['', Validators.required]
       }
     );
+  }
+
+  onSubmit(data) {
+    this.service.addProduct(data)
+    .finally(() => this.router.navigate(['/home/products', 'grower']))
+    .subscribe(res => console.log(res));
   }
 
   getErrorMessage() {

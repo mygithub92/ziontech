@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
   <div class="example-container">
     <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
       <mat-grid-tile>
@@ -30,7 +30,7 @@
           </mat-label>
           <mat-select formControlName="seller" required>
             <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let seller of sellers" value="seller">{{ seller }}</mat-option>
+            <mat-option *ngFor="let seller of sellers" [value]="seller">{{ seller }}</mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('seller').invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
@@ -43,7 +43,7 @@
           </mat-label>
           <mat-select formControlName="status" required>
             <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let status of statuses" value="status">{{ status }}</mat-option>
+            <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('status').invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
@@ -51,7 +51,7 @@
     </mat-grid-list>
   </div>
   <div class="button-row">
-    <button mat-raised-button color="primary" [routerLink]="['/home/products','bottler']">Submit</button>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
     <button mat-raised-button color="warn" [routerLink]="['/home/products','bottler']">Cancel</button>
   </div>
 </form>

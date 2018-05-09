@@ -19,6 +19,7 @@ var cors          = require('cors');
 // app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // instantiate the app
 // var app = express();
@@ -30,7 +31,7 @@ app.set('view engine', 'pug');
 // set up a static file server that points to the "client" directory
 //app.use(express.static(path.join(__dirname, './client')));
 
-app.use(cors());
+
 
 if ( process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
