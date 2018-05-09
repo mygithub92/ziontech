@@ -5,13 +5,12 @@ import { Injectable } from '@angular/core';
 export class AdminAuthGuard extends AuthGuard {
 
   canActivate() {
-    console.log(this.authService.currentUser);
     const isAuthenticated = super.canActivate();
     if (!isAuthenticated) {
       return false;
     }
 
-    if (this.authService.currentUser.roles.includes('admin')) {
+    if (this.authService.currentUser.roles && this.authService.currentUser.roles.includes('admin')) {
       return true;
     }
 

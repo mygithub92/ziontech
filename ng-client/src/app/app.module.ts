@@ -27,6 +27,7 @@ import { BottlerAuthGuardService } from './guard-services/bottler-auth-guard.ser
 import { fakeBackendProvider } from './helper/fake-backend';
 import { MockBackend } from '@angular/http/testing';
 import { NoAccessComponent } from './no-access/no-access.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
@@ -51,6 +52,7 @@ export function getAuthHttp(http) {
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,

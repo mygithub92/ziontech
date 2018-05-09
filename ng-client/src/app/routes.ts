@@ -17,7 +17,7 @@ export const appRoutes = [
     path: 'home',
     component: MainComponent,
     children: [
-      { path: '', redirectTo: 'products/grower', pathMatch: 'full' },
+      // { path: '', redirectTo: 'products/grower', pathMatch: 'full' },
       { path: 'products/:role', component: ProductListComponent },
       { path: 'grower/new', component: AddProductComponent, canActivate: [GrowerAuthGuardService] },
       { path: 'winery/product/:id', component: AddProductComponent, canActivate: [WineryAuthGuardService] },

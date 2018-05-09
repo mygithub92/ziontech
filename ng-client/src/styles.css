@@ -5,6 +5,9 @@ body {
     background-color: lightslategray;
 }
 
+.mat-table, .mat-paginator {
+    background-color: rgb(223, 233, 243);
+}
 
 .button-row {
     margin-bottom: 10px;

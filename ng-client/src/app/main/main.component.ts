@@ -10,10 +10,16 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  isCollapsed = true;
+  roles = [];
 
   constructor(private dialog: MatDialog, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    if (this.authService.currentUser) {
+      this.roles = this.authService.currentUser.roles || [];
+    }
+    this.router.navigate([`/home/products/${this.roles[0]}`]);
   }
 
   openDialog() {
@@ -22,7 +28,7 @@ export class MainComponent implements OnInit {
         courseId: 1
       }
     }).afterClosed()
-    .subscribe(result => console.log(result));
+      .subscribe(result => console.log(result));
   }
 
   logout() {
@@ -30,13 +36,16 @@ export class MainComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  toggleMenu() {
+    this.isCollapsed = !this.isCollapsed;
+  }
   isGrower() {
-    return this.authService.currentUser.roles.includes('grower');
+    return this.roles.includes('grower');
   }
   isWinery() {
-    return this.authService.currentUser.roles.includes('winery');
+    return this.roles.includes('winery');
   }
   isBottler() {
-    return this.authService.currentUser.roles.includes('bottler');
+    return this.roles.includes('bottler');
   }
 }

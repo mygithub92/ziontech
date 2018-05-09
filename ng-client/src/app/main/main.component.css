@@ -2,7 +2,7 @@
 .sidebar {
     min-height: 500px;
     max-height: 500px;
-    width: 200px;
+    min-width: 170px;
     margin: 10px;
     border-radius: 5px;
 }
@@ -20,3 +20,7 @@
     margin-right: 15px;
 }
 
+.collapse.navbar-collapse > .nav-link {
+    display: inline-flex;
+    vertical-align: middle;
+}
