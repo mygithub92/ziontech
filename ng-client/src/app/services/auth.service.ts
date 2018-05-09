@@ -25,7 +25,7 @@ export class AuthService {
 
         const jwt = new JwtHelper();
         this.currentUser = jwt.decodeToken(localStorage.getItem('token'));
-
+        console.log(this.currentUser);
         return true;
       } else { return false; }
     });

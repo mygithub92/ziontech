@@ -20,9 +20,13 @@ import { LoginComponent } from './login/login.component';
 import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth-guard.service';
-import { AdminAuthGuard } from './admin-auth-guard.service';
+import { AdminAuthGuard } from './guard-services/admin-auth-guard.service';
+import { GrowerAuthGuardService } from './guard-services/grower-auth-guard.service';
+import { WineryAuthGuardService } from './guard-services/winery-auth-guard.service';
+import { BottlerAuthGuardService } from './guard-services/bottler-auth-guard.service';
 import { fakeBackendProvider } from './helper/fake-backend';
 import { MockBackend } from '@angular/http/testing';
+import { NoAccessComponent } from './no-access/no-access.component';
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
@@ -39,7 +43,8 @@ export function getAuthHttp(http) {
     QrDialogComponent,
     BottlerProductComponent,
     WineryProductComponent,
-    LoginComponent
+    LoginComponent,
+    NoAccessComponent
   ],
   entryComponents: [
     QrDialogComponent
@@ -59,6 +64,9 @@ export function getAuthHttp(http) {
     AuthService,
     AuthGuard,
     AdminAuthGuard,
+    GrowerAuthGuardService,
+    WineryAuthGuardService,
+    BottlerAuthGuardService,
     AuthHttp,
     {
       provide: AuthHttp,
@@ -66,7 +74,7 @@ export function getAuthHttp(http) {
       deps: [Http]
     },
 
-    // For creating a mock back-end. You don't need these in a real app. 
+    // For creating a mock back-end. You don't need these in a real app.
     fakeBackendProvider,
     MockBackend,
     BaseRequestOptions

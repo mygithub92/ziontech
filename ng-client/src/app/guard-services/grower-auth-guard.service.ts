@@ -1,8 +1,8 @@
-import { AuthGuard } from './auth-guard.service';
 import { Injectable } from '@angular/core';
+import { AuthGuard } from '../auth-guard.service';
 
 @Injectable()
-export class AdminAuthGuard extends AuthGuard {
+export class GrowerAuthGuardService extends AuthGuard {
 
   canActivate() {
     const isAuthenticated = super.canActivate();
@@ -10,11 +10,13 @@ export class AdminAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.admin) {
+    if (this.authService.currentUser.roles.includes('grower')) {
       return true;
     }
 
     this.router.navigate(['/no-access']);
     return false;
   }
+
 }
+

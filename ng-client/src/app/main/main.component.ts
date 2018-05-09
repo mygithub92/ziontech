@@ -29,4 +29,14 @@ export class MainComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['login']);
   }
+
+  isGrower() {
+    return this.authService.currentUser.roles.includes('grower');
+  }
+  isWinery() {
+    return this.authService.currentUser.roles.includes('winery');
+  }
+  isBottler() {
+    return this.authService.currentUser.roles.includes('bottler');
+  }
 }

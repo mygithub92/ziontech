@@ -11,7 +11,7 @@ export class WineryProductComponent implements OnInit {
   form;
   bottlingCompanies = ['Best Bottlers', 'Liquid Goods'];
 
-  constructor(fb: FormBuilder) { 
+  constructor(fb: FormBuilder) {
     this.form = fb.group(
       {
         actualWeight: ['', Validators.required],
@@ -25,7 +25,7 @@ export class WineryProductComponent implements OnInit {
   getErrorMessage() {
     return 'You must enter a value';
   }
-  
+
   ngOnInit() {
   }
 
