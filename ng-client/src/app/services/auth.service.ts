@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
-  private baseUrl = 'http://ziontech.com:5000';
+  private baseUrl = 'http://18.221.40.162/';
 
   currentUser: any;
 
