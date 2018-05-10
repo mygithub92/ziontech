@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
+  private baseUrl = 'http://ziontech.com:5000';
+
   currentUser: any;
 
   constructor(private http: Http) {
@@ -16,7 +18,7 @@ export class AuthService {
   }
 
   login(credentials) {
-   return this.http.post('/api/authenticate', JSON.stringify(credentials))
+   return this.http.post(this.baseUrl + '/api/authenticate', credentials)
     .map(response => {
       const result = response.json();
 
@@ -31,7 +33,6 @@ export class AuthService {
   }
 
   logout() {
-    console.log('logout');
     localStorage.removeItem('token');
     this.currentUser = null;
   }

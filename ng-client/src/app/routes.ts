@@ -20,7 +20,7 @@ export const appRoutes = [
       // { path: '', redirectTo: 'products/grower', pathMatch: 'full' },
       { path: 'products/:role', component: ProductListComponent },
       { path: 'grower/new', component: AddProductComponent, canActivate: [GrowerAuthGuardService] },
-      { path: 'winery/product/:id', component: AddProductComponent, canActivate: [WineryAuthGuardService] },
+      { path: 'winery/product/:id', component: WineryProductComponent, canActivate: [WineryAuthGuardService] },
       { path: 'bottler/product/:id', component: BottlerProductComponent, canActivate: [BottlerAuthGuardService] },
     ]
   },

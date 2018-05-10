@@ -30,15 +30,34 @@ module.exports = (function() {
 	channel.addOrderer(order);
 
 	return{
-		get_user_role: (req, res) => {
-			console.log(req.get('role'));
-			res.send(req.get('role'));
+		authenticate: (req, res) => {
+			const grower = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJncm93ZXIiXX0.eviyhhozzaTslk_6aHioIQN_v31qKKsGZdgFmACUNJk';
+			const winery = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJ3aW5lcnkiXX0.L0-W5maUJCJTuXaa2xZFEBbIdC5Q_F9tktbN-LAaOBw';
+			const bottler = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJib3R0bGVyIl19.28BySzyeN_Anu4aEpHSfxoR1H6OrZf1XfEa-s5n-WuA';
+			const full = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJncm93ZXIiLCJ3aW5lcnkiLCJib3R0bGVyIl19.dc4tIMMYcJPb9g5h9fiGbxMRdlNzjWLwsGJ-uWVTQXw';
+			const body = req.body;
+			let token;
+			if (body.password === '1234') {
+				if (body.email === 'grower@ziontech.com') {
+					token = grower;
+				}
+				if (body.email === 'winery@ziontech.com') {
+					token = winery;
+				}
+				if (body.email === 'bottler@ziontech.com') {
+					token = bottler;
+				}
+				if (body.email === 'owner@ziontech.com') {
+					token = full;
+				}
+			} 
+			res.json({ token });
 		},
-
+		
 		genereateQR: function(id) {
 			const url = `http://18.221.40.162/getWine?id=${id}`;
 			var qr_svg = qr.image(url);
-			qr_svg.pipe(require('fs').createWriteStream(`client/public/qr/qr${id}.png`));
+			qr_svg.pipe(require('fs').createWriteStream(`ng-client/src/assets/qr/qr${id}.png`));
 
 		},
 

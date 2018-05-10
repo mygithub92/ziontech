@@ -5,8 +5,8 @@ module.exports = function(app){
   app.get('/qr', function(req, res){
     res.sendFile(require('path').join(__dirname, `client/public/qr/qr${req.query.id}.png`));
   });
-  app.get('/get_user_role', function(req, res){
-    wine.get_user_role(req, res);
+  app.post('/api/authenticate', function(req, res){
+    wine.authenticate(req, res);
   });
   app.get('/shengcheng', function(req, res){
     wine.genereateQR(req.query.id);

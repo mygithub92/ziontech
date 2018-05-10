@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
   <div class="example-container">
     <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
       <mat-grid-tile>
@@ -23,7 +23,7 @@
           </mat-label>
           <mat-select formControlName="bottlingCompany" required>
             <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let company of bottlingCompanies" value="company">{{ company }}</mat-option>
+            <mat-option *ngFor="let company of bottlingCompanies" [value]="company">{{ company }}</mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('bottlingCompany').invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
@@ -31,7 +31,7 @@
     </mat-grid-list>
   </div>
   <div class="button-row">
-    <button mat-raised-button color="primary" [routerLink]="['/home/products','winery']">Submit</button>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
     <button mat-raised-button color="warn" [routerLink]="['/home/products','winery']">Cancel</button>
   </div>
 </form>

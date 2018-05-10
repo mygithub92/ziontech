@@ -21,6 +21,25 @@ export class HyperledgerService {
     .catch(this.handleError);
   }
 
+  addProduct(data) {
+      return this.http.post(this.baseUrl + '/add_wine', data)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  vineryUpdate(data) {
+      console.log(data);
+      return this.http.post(this.baseUrl + '/vinery', data)
+        .map(res => res.json())
+        .catch(this.handleError);
+  }
+
+  bottlerUpdate(data) {
+      return this.http.post(this.baseUrl + '/bottler', data)
+        .map(res => res.json())
+        .catch(this.handleError);
+  }
+
 
   private handleError(error: Response) {
     if (error.status === 400) {

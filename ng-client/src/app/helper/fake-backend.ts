@@ -8,6 +8,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
     const bottler = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJib3R0bGVyIl19.28BySzyeN_Anu4aEpHSfxoR1H6OrZf1XfEa-s5n-WuA';
     const full = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJncm93ZXIiLCJ3aW5lcnkiLCJib3R0bGVyIl19.dc4tIMMYcJPb9g5h9fiGbxMRdlNzjWLwsGJ-uWVTQXw';
 
+    let token;
     backend.connections.subscribe((connection: MockConnection) => {
         // We are using the setTimeout() function to simulate an asynchronous call
         // to the server that takes 1 second.
@@ -20,7 +21,6 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                 const body = JSON.parse(connection.request.getBody());
 
                 if (body.password === '1234') {
-                    let token;
                     if (body.email === 'grower@ziontech.com') {
                         token = grower;
                     }
