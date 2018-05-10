@@ -1279,7 +1279,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.baseUrl = 'http://18.221.40.162/';
+        this.baseUrl = 'http://18.221.40.162';
         var token = localStorage.getItem('token');
         if (token) {
             var jwt = new __WEBPACK_IMPORTED_MODULE_2_angular2_jwt__["JwtHelper"]();
@@ -1355,7 +1355,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HyperledgerService = /** @class */ (function () {
     function HyperledgerService(http) {
         this.http = http;
-        this.baseUrl = 'http://18.221.40.162/';
+        this.baseUrl = 'http://18.221.40.162';
     }
     HyperledgerService.prototype.getHyperledgers = function () {
         return this.http.get(this.baseUrl + '/get_all_wine')
