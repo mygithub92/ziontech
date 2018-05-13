@@ -11,7 +11,7 @@ import { AppError } from '../common/app-error';
 @Injectable()
 export class HyperledgerService {
 
-  private baseUrl = 'http://ziontech.com:5000';
+  private baseUrl = 'http://18.221.40.162';
 
   constructor(private http: Http) { }
 
