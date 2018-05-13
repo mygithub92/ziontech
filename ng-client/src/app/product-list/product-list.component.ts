@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { HyperledgerService } from '../services/hyperledger.service.mock';
+import { HyperledgerService } from '../services/hyperledger.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
@@ -174,7 +174,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   cellClick($event, row, cell) {
     if (cell.header === 'Action') {
-      this.openDialog(row);
+      this.openConfirmDialog(row);
       $event.stopPropagation();
     }
     return;
@@ -182,7 +182,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   rowClick(row) {
     if (this.transaction) {
-      this.openDialog(row.key);
+      this.openQrDialog(row.key);
       return;
     }
     if (this.rowClickable) {
@@ -197,7 +197,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 }
 
-  openDialog(data) {
+openQrDialog(id) {
+  this.dialog.open(QrDialogComponent, {
+    data: {
+      id
+    }
+  });
+}
+
+  openConfirmDialog(data) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '550px',
       disableClose: true,

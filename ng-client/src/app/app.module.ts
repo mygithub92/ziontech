@@ -24,8 +24,8 @@ import { BottlerAuthGuardService } from './guard-services/bottler-auth-guard.ser
 import { NoAccessComponent } from './no-access/no-access.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HyperledgerService } from './services/hyperledger.service.mock';
-import { AuthService } from './services/auth.service.mock';
+import { HyperledgerService } from './services/hyperledger.service';
+import { AuthService } from './services/auth.service';
 import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-dialog.component';
 
 @NgModule({

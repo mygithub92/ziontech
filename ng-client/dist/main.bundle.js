@@ -79,27 +79,29 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mat_components_mat_components_module__ = __webpack_require__("./src/app/mat-components/mat-components.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__qr_dialog_qr_dialog_component__ = __webpack_require__("./src/app/qr-dialog/qr-dialog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_hyperledger_service__ = __webpack_require__("./src/app/services/hyperledger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__routes__ = __webpack_require__("./src/app/routes.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__bottler_bottler_product_bottler_product_component__ = __webpack_require__("./src/app/bottler/bottler-product/bottler-product.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__winery_winery_product_winery_product_component__ = __webpack_require__("./src/app/winery/winery-product/winery-product.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__login_login_component__ = __webpack_require__("./src/app/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_angular2_jwt_angular2_jwt__ = __webpack_require__("./node_modules/angular2-jwt/angular2-jwt.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_angular2_jwt_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_angular2_jwt_angular2_jwt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__auth_guard_service__ = __webpack_require__("./src/app/auth-guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__guard_services_admin_auth_guard_service__ = __webpack_require__("./src/app/guard-services/admin-auth-guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__guard_services_grower_auth_guard_service__ = __webpack_require__("./src/app/guard-services/grower-auth-guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__guard_services_winery_auth_guard_service__ = __webpack_require__("./src/app/guard-services/winery-auth-guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__guard_services_bottler_auth_guard_service__ = __webpack_require__("./src/app/guard-services/bottler-auth-guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__no_access_no_access_component__ = __webpack_require__("./src/app/no-access/no-access.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ng_bootstrap_ng_bootstrap__ = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__routes__ = __webpack_require__("./src/app/routes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__bottler_bottler_product_bottler_product_component__ = __webpack_require__("./src/app/bottler/bottler-product/bottler-product.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__winery_winery_product_winery_product_component__ = __webpack_require__("./src/app/winery/winery-product/winery-product.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__login_login_component__ = __webpack_require__("./src/app/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angular2_jwt_angular2_jwt__ = __webpack_require__("./node_modules/angular2-jwt/angular2-jwt.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angular2_jwt_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_angular2_jwt_angular2_jwt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__auth_guard_service__ = __webpack_require__("./src/app/auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__guard_services_admin_auth_guard_service__ = __webpack_require__("./src/app/guard-services/admin-auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__guard_services_grower_auth_guard_service__ = __webpack_require__("./src/app/guard-services/grower-auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__guard_services_winery_auth_guard_service__ = __webpack_require__("./src/app/guard-services/winery-auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__guard_services_bottler_auth_guard_service__ = __webpack_require__("./src/app/guard-services/bottler-auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__no_access_no_access_component__ = __webpack_require__("./src/app/no-access/no-access.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ng_bootstrap_ng_bootstrap__ = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__services_hyperledger_service__ = __webpack_require__("./src/app/services/hyperledger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__product_list_confirm_dialog_confirm_dialog_component__ = __webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -137,17 +139,19 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_7__grower_add_product_add_product_component__["a" /* AddProductComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__main_main_component__["a" /* MainComponent */],
                 __WEBPACK_IMPORTED_MODULE_11__qr_dialog_qr_dialog_component__["a" /* QrDialogComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__bottler_bottler_product_bottler_product_component__["a" /* BottlerProductComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__winery_winery_product_winery_product_component__["a" /* WineryProductComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__login_login_component__["a" /* LoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__no_access_no_access_component__["a" /* NoAccessComponent */]
+                __WEBPACK_IMPORTED_MODULE_13__bottler_bottler_product_bottler_product_component__["a" /* BottlerProductComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__winery_winery_product_winery_product_component__["a" /* WineryProductComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__login_login_component__["a" /* LoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__no_access_no_access_component__["a" /* NoAccessComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__product_list_confirm_dialog_confirm_dialog_component__["a" /* ConfirmDialogComponent */]
             ],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_11__qr_dialog_qr_dialog_component__["a" /* QrDialogComponent */]
+                __WEBPACK_IMPORTED_MODULE_11__qr_dialog_qr_dialog_component__["a" /* QrDialogComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__product_list_confirm_dialog_confirm_dialog_component__["a" /* ConfirmDialogComponent */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(__WEBPACK_IMPORTED_MODULE_13__routes__["a" /* appRoutes */]),
-                __WEBPACK_IMPORTED_MODULE_25__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(__WEBPACK_IMPORTED_MODULE_12__routes__["a" /* appRoutes */]),
+                __WEBPACK_IMPORTED_MODULE_23__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["d" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
@@ -156,15 +160,15 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_10__mat_components_mat_components_module__["a" /* MatComponentsModule */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_12__services_hyperledger_service__["a" /* HyperledgerService */],
+                __WEBPACK_IMPORTED_MODULE_24__services_hyperledger_service__["a" /* HyperledgerService */],
                 // { provide: ErrorHandler, useClass: AppErrorHandler },
-                __WEBPACK_IMPORTED_MODULE_18__services_auth_service__["a" /* AuthService */],
-                __WEBPACK_IMPORTED_MODULE_19__auth_guard_service__["a" /* AuthGuard */],
-                __WEBPACK_IMPORTED_MODULE_20__guard_services_admin_auth_guard_service__["a" /* AdminAuthGuard */],
-                __WEBPACK_IMPORTED_MODULE_21__guard_services_grower_auth_guard_service__["a" /* GrowerAuthGuardService */],
-                __WEBPACK_IMPORTED_MODULE_22__guard_services_winery_auth_guard_service__["a" /* WineryAuthGuardService */],
-                __WEBPACK_IMPORTED_MODULE_23__guard_services_bottler_auth_guard_service__["a" /* BottlerAuthGuardService */],
-                __WEBPACK_IMPORTED_MODULE_17_angular2_jwt_angular2_jwt__["AuthHttp"]
+                __WEBPACK_IMPORTED_MODULE_25__services_auth_service__["a" /* AuthService */],
+                __WEBPACK_IMPORTED_MODULE_17__auth_guard_service__["a" /* AuthGuard */],
+                __WEBPACK_IMPORTED_MODULE_18__guard_services_admin_auth_guard_service__["a" /* AdminAuthGuard */],
+                __WEBPACK_IMPORTED_MODULE_19__guard_services_grower_auth_guard_service__["a" /* GrowerAuthGuardService */],
+                __WEBPACK_IMPORTED_MODULE_20__guard_services_winery_auth_guard_service__["a" /* WineryAuthGuardService */],
+                __WEBPACK_IMPORTED_MODULE_21__guard_services_bottler_auth_guard_service__["a" /* BottlerAuthGuardService */],
+                __WEBPACK_IMPORTED_MODULE_16_angular2_jwt_angular2_jwt__["AuthHttp"]
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
         })
@@ -748,7 +752,7 @@ module.exports = "\n.sidebar {\n    min-height: 500px;\n    max-height: 500px;\n
 /***/ "./src/app/main/main.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner\">\n  <a class=\"navbar-brand\" routerLink=\"/\"><i class=\"fa fa-leaf\" aria-hidden=\"true\">\n      <img src=\"/assets/logo.svg\" width=\"30\" height=\"30\" class=\"d-inline-block align-top\" alt=\"\">\n      Ziontech</i></a>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" \n    aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\n    (click)=\"toggleMenu()\"\n    [attr.aria-expanded]=\"!isCollapsed\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" [ngbCollapse]=\"isCollapsed\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">Contact</a></li>\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">About</a></li>\n    </ul>\n    <a class=\"nav-link\" (click)=\"logout()\"><mat-icon color=\"warn\">exit_to_app</mat-icon>Logout</a>\n  </div>\n</nav>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-1 sidebar bg-dark\" id=\"sidebar\" role=\"navigation\">\n        <ul class=\"nav flex-column sidebar\">\n          <li class=\"nav-item active\" *ngIf=\"isGrower()\" >\n              <a class=\"nav-link\" [routerLink]=\"['./products','grower']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Grower</a>\n          </li>\n          <li class=\"nav-item\" *ngIf=\"isWinery()\">\n            <a class=\"nav-link\" [routerLink]=\"['./products','winery']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Winery</a>\n          </li>\n          <li class=\"nav-item\" *ngIf=\"isBottler()\">\n            <a class=\"nav-link\" [routerLink]=\"['./products','bottler']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Bottler</a>\n          </li>\n          <li class=\"nav-divider\"><mat-divider></mat-divider></li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['./products','transaction']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Transaction</a>\n          </li>\n        </ul>\n    </div>\n    <div class=\"col-10\">\n        <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner\">\n  <a class=\"navbar-brand\" routerLink=\"/\"><i class=\"fa fa-leaf\" aria-hidden=\"true\">\n      <img src=\"/assets/logo.svg\" width=\"30\" height=\"30\" class=\"d-inline-block align-top\" alt=\"\">\n      Ziontech</i></a>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" \n    aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\n    (click)=\"toggleMenu()\"\n    [attr.aria-expanded]=\"!isCollapsed\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" [ngbCollapse]=\"isCollapsed\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">Contact</a></li>\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">About</a></li>\n    </ul>\n    <a class=\"nav-link\" (click)=\"logout()\"><mat-icon color=\"warn\">exit_to_app</mat-icon>Logout</a>\n  </div>\n</nav>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-11 col-md-1 sidebar bg-dark\" id=\"sidebar\" role=\"navigation\">\n        <ul class=\"nav flex-column sidebar\">\n          <li class=\"nav-item active\" *ngIf=\"isGrower()\" >\n              <a class=\"nav-link\" [routerLink]=\"['./products','grower']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Grower</a>\n          </li>\n          <li class=\"nav-item\" *ngIf=\"isWinery()\">\n            <a class=\"nav-link\" [routerLink]=\"['./products','winery']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Winery</a>\n          </li>\n          <li class=\"nav-item\" *ngIf=\"isBottler()\">\n            <a class=\"nav-link\" [routerLink]=\"['./products','bottler']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Bottler</a>\n          </li>\n          <li class=\"nav-divider\"><mat-divider></mat-divider></li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" [routerLink]=\"['./products','transaction']\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Transaction</a>\n          </li>\n        </ul>\n    </div>\n    <div class=\"col-11 col-md-10\">\n        <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -930,17 +934,75 @@ var NoAccessComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/product-list/confirm-dialog/confirm-dialog.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".confirm-tranfer-grid .mat-grid-tile:nth-child(odd) {\n    text-align: left;\n    background-color: rgb(235, 217, 217);\n}\n\n"
+
+/***/ }),
+
+/***/ "./src/app/product-list/confirm-dialog/confirm-dialog.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Please confirm...</h2>\n<mat-dialog-content>\n    <mat-grid-list cols=\"2\" rowHeight=\"30px\" class=\"confirm-tranfer-grid\">\n        <mat-grid-tile>\n          ID:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.key}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Company Name:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.companyName}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Region:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.region}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Variety:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.variety}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Vintage:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.vintage}}\n        </mat-grid-tile>\n      </mat-grid-list>\n  <p>Are you sure you want to transfer this product to <strong>{{ product.vinery }}</strong>?</p>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-raised-button mat-dialog-close=\"yes\" color=\"primary\">Yes</button>\n  <button mat-raised-button mat-dialog-close=\"no\" color=\"warn\">No</button>\n</mat-dialog-actions>\n"
+
+/***/ }),
+
+/***/ "./src/app/product-list/confirm-dialog/confirm-dialog.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfirmDialogComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var ConfirmDialogComponent = /** @class */ (function () {
+    function ConfirmDialogComponent(data) {
+        this.product = data;
+        console.log(this.product);
+    }
+    ConfirmDialogComponent.prototype.ngOnInit = function () {
+    };
+    ConfirmDialogComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-confirm-dialog',
+            template: __webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.html"),
+            styles: [__webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.css")]
+        }),
+        __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
+        __metadata("design:paramtypes", [Object])
+    ], ConfirmDialogComponent);
+    return ConfirmDialogComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/product-list/product-list.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\n  .mat-table {\n    overflow: auto;\n    max-height: 700px;\n  }\n\n  .example-header {\n    min-height: 64px;\n    padding-top: 10px;\n  }\n\n  .clickable-row {\n    cursor: pointer;\n  }"
+module.exports = "\n  .mat-table {\n    overflow: auto;\n    max-height: 700px;\n  }\n\n  .example-header {\n    min-height: 64px;\n    padding-top: 10px;\n  }\n\n  .clickable-row {\n    cursor: pointer;\n  }\n\n  .mat-cell.mat-column-action.mat-raised-button > .mat-icon {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n    vertical-align: middle;\n  }\n\n  .mat-cell.mat-column-action.mat-raised-button {\n    padding: 0px;\n  }\n"
 
 /***/ }),
 
 /***/ "./src/app/product-list/product-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"button-row\" *ngIf=\"showAddButton\">\n  <button mat-raised-button color=\"primary\" [routerLink]=\"['/home/grower/new']\">Add</button>\n</div>\n<div class=\"example-header\">\n  <mat-form-field>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\" [(ngModel)]=\"filterValue\">\n    <button mat-button *ngIf=\"filterValue\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"filterValue='';applyFilter('')\">\n        <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n\n<div class=\"example-container mat-elevation-z8\">\n  <mat-table #table [dataSource]=\"dataSource\" matSort>\n\n    <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column.columnDef\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.header }} </mat-header-cell>\n      <mat-cell *matCellDef=\"let element\"> {{ column.cell(element)}} </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"\n      (click)=\"rowClick(row)\"\n      [ngClass]=\"{'clickable-row': rowClickable}\"\n    ></mat-row>\n  </mat-table>\n  <mat-paginator #paginator [pageSize]=\"10\" [pageSizeOptions]=\"[5, 10, 20]\" [showFirstLastButtons]=\"true\"></mat-paginator>\n</div>\n  "
+module.exports = "<div class=\"button-row\" *ngIf=\"showAddButton\">\n  <button mat-raised-button color=\"primary\" [routerLink]=\"['/home/grower/new']\">Add</button>\n</div>\n<div class=\"example-header\">\n  <mat-form-field>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\" [(ngModel)]=\"filterValue\">\n    <button mat-button *ngIf=\"filterValue\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"filterValue='';applyFilter('')\">\n        <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n\n<div class=\"example-container mat-elevation-z8\">\n  <mat-table #table [dataSource]=\"dataSource\" matSort multiTemplateDataRows=\"true\">\n\n    <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column.columnDef\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.header }} </mat-header-cell>\n      <mat-cell \n        *matCellDef=\"let element\" \n        (click)=\"cellClick($event,element,column)\" \n        [ngClass]=\"{'mat-raised-button mat-primary' : column.cell(element) === 'Transfer'}\"\n        >\n        <mat-icon color=\"warn\" *ngIf=\"column.cell(element) === 'Transfer'\">visibility</mat-icon>\n        {{ column.cell(element) }} \n      </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"\n      (click)=\"rowClick(row)\"\n      [ngClass]=\"{'clickable-row': rowClickable}\"\n    ></mat-row>\n  </mat-table>\n  <mat-paginator #paginator [pageSize]=\"10\" [pageSizeOptions]=\"[5, 10, 20]\" [showFirstLastButtons]=\"true\"></mat-paginator>\n</div>\n  "
 
 /***/ }),
 
@@ -954,6 +1016,9 @@ module.exports = "<div class=\"button-row\" *ngIf=\"showAddButton\">\n  <button 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__qr_dialog_qr_dialog_component__ = __webpack_require__("./src/app/qr-dialog/qr-dialog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_takeUntil__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/takeUntil.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__confirm_dialog_confirm_dialog_component__ = __webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.ts");
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -976,12 +1041,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(service, router, route, dialog) {
         this.service = service;
         this.router = router;
         this.route = route;
         this.dialog = dialog;
+        this.componentDestroyed$ = new __WEBPACK_IMPORTED_MODULE_5_rxjs_Subject__["a" /* Subject */]();
         this.rowClickable = true;
         this.transaction = false;
         this.showAddButton = false;
@@ -993,6 +1062,7 @@ var ProductListComponent = /** @class */ (function () {
             _this.role = params['role'];
             _this.populateMetaData();
             _this.service.getHyperledgers()
+                .takeUntil(_this.componentDestroyed$)
                 .subscribe(function (response) {
                 setTimeout(function () {
                     var result = response.map(function (record) {
@@ -1004,6 +1074,10 @@ var ProductListComponent = /** @class */ (function () {
                 });
             });
         });
+    };
+    ProductListComponent.prototype.ngOnDestroy = function () {
+        this.componentDestroyed$.next(true);
+        this.componentDestroyed$.complete();
     };
     ProductListComponent.prototype.populateMetaData = function () {
         switch (this.role) {
@@ -1019,6 +1093,9 @@ var ProductListComponent = /** @class */ (function () {
             case 'transaction':
                 this.populateTransactionMetaData();
                 break;
+        }
+        if (this.role !== 'transaction') {
+            this.columns.push({ columnDef: 'action', header: 'Action', cell: function (row) { return 'Transfer'; } });
         }
         /** Column definitions in order */
         this.displayedColumns = this.columns.map(function (x) { return x.columnDef; });
@@ -1104,9 +1181,16 @@ var ProductListComponent = /** @class */ (function () {
         filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
         this.dataSource.filter = filterValue;
     };
+    ProductListComponent.prototype.cellClick = function ($event, row, cell) {
+        if (cell.header === 'Action') {
+            this.openConfirmDialog(row);
+            $event.stopPropagation();
+        }
+        return;
+    };
     ProductListComponent.prototype.rowClick = function (row) {
         if (this.transaction) {
-            this.openDialog(row.key);
+            this.openQrDialog(row.key);
             return;
         }
         if (this.rowClickable) {
@@ -1120,9 +1204,24 @@ var ProductListComponent = /** @class */ (function () {
             }
         }
     };
-    ProductListComponent.prototype.openDialog = function (id) {
+    ProductListComponent.prototype.openQrDialog = function (id) {
         this.dialog.open(__WEBPACK_IMPORTED_MODULE_4__qr_dialog_qr_dialog_component__["a" /* QrDialogComponent */], {
-            data: { id: id }
+            data: {
+                id: id
+            }
+        });
+    };
+    ProductListComponent.prototype.openConfirmDialog = function (data) {
+        var _this = this;
+        var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_7__confirm_dialog_confirm_dialog_component__["a" /* ConfirmDialogComponent */], {
+            width: '550px',
+            disableClose: true,
+            data: data
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result === 'yes') {
+                _this.service.vineryUpdate(data);
+            }
         });
     };
     __decorate([

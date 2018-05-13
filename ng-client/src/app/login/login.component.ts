@@ -1,4 +1,4 @@
-import { AuthService } from '../services/auth.service.mock';
+import { AuthService } from '../services/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
