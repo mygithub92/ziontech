@@ -61,7 +61,7 @@ const wines = [{
 }];
 
 @Injectable()
-export class HyperledgerMockService {
+export class HyperledgerService {
 
   constructor() { }
 
@@ -70,6 +70,17 @@ export class HyperledgerMockService {
   }
 
 
+  addProduct(data) {
+    return Observable.of(wines);
+}
+
+vineryUpdate(data) {
+    return Observable.of(wines);
+}
+
+bottlerUpdate(data) {
+    return Observable.of(wines);
+}
   private handleError(error: Response) {
     if (error.status === 400) {
         return Observable.throw(new BadInput(error.json));

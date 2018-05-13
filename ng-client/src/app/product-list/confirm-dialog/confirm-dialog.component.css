@@ -1,0 +1,5 @@
+.confirm-tranfer-grid .mat-grid-tile:nth-child(odd) {
+    text-align: left;
+    background-color: rgb(235, 217, 217);
+}
+

@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Please confirm...</h2>
+<mat-dialog-content>
+    <mat-grid-list cols="2" rowHeight="30px" class="confirm-tranfer-grid">
+        <mat-grid-tile>
+          ID:
+        </mat-grid-tile>
+        <mat-grid-tile>
+            {{ product.key}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Company Name:
+        </mat-grid-tile>
+        <mat-grid-tile>
+            {{ product.companyName}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Region:
+        </mat-grid-tile>
+        <mat-grid-tile>
+            {{ product.region}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Variety:
+        </mat-grid-tile>
+        <mat-grid-tile>
+            {{ product.variety}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Vintage:
+        </mat-grid-tile>
+        <mat-grid-tile>
+            {{ product.vintage}}
+        </mat-grid-tile>
+      </mat-grid-list>
+  <p>Are you sure you want to transfer this product to <strong>{{ product.vinery }}</strong>?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close="yes" color="primary">Yes</button>
+  <button mat-raised-button mat-dialog-close="no" color="warn">No</button>
+</mat-dialog-actions>

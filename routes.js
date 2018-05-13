@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Apache-2.0
-var wine = require('./controller.js');
+var wine = require('./controller.mock.js');
 
 module.exports = function(app){
   app.get('/qr', function(req, res){

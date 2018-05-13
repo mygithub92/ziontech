@@ -11,11 +11,18 @@
 </div>
 
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource" matSort>
+  <mat-table #table [dataSource]="dataSource" matSort multiTemplateDataRows="true">
 
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
       <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.header }} </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ column.cell(element)}} </mat-cell>
+      <mat-cell 
+        *matCellDef="let element" 
+        (click)="cellClick($event,element,column)" 
+        [ngClass]="{'mat-raised-button mat-primary' : column.cell(element) === 'Transfer'}"
+        >
+        <mat-icon color="warn" *ngIf="column.cell(element) === 'Transfer'">visibility</mat-icon>
+        {{ column.cell(element) }} 
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

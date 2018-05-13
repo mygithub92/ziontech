@@ -12,3 +12,12 @@
   .clickable-row {
     cursor: pointer;
   }
+
+  .mat-cell.mat-column-action.mat-raised-button > .mat-icon {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .mat-cell.mat-column-action.mat-raised-button {
+    padding: 0px;
+  }

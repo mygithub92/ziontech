@@ -1,15 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HyperledgerService } from '../services/hyperledger.service';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { HyperledgerService } from '../services/hyperledger.service.mock';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
+
+  componentDestroyed$: Subject<boolean> = new Subject();
 
   dataSource: MatTableDataSource<any>;
   columns: any;
@@ -35,20 +40,26 @@ export class ProductListComponent implements OnInit {
       this.populateMetaData();
 
       this.service.getHyperledgers()
-      .subscribe(response => {
-        setTimeout(() => {
-          const result = response.map(record => {
-            return {
-              key: record['Key'],
-              ...record['Record']
-            };
+        .takeUntil(this.componentDestroyed$)
+        .subscribe(response => {
+          setTimeout(() => {
+            const result = response.map(record => {
+              return {
+                key: record['Key'],
+                ...record['Record']
+              };
+            });
+            this.dataSource = new MatTableDataSource(result);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
           });
-          this.dataSource = new MatTableDataSource(result);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
         });
-      });
     });
+  }
+
+  ngOnDestroy() {
+      this.componentDestroyed$.next(true);
+      this.componentDestroyed$.complete();
   }
 
   populateMetaData() {
@@ -68,7 +79,9 @@ export class ProductListComponent implements OnInit {
       // default:
       //   this.populateGrowerMetaData();
     }
-
+    if (this.role !== 'transaction') {
+      this.columns.push({ columnDef: 'action', header: 'Action', cell: (row: Product) => 'Transfer' });
+    }
     /** Column definitions in order */
     this.displayedColumns = this.columns.map(x => x.columnDef);
   }
@@ -159,6 +172,14 @@ export class ProductListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  cellClick($event, row, cell) {
+    if (cell.header === 'Action') {
+      this.openDialog(row);
+      $event.stopPropagation();
+    }
+    return;
+  }
+
   rowClick(row) {
     if (this.transaction) {
       this.openDialog(row.key);
@@ -176,12 +197,19 @@ export class ProductListComponent implements OnInit {
   }
 }
 
-  openDialog(id) {
-    this.dialog.open(QrDialogComponent, {
-      data: { id }
+  openDialog(data) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '550px',
+      disableClose: true,
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.service.vineryUpdate(data);
+      }
     });
   }
-
 }
 
 

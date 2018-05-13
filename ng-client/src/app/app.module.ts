@@ -10,23 +10,23 @@ import { MainComponent } from './main/main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatComponentsModule } from './mat-components/mat-components.module';
 import { QrDialogComponent } from './qr-dialog/qr-dialog.component';
-import { HyperledgerService } from './services/hyperledger.service';
 import { AppErrorHandler } from './common/app-error-handler';
 import { appRoutes } from './routes';
 import { BottlerProductComponent } from './bottler/bottler-product/bottler-product.component';
 import { WineryProductComponent } from './winery/winery-product/winery-product.component';
 import { LoginComponent } from './login/login.component';
 import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
-import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { AdminAuthGuard } from './guard-services/admin-auth-guard.service';
 import { GrowerAuthGuardService } from './guard-services/grower-auth-guard.service';
 import { WineryAuthGuardService } from './guard-services/winery-auth-guard.service';
 import { BottlerAuthGuardService } from './guard-services/bottler-auth-guard.service';
-import { fakeBackendProvider } from './helper/fake-backend';
-import { MockBackend } from '@angular/http/testing';
 import { NoAccessComponent } from './no-access/no-access.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { HyperledgerService } from './services/hyperledger.service.mock';
+import { AuthService } from './services/auth.service.mock';
+import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +38,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BottlerProductComponent,
     WineryProductComponent,
     LoginComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    ConfirmDialogComponent
   ],
   entryComponents: [
-    QrDialogComponent
+    QrDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
