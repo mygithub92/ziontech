@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { HyperledgerServiceProvider } from '../services/hyperledger.service.provider';
+import { Product } from '../model/Product';
 
 @Component({
   selector: 'app-product-list',
@@ -220,33 +221,4 @@ openQrDialog(id) {
       }
     });
   }
-}
-
-
-export interface Product {
-  key: string;
-  companyName: string;
-  region: string;
-  vineyard: string;
-  block: string;
-  rowRange: string;
-  variety: string;
-  vintage: string;
-  dateDelivered: string;
-  vinery: string;
-  estimatedWeight: string;
-  actualWeight: string;
-  volume: string;
-  bottlingCompany: string;
-  brand: string;
-  label: string;
-  corkCap: string;
-  seller: string;
-  status: string;
-  stage: Array<Stage>;
-}
-
-export interface Stage {
-  stageId: number;
-  period: { start: string, end: string};
 }

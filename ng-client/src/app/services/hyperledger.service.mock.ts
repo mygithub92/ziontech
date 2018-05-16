@@ -9,7 +9,6 @@ import { BadInput } from '../common/bad-input';
 import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 import { AbstractHyperledgerService } from './hyperledger.service';
-import { Product } from '../product-list/product-list.component';
 import { AbstractAuthService } from './auth.service';
 
 const wines = [{
@@ -86,27 +85,28 @@ const wines = [{
         seller: 'BWS',
         brand: 'Riesling',
         stages: [
-            { stageId: 1001, period: { end: '2015-10-10' } }, // grape ready to delivery.
-            // { stageId: 2001, period: { start: '2015-10-10' } }, // driver picks up grape.
-            // { stageId: 2002, period: { start: '2015-10-10', end: '2015-10-10' } }, // driver delivers to winery.
-            // { stageId: 3001, period: { start: '2015-10-10', end: '2016-03-23' } }, // brew.
-            // { stageId: 4001, period: { start: '2016-03-23' } }, // driver pick up barral.
-            // { stageId: 4002, period: { start: '2016-03-23', end: '2016-03-30' } }, // drop barral to bottling company.
-            // { stageId: 5001, period: { start: '2016-03-30' } }, // bottler starts label.
-            // { stageId: 5002, period: { start: '2016-03-30', end: '2016-05-27' } }, // bottles are labeled.
-            // { stageId: 6001, period: { start: '2016-05-27' } }, // shipping to oversea.
-            // { stageId: 6002, period: { start: '2016-05-27', end: '2016-07-03' } }, // ship to warehouse.
+            { stageId: 10, period: { end: '2015-10-10' } }, // grape ready to delivery.
+            { stageId: 20, period: { start: '2015-10-10' } }, // driver picks up grape.
+            // { stageId: 20.10, period: { start: '2015-10-10', end: '2015-10-10' } }, // driver delivers to winery.
+            // { stageId: 30, period: { start: '2015-10-10' } }, // brew.
+            // { stageId: 30.10, period: { start: '2015-10-10', end: '2016-03-23' } }, // brew done.
+            // { stageId: 40, period: { start: '2016-03-23' } }, // driver pick up barral.
+            // { stageId: 40.10, period: { start: '2016-03-23', end: '2016-03-30' } }, // drop barral to bottling company.
+            // { stageId: 50, period: { start: '2016-03-30' } }, // bottler starts label.
+            // { stageId: 50.10, period: { start: '2016-03-30', end: '2016-05-27' } }, // bottles are labeled.
+            // { stageId: 60, period: { start: '2016-05-27' } }, // shipping to oversea.
+            // { stageId: 60.10, period: { start: '2016-05-27', end: '2016-07-03' } }, // ship to warehouse.
         ]
     }
 }
 ];
 
 const roleStageMap = {
-    grower: [0, 1000],
-    driver: [1001, 2000],
-    winery: [2001, 3000],
-    bottler: [3001, 5000],
-    warehouse: [5001, 6000]
+    grower: 10,
+    driver: 20,
+    winery: 30,
+    bottler: 40,
+    warehouse: 50
 };
 
 @Injectable()
@@ -119,17 +119,15 @@ export class MockHyperledgerService implements AbstractHyperledgerService {
         if (!stage) {
             const userRole = this.authService.currentUser && this.authService.currentUser.roles[0];
             stage = roleStageMap[userRole];
-            stage = [...stage];
-            stage[0] += 1000;
-            stage[1] += 1000;
+            stage += 10;
         }
         const result = wines.filter(wine => {
             let stages = wine.Record.stages;
             if (!stages) {
-                stages = [{ stageId: 100, period: { end: '2015-10-10' } }];
+                stages = [{ stageId: 10, period: { end: '2015-10-10' } }];
             }
             const recordStage = stages[stages.length - 1].stageId;
-            return !stages || (stage[0] < recordStage && recordStage < stage[1]);
+            return !stages || stage === Math.floor(recordStage);
         });
         return Observable.of(result);
     }
