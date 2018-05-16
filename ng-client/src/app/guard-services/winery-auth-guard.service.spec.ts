@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { WineryAuthGuardService } from './winery-auth-guard.service';
+import { WineryAuthGuard } from './winery-auth-guard.service';
 
-describe('WineryAuthGuardService', () => {
+describe('WineryAuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WineryAuthGuardService]
+      providers: [WineryAuthGuard]
     });
   });
 
-  it('should be created', inject([WineryAuthGuardService], (service: WineryAuthGuardService) => {
+  it('should be created', inject([WineryAuthGuard], (service: WineryAuthGuard) => {
     expect(service).toBeTruthy();
   }));
 });

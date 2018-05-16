@@ -8,8 +8,15 @@ import { BadInput } from '../common/bad-input';
 import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 
+export abstract class AbstractHyperledgerService {
+    abstract getHyperledgers(): Observable<any>;
+    abstract addProduct(data): Observable<any>;
+    abstract vineryUpdate(data): Observable<any>;
+    abstract bottlerUpdate(data): Observable<any>;
+}
+
 @Injectable()
-export class HyperledgerService {
+export class HyperledgerService implements AbstractHyperledgerService {
 
   private baseUrl = 'http://18.221.40.162';
 

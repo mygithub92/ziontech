@@ -4,13 +4,14 @@ import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { AbstractAuthService } from './auth.service';
+
 @Injectable()
-export class AuthService {
-  private baseUrl = 'http://ziontech.com:5000';
+export class MockAuthService implements AbstractAuthService {
 
   currentUser: any;
 
-  constructor(private http: Http) {
+  constructor() {
     const token = localStorage.getItem('token');
     if (token) {
       const jwt = new JwtHelper();

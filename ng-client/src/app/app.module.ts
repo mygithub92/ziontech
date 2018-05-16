@@ -16,17 +16,16 @@ import { BottlerProductComponent } from './bottler/bottler-product/bottler-produ
 import { WineryProductComponent } from './winery/winery-product/winery-product.component';
 import { LoginComponent } from './login/login.component';
 import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuard } from './guard-services/auth-guard.service';
 import { AdminAuthGuard } from './guard-services/admin-auth-guard.service';
-import { GrowerAuthGuardService } from './guard-services/grower-auth-guard.service';
-import { WineryAuthGuardService } from './guard-services/winery-auth-guard.service';
-import { BottlerAuthGuardService } from './guard-services/bottler-auth-guard.service';
+import { GrowerAuthGuard } from './guard-services/grower-auth-guard.service';
+import { WineryAuthGuard } from './guard-services/winery-auth-guard.service';
+import { BottlerAuthGuard } from './guard-services/bottler-auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { HyperledgerService } from './services/hyperledger.service';
-import { AuthService } from './services/auth.service';
 import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-dialog.component';
+import { AppService } from './services/app.service';
+import { AuthServiceProvider } from './services/auth.service.provider';
 
 @NgModule({
   declarations: [
@@ -56,14 +55,14 @@ import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-di
     MatComponentsModule
   ],
   providers: [
-    HyperledgerService,
     // { provide: ErrorHandler, useClass: AppErrorHandler },
-    AuthService,
+    AppService,
+    AuthServiceProvider,
     AuthGuard,
     AdminAuthGuard,
-    GrowerAuthGuardService,
-    WineryAuthGuardService,
-    BottlerAuthGuardService,
+    GrowerAuthGuard,
+    WineryAuthGuard,
+    BottlerAuthGuard,
     AuthHttp
   ],
   bootstrap: [AppComponent]

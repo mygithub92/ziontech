@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HyperledgerService } from '../../services/hyperledger.service';
+import { AbstractHyperledgerService } from '../../services/hyperledger.service';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/finally';
+import { HyperledgerServiceProvider } from '../../services/hyperledger.service.provider';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  styleUrls: ['./add-product.component.css'],
+  providers: [HyperledgerServiceProvider]
 })
 export class AddProductComponent implements OnInit {
   form;
   companies = ['Penley', 'Hoggies Estate'];
 
-  constructor(private service: HyperledgerService, private router: Router, fb: FormBuilder) {
+  constructor(private service: AbstractHyperledgerService, private router: Router, fb: FormBuilder) {
 
     this.form = fb.group(
       {

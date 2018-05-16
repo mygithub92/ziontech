@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GrowerAuthGuardService } from './grower-auth-guard.service';
+import { GrowerAuthGuard } from './grower-auth-guard.service';
 
-describe('GrowerAuthGuardService', () => {
+describe('GrowerAuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GrowerAuthGuardService]
+      providers: [GrowerAuthGuard]
     });
   });
 
-  it('should be created', inject([GrowerAuthGuardService], (service: GrowerAuthGuardService) => {
+  it('should be created', inject([GrowerAuthGuard], (service: GrowerAuthGuard) => {
     expect(service).toBeTruthy();
   }));
 });

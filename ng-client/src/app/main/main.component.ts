@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AbstractAuthService } from '../services/auth.service';
+import { AuthServiceProvider } from '../services/auth.service.provider';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  providers: [AuthServiceProvider]
+
 })
 export class MainComponent implements OnInit {
   isCollapsed = true;
   roles = [];
 
-  constructor(private dialog: MatDialog, private router: Router, private authService: AuthService) { }
+  constructor(private dialog: MatDialog, private router: Router, private authService: AbstractAuthService) { }
 
   ngOnInit() {
     if (this.authService.currentUser) {

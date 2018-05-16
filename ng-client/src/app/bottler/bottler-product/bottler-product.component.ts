@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/finally';
-import { HyperledgerService } from '../../services/hyperledger.service';
+import { AbstractHyperledgerService } from '../../services/hyperledger.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HyperledgerServiceProvider } from '../../services/hyperledger.service.provider';
 
 @Component({
   selector: 'app-bottler-product',
   templateUrl: './bottler-product.component.html',
-  styleUrls: ['./bottler-product.component.css']
+  styleUrls: ['./bottler-product.component.css'],
+  providers: [HyperledgerServiceProvider]
 })
 export class BottlerProductComponent implements OnInit {
   form;
@@ -16,7 +18,7 @@ export class BottlerProductComponent implements OnInit {
   statuses = ['Labeled', 'Not Labeled'];
 
   constructor(
-    private service: HyperledgerService,
+    private service: AbstractHyperledgerService,
     private router: Router,
     private route: ActivatedRoute,
     fb: FormBuilder

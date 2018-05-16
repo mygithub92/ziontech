@@ -6,9 +6,9 @@ import { AddProductComponent } from './grower/add-product/add-product.component'
 import { LoginComponent } from './login/login.component';
 import { AdminAuthGuard } from './guard-services/admin-auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
-import { GrowerAuthGuardService } from './guard-services/grower-auth-guard.service';
-import { WineryAuthGuardService } from './guard-services/winery-auth-guard.service';
-import { BottlerAuthGuardService } from './guard-services/bottler-auth-guard.service';
+import { GrowerAuthGuard } from './guard-services/grower-auth-guard.service';
+import { WineryAuthGuard } from './guard-services/winery-auth-guard.service';
+import { BottlerAuthGuard } from './guard-services/bottler-auth-guard.service';
 
 export const appRoutes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,9 +19,9 @@ export const appRoutes = [
     children: [
       // { path: '', redirectTo: 'products/grower', pathMatch: 'full' },
       { path: 'products/:role', component: ProductListComponent },
-      { path: 'grower/new', component: AddProductComponent, canActivate: [GrowerAuthGuardService] },
-      { path: 'winery/product/:id', component: WineryProductComponent, canActivate: [WineryAuthGuardService] },
-      { path: 'bottler/product/:id', component: BottlerProductComponent, canActivate: [BottlerAuthGuardService] },
+      { path: 'grower/new', component: AddProductComponent, canActivate: [GrowerAuthGuard] },
+      { path: 'winery/product/:id', component: WineryProductComponent, canActivate: [WineryAuthGuard] },
+      { path: 'bottler/product/:id', component: BottlerProductComponent, canActivate: [BottlerAuthGuard] },
     ]
   },
   { path: 'no-access', component: NoAccessComponent }

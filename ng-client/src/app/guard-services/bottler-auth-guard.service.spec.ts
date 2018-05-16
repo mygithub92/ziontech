@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { BottlerAuthGuardService } from './bottler-auth-guard.service';
+import { BottlerAuthGuard } from './bottler-auth-guard.service';
 
-describe('BottlerAuthGuardService', () => {
+describe('BottlerAuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BottlerAuthGuardService]
+      providers: [BottlerAuthGuard]
     });
   });
 
-  it('should be created', inject([BottlerAuthGuardService], (service: BottlerAuthGuardService) => {
+  it('should be created', inject([BottlerAuthGuard], (service: BottlerAuthGuard) => {
     expect(service).toBeTruthy();
   }));
 });

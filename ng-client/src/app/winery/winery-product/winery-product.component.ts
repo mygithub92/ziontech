@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HyperledgerService } from '../../services/hyperledger.service';
+import { AbstractHyperledgerService } from '../../services/hyperledger.service';
+import { HyperledgerServiceProvider } from '../../services/hyperledger.service.provider';
 
 @Component({
   selector: 'app-winery-product',
   templateUrl: './winery-product.component.html',
-  styleUrls: ['./winery-product.component.css']
+  styleUrls: ['./winery-product.component.css'],
+  providers: [HyperledgerServiceProvider]
 })
 export class WineryProductComponent implements OnInit {
 
@@ -15,7 +17,7 @@ export class WineryProductComponent implements OnInit {
   selectedId: string;
 
   constructor(
-      private service: HyperledgerService,
+      private service: AbstractHyperledgerService,
       private router: Router,
       private route: ActivatedRoute,
       fb: FormBuilder

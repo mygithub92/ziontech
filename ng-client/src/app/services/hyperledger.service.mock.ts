@@ -8,6 +8,7 @@ import 'rxjs/add/observable/of';
 import { BadInput } from '../common/bad-input';
 import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
+import { AbstractHyperledgerService } from './hyperledger.service';
 
 const wines = [{
     Key: '1',
@@ -61,7 +62,7 @@ const wines = [{
 }];
 
 @Injectable()
-export class HyperledgerService {
+export class MockHyperledgerService implements AbstractHyperledgerService {
 
   constructor() { }
 

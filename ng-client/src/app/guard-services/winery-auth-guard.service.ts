@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthGuard } from '../auth-guard.service';
+import { AuthGuard } from './auth-guard.service';
 
 @Injectable()
-export class WineryAuthGuardService extends AuthGuard {
+export class WineryAuthGuard extends AuthGuard {
 
   canActivate() {
     const isAuthenticated = super.canActivate();

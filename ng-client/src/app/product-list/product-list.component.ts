@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { HyperledgerService } from '../services/hyperledger.service';
+import { AbstractHyperledgerService } from '../services/hyperledger.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { HyperledgerServiceProvider } from '../services/hyperledger.service.provider';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  providers: [HyperledgerServiceProvider]
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
@@ -27,7 +29,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private service: HyperledgerService,
+    private service: AbstractHyperledgerService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog) { }
