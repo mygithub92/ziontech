@@ -41,7 +41,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.role = params['role'];
       this.populateMetaData();
 
-      this.service.getHyperledgers()
+      this.service.getHyperledgers(this.role)
         .takeUntil(this.componentDestroyed$)
         .subscribe(response => {
           setTimeout(() => {
@@ -243,4 +243,10 @@ export interface Product {
   corkCap: string;
   seller: string;
   status: string;
+  stage: Array<Stage>;
+}
+
+export interface Stage {
+  stageId: number;
+  period: { start: string, end: string};
 }

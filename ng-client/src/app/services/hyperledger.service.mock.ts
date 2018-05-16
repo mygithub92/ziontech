@@ -9,6 +9,8 @@ import { BadInput } from '../common/bad-input';
 import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 import { AbstractHyperledgerService } from './hyperledger.service';
+import { Product } from '../product-list/product-list.component';
+import { AbstractAuthService } from './auth.service';
 
 const wines = [{
     Key: '1',
@@ -59,38 +61,99 @@ const wines = [{
         seller: 'BWS',
         brand: 'Riesling'
     }
-}];
+},
+{
+    Key: '3',
+    Record: {
+        companyName: 'Penley',
+        region: 'Coonawarra',
+        vineyard: 'Ladbroke',
+        block: '3',
+        rowRange: '4-10',
+        variety: 'Shiraz',
+        vintage: '2014',
+        dateDelivered: '2015-10-03',
+        vinery: 'Limestone Coast Wines',
+        estimatedWeight: '40',
+        actualWeight: '38',
+        volume: '5600',
+        receivedFrom: '',
+        transferredTo: '',
+        bottlingCompany: 'Liquid Goods',
+        label: 'Olivias',
+        corkCap: '',
+        status: 'Not Labeled',
+        seller: 'BWS',
+        brand: 'Riesling',
+        stages: [
+            { stageId: 1001, period: { end: '2015-10-10' } }, // grape ready to delivery.
+            // { stageId: 2001, period: { start: '2015-10-10' } }, // driver picks up grape.
+            // { stageId: 2002, period: { start: '2015-10-10', end: '2015-10-10' } }, // driver delivers to winery.
+            // { stageId: 3001, period: { start: '2015-10-10', end: '2016-03-23' } }, // brew.
+            // { stageId: 4001, period: { start: '2016-03-23' } }, // driver pick up barral.
+            // { stageId: 4002, period: { start: '2016-03-23', end: '2016-03-30' } }, // drop barral to bottling company.
+            // { stageId: 5001, period: { start: '2016-03-30' } }, // bottler starts label.
+            // { stageId: 5002, period: { start: '2016-03-30', end: '2016-05-27' } }, // bottles are labeled.
+            // { stageId: 6001, period: { start: '2016-05-27' } }, // shipping to oversea.
+            // { stageId: 6002, period: { start: '2016-05-27', end: '2016-07-03' } }, // ship to warehouse.
+        ]
+    }
+}
+];
+
+const roleStageMap = {
+    grower: [0, 1000],
+    driver: [1001, 2000],
+    winery: [2001, 3000],
+    bottler: [3001, 5000],
+    warehouse: [5001, 6000]
+};
 
 @Injectable()
 export class MockHyperledgerService implements AbstractHyperledgerService {
 
-  constructor() { }
+    constructor(protected authService: AbstractAuthService) { }
 
-  getHyperledgers() {
-    return Observable.of(wines);
-  }
-
-
-  addProduct(data) {
-    return Observable.of(wines);
-}
-
-vineryUpdate(data) {
-    return Observable.of(wines);
-}
-
-bottlerUpdate(data) {
-    return Observable.of(wines);
-}
-  private handleError(error: Response) {
-    if (error.status === 400) {
-        return Observable.throw(new BadInput(error.json));
+    getHyperledgers(role) {
+        let stage = roleStageMap[role];
+        if (!stage) {
+            const userRole = this.authService.currentUser && this.authService.currentUser.roles[0];
+            stage = roleStageMap[userRole];
+            stage = [...stage];
+            stage[0] += 1000;
+            stage[1] += 1000;
+        }
+        const result = wines.filter(wine => {
+            let stages = wine.Record.stages;
+            if (!stages) {
+                stages = [{ stageId: 100, period: { end: '2015-10-10' } }];
+            }
+            const recordStage = stages[stages.length - 1].stageId;
+            return !stages || (stage[0] < recordStage && recordStage < stage[1]);
+        });
+        return Observable.of(result);
     }
 
-    if (error.status === 404) {
-        return Observable.throw(new NotFoundError(error));
+    addProduct(data) {
+        return Observable.of(wines);
     }
 
-    return Observable.throw(new AppError(error));
-}
+    vineryUpdate(data) {
+        return Observable.of(wines);
+    }
+
+    bottlerUpdate(data) {
+        return Observable.of(wines);
+    }
+    private handleError(error: Response) {
+        if (error.status === 400) {
+            return Observable.throw(new BadInput(error.json));
+        }
+
+        if (error.status === 404) {
+            return Observable.throw(new NotFoundError(error));
+        }
+
+        return Observable.throw(new AppError(error));
+    }
 }

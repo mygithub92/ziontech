@@ -9,7 +9,7 @@ import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 
 export abstract class AbstractHyperledgerService {
-    abstract getHyperledgers(): Observable<any>;
+    abstract getHyperledgers(role): Observable<any>;
     abstract addProduct(data): Observable<any>;
     abstract vineryUpdate(data): Observable<any>;
     abstract bottlerUpdate(data): Observable<any>;
@@ -22,7 +22,7 @@ export class HyperledgerService implements AbstractHyperledgerService {
 
   constructor(private http: Http) { }
 
-  getHyperledgers() {
+  getHyperledgers(role) {
     return this.http.get(this.baseUrl + '/get_all_wine')
     .map(res => res.json())
     .catch(this.handleError);

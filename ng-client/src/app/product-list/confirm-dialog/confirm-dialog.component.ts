@@ -13,7 +13,6 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) data: Product) {
     this.product = data;
-    console.log(this.product);
   }
 
   ngOnInit() {
