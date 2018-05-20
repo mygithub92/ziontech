@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+  <div class="example-container">
+    <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Pick Date</mat-label>
+          <input matInput [matDatepicker]="startDate" placeholder="Choose a date" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+          <mat-error *ngIf="form.get('startDate').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Delivery Date</mat-label>
+          <input matInput [matDatepicker]="endDate" placeholder="Choose a date" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+          <mat-error *ngIf="form.get('endDate').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Truck Plate Number</mat-label>
+          <input matInput placeholder="Truck Plate Number" formControlName="truck">
+          <mat-error *ngIf="form.get('truck').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <button mat-raised-button color="warn" [routerLink]="['/home/products','driver']">Cancel</button>
+  </div>
+</form>

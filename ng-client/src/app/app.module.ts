@@ -16,16 +16,20 @@ import { BottlerProductComponent } from './bottler/bottler-product/bottler-produ
 import { WineryProductComponent } from './winery/winery-product/winery-product.component';
 import { LoginComponent } from './login/login.component';
 import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
-import { AuthGuard } from './guard-services/auth-guard.service';
-import { AdminAuthGuard } from './guard-services/admin-auth-guard.service';
-import { GrowerAuthGuard } from './guard-services/grower-auth-guard.service';
-import { WineryAuthGuard } from './guard-services/winery-auth-guard.service';
-import { BottlerAuthGuard } from './guard-services/bottler-auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-dialog.component';
 import { AppService } from './services/app.service';
 import { AuthServiceProvider } from './services/auth.service.provider';
+import { DriverComponent } from './driver/driver.component';
+import {
+  AuthGuard,
+  AdminAuthGuard,
+  BottlerAuthGuard,
+  DriverAuthGuard,
+  GrowerAuthGuard,
+  WineryAuthGuard
+ } from './guard-services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,8 @@ import { AuthServiceProvider } from './services/auth.service.provider';
     WineryProductComponent,
     LoginComponent,
     NoAccessComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    DriverComponent
   ],
   entryComponents: [
     QrDialogComponent,
@@ -52,7 +57,7 @@ import { AuthServiceProvider } from './services/auth.service.provider';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpModule,
-    MatComponentsModule
+    MatComponentsModule,
   ],
   providers: [
     // { provide: ErrorHandler, useClass: AppErrorHandler },
@@ -60,9 +65,10 @@ import { AuthServiceProvider } from './services/auth.service.provider';
     AuthServiceProvider,
     AuthGuard,
     AdminAuthGuard,
+    BottlerAuthGuard,
+    DriverAuthGuard,
     GrowerAuthGuard,
     WineryAuthGuard,
-    BottlerAuthGuard,
     AuthHttp
   ],
   bootstrap: [AppComponent]

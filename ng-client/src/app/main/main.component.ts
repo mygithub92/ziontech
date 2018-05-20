@@ -51,4 +51,7 @@ export class MainComponent implements OnInit {
   isBottler() {
     return this.roles.includes('bottler');
   }
+  isDriver1() {
+    return this.roles.includes('driver1');
+  }
 }

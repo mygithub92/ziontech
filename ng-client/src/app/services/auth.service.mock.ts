@@ -23,6 +23,7 @@ export class MockAuthService implements AbstractAuthService {
 
     const grower = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJncm93ZXIiXX0.eviyhhozzaTslk_6aHioIQN_v31qKKsGZdgFmACUNJk';
     const winery = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJ3aW5lcnkiXX0.L0-W5maUJCJTuXaa2xZFEBbIdC5Q_F9tktbN-LAaOBw';
+    const driver1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJkcml2ZXIxIl19.XRifNLPpW4OMB5JxARuI6JaEH5La4C_WrFHAycUDkR4';
     const bottler = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJib3R0bGVyIl19.28BySzyeN_Anu4aEpHSfxoR1H6OrZf1XfEa-s5n-WuA';
     const full = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIFdhbmciLCJyb2xlcyI6WyJncm93ZXIiLCJ3aW5lcnkiLCJib3R0bGVyIl19.dc4tIMMYcJPb9g5h9fiGbxMRdlNzjWLwsGJ-uWVTQXw';
     const body = credentials;
@@ -36,6 +37,9 @@ export class MockAuthService implements AbstractAuthService {
       }
       if (body.email === 'bottler@ziontech.com') {
         token = bottler;
+      }
+      if (body.email === 'driver1@ziontech.com') {
+        token = driver1;
       }
       if (body.email === 'owner@ziontech.com') {
         token = full;

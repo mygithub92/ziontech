@@ -103,10 +103,10 @@ const wines = [{
 
 const roleStageMap = {
     grower: 10,
-    driver: 20,
+    driver1: 20,
     winery: 30,
-    bottler: 40,
-    warehouse: 50
+    bottler: 50,
+    warehouse: 60
 };
 
 @Injectable()

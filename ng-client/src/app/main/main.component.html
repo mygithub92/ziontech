@@ -31,6 +31,9 @@
           <li class="nav-item" *ngIf="isBottler()">
             <a class="nav-link" [routerLink]="['./products','bottler']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Bottler</a>
           </li>
+          <li class="nav-item" *ngIf="isDriver1()">
+            <a class="nav-link" [routerLink]="['./products','driver1']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Grape Driver</a>
+          </li>
           <li class="nav-divider"><mat-divider></mat-divider></li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['./products','transaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction</a>

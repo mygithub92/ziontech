@@ -23,6 +23,13 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
+          <mat-label>Region</mat-label>
+          <input matInput placeholder="Region" formControlName="region">
+          <mat-error *ngIf="form.get('region').invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
           <mat-label>Vineyard</mat-label>
           <input matInput placeholder="Vineyard" formControlName="vineyard">
           <mat-error *ngIf="form.get('vineyard').invalid">{{getErrorMessage()}}</mat-error>

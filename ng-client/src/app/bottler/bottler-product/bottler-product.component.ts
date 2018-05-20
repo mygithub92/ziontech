@@ -39,9 +39,11 @@ export class BottlerProductComponent implements OnInit {
   }
 
   onSubmit(data) {
-    this.service.bottlerUpdate({key: this.selectedId, ...data})
-    .finally(() => this.router.navigate(['/home/products', 'bottler']))
-    .subscribe(res => console.log(res));
+    if (this.form.valid) {
+      this.service.bottlerUpdate({key: this.selectedId, ...data})
+      .finally(() => this.router.navigate(['/home/products', 'bottler']))
+      .subscribe(res => console.log(res));
+    }
   }
 
   getErrorMessage() {

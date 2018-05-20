@@ -76,6 +76,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       case 'bottler':
         this.populateBottlerMetaData();
         break;
+      case 'driver1':
+        this.populateDriverMetaData();
+        break;
       case 'transaction':
         this.populateTransactionMetaData();
         break;
@@ -143,6 +146,22 @@ export class ProductListComponent implements OnInit, OnDestroy {
     ];
   }
 
+  populateDriverMetaData() {
+    this.rowClickable = true;
+    this.transaction = false;
+    this.showAddButton = false;
+    this.columns = [
+      { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
+      { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
+      { columnDef: 'region', header: 'Region', cell: (row: Product) => `${row.region}` },
+      { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${row.vineyard}` },
+      { columnDef: 'block', header: 'Block', cell: (row: Product) => `${row.block}` },
+      { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.rowRange}` },
+      { columnDef: 'vinery', header: 'Vinery', cell: (row: Product) => `${row.vinery}` },
+      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.estimatedWeight}` }
+    ];
+  }
+
   populateTransactionMetaData() {
     this.rowClickable = true;
     this.transaction = true;
@@ -195,6 +214,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
           break;
         case 'bottler':
           this.router.navigateByUrl(`/home/bottler/product/${row.key}`);
+          break;
+        case 'driver1':
+          this.router.navigateByUrl(`/home/driver/product/${row.key}`);
           break;
     }
   }

@@ -35,9 +35,11 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit(data) {
-    this.service.addProduct(data)
-    .finally(() => this.router.navigate(['/home/products', 'grower']))
-    .subscribe(res => console.log(res));
+    if (this.form.valid) {
+      this.service.addProduct(data)
+      .finally(() => this.router.navigate(['/home/products', 'grower']))
+      .subscribe(res => console.log(res));
+    }
   }
 
   getErrorMessage() {

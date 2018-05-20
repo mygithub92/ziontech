@@ -34,10 +34,12 @@ export class WineryProductComponent implements OnInit {
   }
 
   onSubmit(data) {
-    data.key = this.selectedId;
-    this.service.vineryUpdate({key: this.selectedId, ...data})
-    .finally(() => this.router.navigate(['/home/products', 'winery']))
-    .subscribe(res => console.log(res));
+    if (this.form.valid) {
+      data.key = this.selectedId;
+      this.service.vineryUpdate({key: this.selectedId, ...data})
+      .finally(() => this.router.navigate(['/home/products', 'winery']))
+      .subscribe(res => console.log(res));
+    }
   }
 
   getErrorMessage() {
