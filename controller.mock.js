@@ -17,6 +17,9 @@ var util          = require('util');
 var os            = require('os');
 var qr            = require('qr-image');
 
+
+var User          = require('./model/user');
+
 var chaincodeId   = 'ziontech6';
 var wines = [{
 	Key:"1",
@@ -73,9 +76,13 @@ var wines = [{
 
 module.exports = (function() {
 	return{
-		get_user_role: (req, res) => {
-			console.log(req.get('role'));
-			res.send(req.get('role'));
+		getAllUser: (req, res) => {
+			console.log('+++++++++++++++++++++++');
+			User.find().exec(function(err, users) {
+				if (err) throw err;
+				 
+				console.log(users);
+			});
 		},
 		
 		authenticate: (req, res) => {

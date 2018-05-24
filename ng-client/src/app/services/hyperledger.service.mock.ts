@@ -58,7 +58,20 @@ const wines = [{
         corkCap: '',
         status: 'Not Labeled',
         seller: 'BWS',
-        brand: 'Riesling'
+        brand: 'Riesling',
+        stages: [
+            { stageId: 10, period: { end: '2015-10-10' } }, // grape ready to delivery.
+            { stageId: 20, period: { start: '2015-10-10' } }, // driver picks up grape.
+            // { stageId: 20.10, period: { start: '2015-10-10', end: '2015-10-10' } }, // driver delivers to winery.
+            // { stageId: 30, period: { start: '2015-10-10' } }, // brew.
+            // { stageId: 30.10, period: { start: '2015-10-10', end: '2016-03-23' } }, // brew done.
+            // { stageId: 40, period: { start: '2016-03-23' } }, // driver pick up barral.
+            // { stageId: 40.10, period: { start: '2016-03-23', end: '2016-03-30' } }, // drop barral to bottling company.
+            // { stageId: 50, period: { start: '2016-03-30' } }, // bottler starts label.
+            // { stageId: 50.10, period: { start: '2016-03-30', end: '2016-05-27' } }, // bottles are labeled.
+            // { stageId: 60, period: { start: '2016-05-27' } }, // shipping to oversea.
+            // { stageId: 60.10, period: { start: '2016-05-27', end: '2016-07-03' } }, // ship to warehouse.
+        ]
     }
 },
 {

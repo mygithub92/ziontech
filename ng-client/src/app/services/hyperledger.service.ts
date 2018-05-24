@@ -18,9 +18,7 @@ export abstract class AbstractHyperledgerService {
 @Injectable()
 export class HyperledgerService implements AbstractHyperledgerService {
 
-  private baseUrl = 'http://18.221.40.162';
-
-  constructor(private http: Http) { }
+  constructor(private baseUrl: string, private http: Http) { }
 
   getHyperledgers(role) {
     return this.http.get(this.baseUrl + '/get_all_wine')

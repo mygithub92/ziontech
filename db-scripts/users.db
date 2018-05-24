@@ -1,0 +1,38 @@
+db.users.insert([
+	{
+	"name": "Grower",
+	"email": "grower@ziontech.com",
+	"password": "1234",
+    "role": "grower"
+	},
+	{
+	"name": "Winery",
+	"email": "winery@ziontech.com",
+	"password": "1234",
+    "role": "winery"
+	},
+	{
+	"name": "Bottler",
+	"email": "bottler@ziontech.com",
+	"password": "1234",
+    "role": "bottler"
+	},
+	{
+	"name": "Grape Driver",
+	"email": "grape_driver@ziontech.com",
+	"password": "1234",
+    "role": "grape_driver"
+	},
+	{
+	"name": "Barrel Driver",
+	"email": "barrel_driver@ziontech.com",
+	"password": "1234",
+    "role": "barrel_driver"
+	},
+	{
+	"name": "Wine Driver",
+	"email": "wine_driver@ziontech.com",
+	"password": "1234",
+    "role": "wine_driver"
+	},
+])

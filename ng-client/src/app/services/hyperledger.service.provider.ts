@@ -10,7 +10,7 @@ import { AbstractAuthService } from './auth.service';
 // DataService factory - Responsible to instantiate the service
 const hyperledgerServiceFactory = (http: Http, appService: AppService, authService: AbstractAuthService) => {
     // Example how to instantiate services conditionally
-    return appService.State === 1 ? new HyperledgerService(http) : new MockHyperledgerService(authService);
+    return appService.State === 1 ? new HyperledgerService(appService.url, http) : new MockHyperledgerService(authService);
 };
 
 // Provider - Used in the Component

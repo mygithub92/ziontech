@@ -13,11 +13,10 @@ export abstract class AbstractAuthService {
 
 @Injectable()
 export class AuthService implements AbstractAuthService {
-  private baseUrl = 'http://18.221.40.162';
 
   currentUser: any;
 
-  constructor(private http: Http) {
+  constructor(private baseUrl: string, private http: Http) {
     const token = localStorage.getItem('token');
     if (token) {
       const jwt = new JwtHelper();

@@ -9,7 +9,7 @@ import { Http } from '@angular/http';
 // DataService factory - Responsible to instantiate the service
 const authServiceFactory = (http: Http, appService: AppService) => {
     // Example how to instantiate services conditionally
-    return appService.State === 1 ? new AuthService(http) : new MockAuthService();
+    return appService.State === 1 ? new AuthService(appService.url, http) : new MockAuthService();
 };
 
 // Provider - Used in the Component
