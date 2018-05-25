@@ -1,6 +1,6 @@
-var db = require('./db');
+var mongoose = require('./mongoose');
  
-var winerySchema = db.Schema({
+var winerySchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
@@ -12,6 +12,6 @@ var winerySchema = db.Schema({
     }
  });
  
-var Winery = db.model('Winery', winerySchema);
+var Winery = mongoose.model('Winery', winerySchema);
  
 module.exports = Winery;

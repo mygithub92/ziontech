@@ -1,6 +1,6 @@
-var db = require('./db');
+var mongoose = require('./mongoose');
  
-var productSchema = db.Schema({
+var productSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     companyName: {
         type: String,
@@ -28,6 +28,6 @@ var productSchema = db.Schema({
     }]
  });
  
-var Product = db.model('Product', productSchema);
+var Product = mongoose.model('Product', productSchema);
  
 module.exports = Product;

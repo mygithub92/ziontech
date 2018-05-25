@@ -25,7 +25,7 @@ export class AuthService implements AbstractAuthService {
   }
 
   login(credentials) {
-   return this.http.post(this.baseUrl + '/api/authenticate', credentials)
+   return this.http.post(this.baseUrl + '/api/login', credentials)
     .map(response => {
       const result = response.json();
 

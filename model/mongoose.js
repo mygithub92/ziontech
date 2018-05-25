@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
+var config = require('../config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/ziontech', function(err, db){
+mongoose.connect(config.database, function(err, db){
     if (err) {
         console.log('Unable to connect to the server. Please start the server. Error:', err);
     } else {

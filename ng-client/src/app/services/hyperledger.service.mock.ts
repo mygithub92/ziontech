@@ -128,21 +128,21 @@ export class MockHyperledgerService implements AbstractHyperledgerService {
     constructor(protected authService: AbstractAuthService) { }
 
     getHyperledgers(role) {
-        let stage = roleStageMap[role];
-        if (!stage) {
-            const userRole = this.authService.currentUser && this.authService.currentUser.roles[0];
-            stage = roleStageMap[userRole];
-            stage += 10;
-        }
-        const result = wines.filter(wine => {
-            let stages = wine.Record.stages;
-            if (!stages) {
-                stages = [{ stageId: 10, period: { end: '2015-10-10' } }];
-            }
-            const recordStage = stages[stages.length - 1].stageId;
-            return !stages || stage === Math.floor(recordStage);
-        });
-        return Observable.of(result);
+        // let stage = roleStageMap[role];
+        // if (!stage) {
+        //     const userRole = this.authService.currentUser && this.authService.currentUser.roles[0];
+        //     stage = roleStageMap[userRole];
+        //     stage += 10;
+        // }
+        // const result = wines.filter(wine => {
+        //     let stages = wine.Record.stages;
+        //     if (!stages) {
+        //         stages = [{ stageId: 10, period: { end: '2015-10-10' } }];
+        //     }
+        //     const recordStage = stages[stages.length - 1].stageId;
+        //     return !stages || stage === Math.floor(recordStage);
+        // });
+        return Observable.of();
     }
 
     addProduct(data) {

@@ -1,7 +1,7 @@
-var db = require('./db');
+var mongoose = require('./mongoose');
 
-var userSchema = db.Schema({
-    _id: db.Schema.Types.ObjectId,
+var userSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
         required: true
@@ -20,6 +20,6 @@ var userSchema = db.Schema({
     }
  });
  
-var User = db.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
  
 module.exports = User;

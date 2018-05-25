@@ -1,6 +1,6 @@
-var db = require('./db');
+var mongoose = require('./mongoose');
  
-var grapeSchema = db.Schema({
+var grapeSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
@@ -37,6 +37,6 @@ var grapeSchema = db.Schema({
     },
  });
  
-var Grape = db.model('Grape', grapeSchema);
+var Grape = mongoose.model('Grape', grapeSchema);
  
 module.exports = Grape;

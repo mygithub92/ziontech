@@ -1,6 +1,6 @@
-var db = require('./db');
+var mongoose = require('./mongoose');
  
-var transactionSchema = db.Schema({
+var transactionSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     stageId: {
         type: Number,
@@ -16,6 +16,6 @@ var transactionSchema = db.Schema({
     }
  });
  
-var Transaction = db.model('Transaction', transactionSchema);
+var Transaction = mongoose.model('Transaction', transactionSchema);
  
 module.exports = Transaction;

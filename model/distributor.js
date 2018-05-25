@@ -1,6 +1,6 @@
-var db = require('./db');
+var mongoose = require('./mongoose');
  
-var distributorSchema = db.Schema({
+var distributorSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     driverId: {
         type: String,
@@ -12,6 +12,6 @@ var distributorSchema = db.Schema({
     }
  });
  
-var Distributor = db.model('Distributor', distributorSchema);
+var Distributor = mongoose.model('Distributor', distributorSchema);
  
 module.exports = Distributor;
