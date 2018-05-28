@@ -21,7 +21,7 @@ export class HyperledgerService implements AbstractHyperledgerService {
   constructor(private baseUrl: string, private http: Http) { }
 
   getHyperledgers(role) {
-    return this.http.get(this.baseUrl + '/get_all_wine')
+    return this.http.get(this.baseUrl + '/api/all_products')
     .map(res => res.json())
     .catch(this.handleError);
   }

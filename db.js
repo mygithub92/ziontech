@@ -16,9 +16,11 @@ var path = require('path');
 var util = require('util');
 var os = require('os');
 var qr = require('qr-image');
-var User = require('./model/user')
-var config = require('./config')
+var config = require('./config');
 var jwt = require('jsonwebtoken');
+
+var User = require('./model/user');
+var Product = require('./model/product');
 
 module.exports = (function () {
     return {
@@ -42,12 +44,14 @@ module.exports = (function () {
                 res.json({ token });
             });
         },
-        getAllUsers: (req, res) => {
-            User.find().exec(function (err, user) {
-                if (err) throw err;
-
-                res.json({ user });
-            });
+        
+        all_products: (req, res) => {
+            payload = req.decoded;
+            Product.find()
+            .exec((err, products) => {
+                console.log(products);
+                res.json(products);
+            })
         },
 
         genereateQR: function (id) {

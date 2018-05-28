@@ -14,15 +14,15 @@ import { AuthServiceProvider } from '../services/auth.service.provider';
 })
 export class MainComponent implements OnInit {
   isCollapsed = true;
-  roles = [];
+  role;
 
   constructor(private dialog: MatDialog, private router: Router, private authService: AbstractAuthService) { }
 
   ngOnInit() {
     if (this.authService.currentUser) {
-      this.roles = this.authService.currentUser.roles || [];
+      this.role = this.authService.currentUser.role;
     }
-    this.router.navigate([`/home/products/${this.roles[0]}`]);
+    this.router.navigate([`/home/products/${this.role}`]);
   }
 
   openDialog() {
@@ -43,15 +43,15 @@ export class MainComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
   isGrower() {
-    return this.roles.includes('grower');
+    return this.role === 'grower';
   }
   isWinery() {
-    return this.roles.includes('winery');
+    return this.role === 'winery';
   }
   isBottler() {
-    return this.roles.includes('bottler');
+    return this.role === 'bottler';
   }
   isDriver1() {
-    return this.roles.includes('driver1');
+    return this.role === 'driver1';
   }
 }

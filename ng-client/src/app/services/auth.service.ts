@@ -25,18 +25,19 @@ export class AuthService implements AbstractAuthService {
   }
 
   login(credentials) {
-   return this.http.post(this.baseUrl + '/api/login', credentials)
-    .map(response => {
-      const result = response.json();
+    return this.http.post(this.baseUrl + '/api/login', credentials)
+      .map(response => {
+        const result = response.json();
 
-      if (result && result.token) {
-        localStorage.setItem('token', result.token);
+        if (result && result.token) {
+          localStorage.setItem('token', result.token);
 
-        const jwt = new JwtHelper();
-        this.currentUser = jwt.decodeToken(localStorage.getItem('token'));
-        return true;
-      } else { return false; }
-    });
+          const jwt = new JwtHelper();
+          this.currentUser = jwt.decodeToken(localStorage.getItem('token'));
+          console.log(this.currentUser);
+          return true;
+        } else { return false; }
+      });
   }
 
   logout() {

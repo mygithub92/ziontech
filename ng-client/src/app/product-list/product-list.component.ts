@@ -45,6 +45,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.service.getHyperledgers(this.role)
         .takeUntil(this.componentDestroyed$)
         .subscribe(response => {
+          console.log(response);
           setTimeout(() => {
             const result = response.map(record => {
               return {

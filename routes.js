@@ -4,13 +4,12 @@ var db = require('./db');
 
 module.exports = function(app){
   app.post('/api/login', function(req, res) {
-    console.log(req.body);
     db.login(req, res);
-  })
+  });
 
-  app.get('/api/all_users', function(req, res) {
-    db.getAllUsers(req, res);
-  })
+  app.get('/api/all_products', function(req, res) {
+    db.all_products(req, res);
+  });
 
   app.get('/qr', function(req, res){
     res.sendFile(require('path').join(__dirname, `client/public/qr/qr${req.query.id}.png`));
@@ -30,9 +29,6 @@ module.exports = function(app){
   });
   app.get('/getWine', function(req, res){
     wine.getWine(req, res);
-  });
-  app.get('/qr', function(req, res) {
-    wine.qr(req, res);
   });
   app.get('/get_all_wine', function(req, res){
     wine.get_all_wine(req, res);

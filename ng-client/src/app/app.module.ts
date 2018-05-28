@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { HttpModule, Http, BaseRequestOptions } from '@angular/http';
+import { HttpModule, Http, BaseRequestOptions, XHRBackend, RequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -22,6 +22,7 @@ import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-di
 import { AppService } from './services/app.service';
 import { AuthServiceProvider } from './services/auth.service.provider';
 import { DriverComponent } from './driver/driver.component';
+import { httpFactory } from './http-interceptor/http.factory';
 import {
   AuthGuard,
   AdminAuthGuard,
@@ -61,6 +62,11 @@ import {
   ],
   providers: [
     // { provide: ErrorHandler, useClass: AppErrorHandler },
+    {
+      provide: Http,
+      useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions]
+    },
     AppService,
     AuthServiceProvider,
     AuthGuard,
