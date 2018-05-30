@@ -46,9 +46,10 @@ export class AddProductComponent implements OnInit {
       if (params['id'] && params['id'] !== '0') {
         this.service.getProduct(params['id'])
           .takeUntil(this.componentDestroyed$)
-          .subscribe(response => {
+          .subscribe(products => {
+            products[0].companyName = products[0].product.companyName;
             setTimeout(() => {
-              this.form.patchValue(response[0]);
+              this.form.patchValue(products[0]);
             });
           });
       }
