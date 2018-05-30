@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractHyperledgerService } from '../../services/hyperledger.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/finally';
+import { Observable } from 'rxjs/Observable';
 import { HyperledgerServiceProvider } from '../../services/hyperledger.service.provider';
+import { Subject } from 'rxjs/Subject';
+import { Product } from '../../model/Product';
+import { ProductListComponent } from '../../product-list/product-list.component';
 
 @Component({
   selector: 'app-add-product',
@@ -12,14 +16,22 @@ import { HyperledgerServiceProvider } from '../../services/hyperledger.service.p
   providers: [HyperledgerServiceProvider]
 })
 export class AddProductComponent implements OnInit {
+  componentDestroyed$: Subject<boolean> = new Subject();
+
   form;
   companies = ['Penley', 'Hoggies Estate'];
 
-  constructor(private service: AbstractHyperledgerService, private router: Router, fb: FormBuilder) {
+  constructor(
+    private service: AbstractHyperledgerService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+  }
 
-    this.form = fb.group(
+  ngOnInit() {
+    this.form = this.fb.group(
       {
-        id: ['', Validators.required],
         companyName: ['', Validators.required],
         region: ['', Validators.required],
         vineyard: ['', Validators.required],
@@ -27,26 +39,32 @@ export class AddProductComponent implements OnInit {
         rowRange: ['', Validators.required],
         variety: ['', Validators.required],
         vintage: ['', Validators.required],
-        dateDelivered: ['', Validators.required],
-        vinery: ['', Validators.required],
         estimatedWeight: ['', Validators.required]
       }
     );
-  }
+    this.route.params.subscribe(params => {
+      if (params['id'] && params['id'] !== '0') {
+        this.service.getProduct(params['id'])
+          .takeUntil(this.componentDestroyed$)
+          .subscribe(response => {
+            setTimeout(() => {
+              this.form.patchValue(response[0]);
+            });
+          });
+      }
+    });
 
+
+  }
   onSubmit(data) {
     if (this.form.valid) {
       this.service.addProduct(data)
-      .finally(() => this.router.navigate(['/home/products', 'grower']))
-      .subscribe(res => console.log(res));
+        .finally(() => this.router.navigate(['/home/products', 'grower']))
+        .subscribe(res => console.log(res));
     }
   }
 
   getErrorMessage() {
     return 'You must enter a value';
   }
-
-  ngOnInit() {
-  }
-
 }

@@ -1,5 +1,5 @@
 <div class="button-row" *ngIf="showAddButton">
-  <button mat-raised-button color="primary" [routerLink]="['/home/grower/new']">Add</button>
+  <button mat-raised-button color="primary" [routerLink]="['/home/grower/new/0']">Add</button>
 </div>
 <div class="example-header">
   <mat-form-field>
@@ -28,7 +28,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
       (click)="rowClick(row)"
-      [ngClass]="{'clickable-row': rowClickable}"
+      class="clickable-row"
     ></mat-row>
   </mat-table>
   <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>

@@ -1,7 +1,10 @@
 var mongoose = require('./mongoose');
  
 var transactionSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    product: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Product'
+    },
     stageId: {
         type: Number,
         required: true

@@ -19,8 +19,13 @@ var qr = require('qr-image');
 var config = require('./config');
 var jwt = require('jsonwebtoken');
 
+var mongoose = require('mongoose');
 var User = require('./model/user');
 var Product = require('./model/product');
+var Grape = require('./model/grape');
+var Winery = require('./model/winery');
+var Wine = require('./model/wine');
+var Distributor = require('./model/distributor');
 
 module.exports = (function () {
     return {
@@ -44,17 +49,105 @@ module.exports = (function () {
                 res.json({ token });
             });
         },
-        
-        all_products: (req, res) => {
-            payload = req.decoded;
-            Product.find()
-            .exec((err, products) => {
-                console.log(products);
-                res.json(products);
+
+        get_all_grapes: (req, res) => {
+            var history = req.query.history != null;
+            var query = {transferred: history};
+            if (req.query.id && req.query.id !== '0') {
+                query.product = {_id: req.query.id};
+            }
+            Grape.find(query).exec((err, grapes) => {
+                if (err) throw err;
+
+                res.json(grapes);
             })
         },
 
-        genereateQR: function (id) {
+        init_users: (req, res) => {
+            users = [
+                new User({ name: 'Grower', email: 'grower@ziontech.com', password: '1234', role: 'grower' }),
+                new User({ name: 'Winery', email: 'winery@ziontech.com', password: '1234', role: 'winery' }),
+                new User({ name: 'Bottler', email: 'bottler@ziontech.com', password: '1234', role: 'bottler' }),
+                new User({ name: 'Grape Driver', email: 'grape_driver@ziontech.com', password: '1234', role: 'grape_driver' }),
+                new User({ name: 'Barrel Driver', email: 'barrel_driver@ziontech.com', password: '1234', role: 'barrel_driver' }),
+                new User({ name: 'Wine Driver', email: 'wine_driver@ziontech.com', password: '1234', role: 'wine_driver' }),
+            ]
+            users.forEach(user => user.save(function (err) {
+                if (err) throw err;
+
+                console.log('User created!');
+            }));
+        },
+
+        init_products: (req, res) => {
+            // var user = User.findOne({ email: 'grower@ziontech.com' }).exec((err, user) => {
+            //     if (err) throw err;
+
+            //     var product1 = new Product({
+            //         _id: new mongoose.Types.ObjectId(),
+            //         user: user._id,
+            //         companyName: "Hoggies Estate"
+            //     });
+            //     product1.save((err) => {
+            //         if (err) throw err;
+            //         console.log('Product1 created!');
+
+            //         var grape = new Grape({
+            //             product: product1._id,
+            //             user: user._id,
+            //             name: "Gaven",
+            //             region: "Merbein",
+            //             vineyard: "Thompson",
+            //             block: "2",
+            //             rowRange: "1-3",
+            //             variety: "Muscat of Alexandria",
+            //             vintage: 2018,
+            //             estimatedWeight: 20,
+            //             actualWeight: 18
+            //         });
+            //         grape.save((err) => {
+            //             if (err) throw err;
+            //             console.log('Grape created!');
+            //         })
+            //     });
+
+            //     var product2 = new Product({
+            //         _id: new mongoose.Types.ObjectId(),
+            //         user: user._id,
+            //         companyName: "Penley"
+            //     });
+            //     product2.save((err) => {
+            //         if (err) throw err;
+
+            //         console.log('Product2 created!');
+            //         new Grape({
+            //             product: product2._id,
+            //             user: user._id,
+            //             name: "Gaven",
+            //             region: "Coonawarra",
+            //             vineyard: "Ladbroke",
+            //             block: "3",
+            //             rowRange: "4-10",
+            //             variety: "Shiraz",
+            //             vintage: 2016,
+            //             estimatedWeight: 35,
+            //             actualWeight: 33
+            //         }).save((err) => {
+            //             if (err) throw err;
+            //             console.log('Grape created!');
+            //         })
+            //     });
+            // })
+
+            Grape.findOne({region: 'Merbein'}).populate('product', 'user').exec((err,newstore) => {
+                console.log(newstore);
+            });
+        }
+
+
+
+
+        , genereateQR: function (id) {
             const url = `http://18.221.40.162/getWine?id=${id}`;
             var qr_svg = qr.image(url);
             qr_svg.pipe(require('fs').createWriteStream(`ng-client/src/assets/qr/qr${id}.png`));
@@ -68,7 +161,7 @@ module.exports = (function () {
         },
 
         getWine: function (req, res) {
-            console.log("getting wine from database: ");
+            console.log('getting wine from database: ');
             const wineId = req.query.id;
             this.authUser({
                 chaincodeId: chaincodeId,
@@ -76,19 +169,19 @@ module.exports = (function () {
                 args: [wineId]
             }, false, 'queryByChaincode')
                 .then((query_responses) => {
-                    console.log("Query has completed, checking results");
+                    console.log('Query has completed, checking results');
                     // query_responses could have more than one  results if there multiple peers were used as targets
                     if (query_responses && query_responses.length == 1) {
                         if (query_responses[0] instanceof Error) {
-                            console.error("error from query = ", query_responses[0]);
+                            console.error('error from query = ', query_responses[0]);
                         } else {
-                            console.log("Response is ", query_responses[0].toString());
+                            console.log('Response is ', query_responses[0].toString());
                             // res.json(JSON.parse(query_responses[0].toString()));
                             const result = JSON.parse(query_responses[0].toString());
                             res.render('index', result);
                         }
                     } else {
-                        console.log("No payloads were returned from query");
+                        console.log('No payloads were returned from query');
                     }
                 }).catch((err) => {
                     console.error('Failed to query successfully :: ' + err);
@@ -96,24 +189,24 @@ module.exports = (function () {
         },
 
         get_all_wine: function (req, res) {
-            console.log("getting all wines from database: ");
+            console.log('getting all wines from database: ');
             this.authUser({
                 chaincodeId: chaincodeId,
                 fcn: 'queryAllWine',
                 args: ['']
             }, false, 'queryByChaincode')
                 .then((query_responses) => {
-                    console.log("Query has completed, checking results");
+                    console.log('Query has completed, checking results');
                     // query_responses could have more than one  results if there multiple peers were used as targets
                     if (query_responses && query_responses.length == 1) {
                         if (query_responses[0] instanceof Error) {
-                            console.error("error from query = ", query_responses[0]);
+                            console.error('error from query = ', query_responses[0]);
                         } else {
-                            console.log("Response is ", query_responses[0].toString());
+                            console.log('Response is ', query_responses[0].toString());
                             res.json(JSON.parse(query_responses[0].toString()));
                         }
                     } else {
-                        console.log("No payloads were returned from query");
+                        console.log('No payloads were returned from query');
                     }
                 }).catch((err) => {
                     console.error('Failed to query successfully :: ' + err);
@@ -121,7 +214,7 @@ module.exports = (function () {
         },
 
         add_wine: function (req, res) {
-            console.log("submit recording of a wine: ");
+            console.log('submit recording of a wine: ');
             var data = req.body;
             console.log(data);
             this.authUser({
@@ -140,7 +233,7 @@ module.exports = (function () {
         },
 
         updateWine: function (req, res, data) {
-            console.log("changing holder of wine catch: ");
+            console.log('changing holder of wine catch: ');
             this.authUser({
                 chaincodeId: chaincodeId,
                 fcn: data.funcName,
@@ -205,7 +298,6 @@ module.exports = (function () {
             }
             if (isProposalGood) {
                 console.log(util.format(
-                    'Successfully sent Proposal and received ProposalResponse: Status - %s, message - "%s"',
                     proposalResponses[0].response.status, proposalResponses[0].response.message));
 
                 // build up the request for the orderer to have the transaction committed

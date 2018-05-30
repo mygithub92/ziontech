@@ -1,7 +1,11 @@
 var mongoose = require('./mongoose');
+var Product = require('./product');
  
 var distributorSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    product: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Product'
+    },
     driverId: {
         type: String,
         required: true

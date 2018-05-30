@@ -8,8 +8,24 @@ module.exports = function(app){
   });
 
   app.get('/api/all_products', function(req, res) {
-    db.all_products(req, res);
+    var role = req.decoded.role;
+    switch(role) {
+      case 'grower':
+        db.get_all_grapes(req, res);
+    }
   });
+
+  app.get('/api/get_all_grapes', function(req, res) {
+    db.get_all_grapes(req, res);
+  });
+
+  app.get('/api/init_users', function(req, res) {
+    db.init_users(req, res);
+  })
+
+  app.get('/api/init_products', function(req, res) {
+    db.init_products(req, res);
+  })
 
   app.get('/qr', function(req, res){
     res.sendFile(require('path').join(__dirname, `client/public/qr/qr${req.query.id}.png`));

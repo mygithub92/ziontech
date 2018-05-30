@@ -22,8 +22,8 @@ export const appRoutes = [
     component: MainComponent,
     children: [
       // { path: '', redirectTo: 'products/grower', pathMatch: 'full' },
-      { path: 'products/:role', component: ProductListComponent },
-      { path: 'grower/new', component: AddProductComponent, canActivate: [GrowerAuthGuard] },
+      { path: 'products/:action', component: ProductListComponent },
+      { path: 'grower/new/:id', component: AddProductComponent, canActivate: [GrowerAuthGuard] },
       { path: 'winery/product/:id', component: WineryProductComponent, canActivate: [WineryAuthGuard] },
       { path: 'bottler/product/:id', component: BottlerProductComponent, canActivate: [BottlerAuthGuard] },
       { path: 'driver/product/:id', component: DriverComponent, canActivate: [DriverAuthGuard] },

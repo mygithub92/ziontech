@@ -1,7 +1,17 @@
 var mongoose = require('./mongoose');
- 
+var autopopulate = require('mongoose-autopopulate');
+
 var grapeSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+        autopopulate: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        autopopulate: true
+    },
     name: {
         type: String,
         required: true
@@ -27,16 +37,21 @@ var grapeSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    estimatedWeight:  {
+    estimatedWeight: {
         type: Number,
         required: true
     },
-    actualWeight:  {
+    actualWeight: {
         type: Number,
         required: true
     },
- });
- 
-var Grape = mongoose.model('Grape', grapeSchema);
- 
+    transferred: {
+        type: Boolean,
+        default: false
+    }
+});
+
+grapeSchema.plugin(autopopulate);
+var Grape = mongoose.model('Grape', grapeSchema, 'grapes');
+
 module.exports = Grape;

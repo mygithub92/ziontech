@@ -25,7 +25,7 @@ export class AdminAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.roles && this.authService.currentUser.roles.includes('admin')) {
+    if (this.authService.currentUser.roles && this.authService.currentUser.role === 'admin') {
       return true;
     }
 
@@ -44,7 +44,7 @@ export class BottlerAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.roles.includes('bottler')) {
+    if (this.authService.currentUser.role === 'bottler') {
       return true;
     }
 
@@ -63,7 +63,7 @@ export class DriverAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.roles.includes('driver1')) {
+    if (this.authService.currentUser.role === 'driver1') {
       return true;
     }
 
@@ -82,8 +82,7 @@ export class GrowerAuthGuard extends AuthGuard {
       return false;
     }
 
-    console.log(this.authService.currentUser.roles);
-    if (this.authService.currentUser.roles.includes('grower')) {
+    if (this.authService.currentUser.role === 'grower') {
       return true;
     }
 
@@ -103,7 +102,7 @@ export class WineryAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.roles.includes('winery')) {
+    if (this.authService.currentUser.role === 'winery') {
       return true;
     }
 

@@ -10,7 +10,7 @@ export interface Product {
   variety: string;
   vintage: string;
   dateDelivered: string;
-  vinery: string;
+  winery: string;
   estimatedWeight: string;
   actualWeight: string;
   volume: string;
