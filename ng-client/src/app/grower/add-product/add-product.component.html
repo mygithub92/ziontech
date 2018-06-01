@@ -67,6 +67,7 @@
   </div>
   <div class="button-row">
     <button mat-raised-button color="primary" type="submit">Submit</button>
-    <button mat-raised-button color="warn" [routerLink]="['/home/products','grower']">Cancel</button>
+    <button mat-raised-button color="warn" type="button" *ngIf="showDeleteButton()" (click)="delete()">Delete</button>
+    <button mat-raised-button color="btn-secondary" [routerLink]="['/home/products','grower']">Cancel</button>
   </div>
 </form>

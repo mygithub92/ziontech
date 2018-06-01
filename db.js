@@ -51,16 +51,126 @@ module.exports = (function () {
         },
 
         get_all_grapes: (req, res) => {
-            var history = req.query.history != null;
-            var query = {transferred: history};
+
             if (req.query.id && req.query.id !== '0') {
-                query.product = {_id: req.query.id};
+                Grape.findById(req.query.id).exec((err, grape) => {
+                    res.json(grape);
+                })
+            } else {
+                var history = req.query.history === 'true';
+                var query = { transferred: history };
+                Grape.find(query).exec((err, grapes) => {
+                    if (err) throw err;
+
+                    res.json(grapes);
+                })
             }
-            Grape.find(query).exec((err, grapes) => {
+        },
+
+        update_grape: (req, res) => {
+            var data = req.body;
+            var _id = data._id;
+            if (_id) {
+                delete data._id;
+                Grape.update({ _id }, data, (err) => {
+                    if (err) throw err;
+
+                    res.json('Update sucessfully');
+                });
+            } else {
+                var product = new Product({
+                    _id: new mongoose.Types.ObjectId(),
+                    user: req.decoded.sub,
+                });
+                product.save((err) => {
+                    if (err) throw err;
+
+                    console.log('Product created!');
+
+                    var grape = new Grape({ ...data, product: product._id, user: req.decoded.sub, name: req.decoded.name });
+                    grape.save((err) => {
+                        if (err) throw err;
+                        console.log('Grape created!');
+
+                        res.json('Create sucessfully');
+                    });
+                });
+            }
+        },
+
+        delete_grape: (req, res) => {
+            Grape.findByIdAndRemove(req.query.id).exec((err, product) => {
                 if (err) throw err;
 
-                res.json(grapes);
+                res.json(`${product._id} Grape got delete sucessfull`);
             })
+        },
+
+        get_all_wineries: (req, res) => {
+
+            if (req.query.id && req.query.id !== '0') {
+                Grape.findById(req.query.id).lean().exec((err, grape) => {
+                    if (err) throw err;
+
+                    Winery.findOne({ 'product': grape.product._id }).exec((err, winery) => {
+                        if (err) throw err;
+                        if (winery) {
+                            grape = { ...grape, winery };
+                        }
+                        res.json(grape);
+                    })
+                })
+            } else {
+                var history = req.query.history === 'true';
+                var query = { transferred: history };
+                Grape.find(query).lean().exec((err, grapes) => {
+                    if (err) throw err;
+
+                    var promises = [];
+                    grapes.forEach(grape => {
+                        promises.push(Winery.findOne({ 'product': grape.product._id }))
+                    })
+
+                    Promise.all(promises).then((results) => {
+                       
+                        var products = [];
+                        grapes.forEach((grape, i) => {
+                            if (results[i]) {
+                                products.push({...grape, winery: results[i]})
+                            } else {
+                                products.push(grape);
+                            }
+                        })
+                        res.json(products);
+                    }).catch(function (err) {
+                        res.send(err);
+                    });
+                })
+            }
+        },
+
+        update_winery: (req, res) => {
+            var data = req.body;
+            console.log(data);
+            Grape.update({ _id: data._id }, { actualWeight: data.actualWeight }, (err) => {
+                if (err) throw err;
+
+                if (data.winery && data.winery._id) {
+                    Winery.update({ _id: data.winery._id }, data.winery, (err) => {
+                        if (err) throw err;
+
+                        res.json('Update sucessfully');
+                    })
+                } else {
+                    
+                    const winery = new Winery({ ...data.winery, product: data.productId });
+                    console.log(winery);
+                    winery.save((err) => {
+                        if (err) throw err;
+                        res.json('Create successfully');
+                    })
+                }
+            });
         },
 
         init_users: (req, res) => {
@@ -80,66 +190,66 @@ module.exports = (function () {
         },
 
         init_products: (req, res) => {
-            // var user = User.findOne({ email: 'grower@ziontech.com' }).exec((err, user) => {
-            //     if (err) throw err;
+            var user = User.findOne({ email: 'grower@ziontech.com' }).exec((err, user) => {
+                if (err) throw err;
 
-            //     var product1 = new Product({
-            //         _id: new mongoose.Types.ObjectId(),
-            //         user: user._id,
-            //         companyName: "Hoggies Estate"
-            //     });
-            //     product1.save((err) => {
-            //         if (err) throw err;
-            //         console.log('Product1 created!');
+                var product1 = new Product({
+                    _id: new mongoose.Types.ObjectId(),
+                    user: user._id,
+                });
+                product1.save((err) => {
+                    if (err) throw err;
+                    console.log('Product1 created!');
 
-            //         var grape = new Grape({
-            //             product: product1._id,
-            //             user: user._id,
-            //             name: "Gaven",
-            //             region: "Merbein",
-            //             vineyard: "Thompson",
-            //             block: "2",
-            //             rowRange: "1-3",
-            //             variety: "Muscat of Alexandria",
-            //             vintage: 2018,
-            //             estimatedWeight: 20,
-            //             actualWeight: 18
-            //         });
-            //         grape.save((err) => {
-            //             if (err) throw err;
-            //             console.log('Grape created!');
-            //         })
-            //     });
+                    var grape = new Grape({
+                        product: product1._id,
+                        user: user._id,
+                        companyName: "Hoggies Estate",
+                        name: "Gaven",
+                        region: "Merbein",
+                        vineyard: "Thompson",
+                        block: "2",
+                        rowRange: "1-3",
+                        variety: "Muscat of Alexandria",
+                        vintage: 2018,
+                        estimatedWeight: 20,
+                        actualWeight: 18
+                    });
+                    grape.save((err) => {
+                        if (err) throw err;
+                        console.log('Grape created!');
+                    })
+                });
 
-            //     var product2 = new Product({
-            //         _id: new mongoose.Types.ObjectId(),
-            //         user: user._id,
-            //         companyName: "Penley"
-            //     });
-            //     product2.save((err) => {
-            //         if (err) throw err;
+                var product2 = new Product({
+                    _id: new mongoose.Types.ObjectId(),
+                    user: user._id,
+                });
+                product2.save((err) => {
+                    if (err) throw err;
 
-            //         console.log('Product2 created!');
-            //         new Grape({
-            //             product: product2._id,
-            //             user: user._id,
-            //             name: "Gaven",
-            //             region: "Coonawarra",
-            //             vineyard: "Ladbroke",
-            //             block: "3",
-            //             rowRange: "4-10",
-            //             variety: "Shiraz",
-            //             vintage: 2016,
-            //             estimatedWeight: 35,
-            //             actualWeight: 33
-            //         }).save((err) => {
-            //             if (err) throw err;
-            //             console.log('Grape created!');
-            //         })
-            //     });
-            // })
+                    console.log('Product2 created!');
+                    new Grape({
+                        product: product2._id,
+                        user: user._id,
+                        companyName: "Penley",
+                        name: "Gaven",
+                        region: "Coonawarra",
+                        vineyard: "Ladbroke",
+                        block: "3",
+                        rowRange: "4-10",
+                        variety: "Shiraz",
+                        vintage: 2016,
+                        estimatedWeight: 35,
+                        actualWeight: 33
+                    }).save((err) => {
+                        if (err) throw err;
+                        console.log('Grape created!');
+                    })
+                });
+            })
 
-            Grape.findOne({region: 'Merbein'}).populate('product', 'user').exec((err,newstore) => {
+            Grape.findOne({ region: 'Merbein' }).populate('product', 'user').exec((err, newstore) => {
                 console.log(newstore);
             });
         }

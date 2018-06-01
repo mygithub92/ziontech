@@ -12,11 +12,29 @@ module.exports = function(app){
     switch(role) {
       case 'grower':
         db.get_all_grapes(req, res);
+        break;
+      case 'winery':
+        req.query.history = 'true';
+        db.get_all_wineries(req, res);
     }
   });
 
-  app.get('/api/get_all_grapes', function(req, res) {
-    db.get_all_grapes(req, res);
+  app.post('/api/add_update_product', function(req, res) {
+    var role = req.decoded.role;
+    switch(role) {
+      case 'grower':
+        db.update_grape(req, res);
+      case 'winery':
+        db.update_winery(req, res);
+    }
+  });
+
+  app.delete('/api/delete_product', function(req, res) {
+    var role = req.decoded.role;
+    switch(role) {
+      case 'grower':
+        db.delete_grape(req, res);
+    }
   });
 
   app.get('/api/init_users', function(req, res) {

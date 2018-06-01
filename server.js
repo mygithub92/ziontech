@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(function (req, res, next) {
-  if (req.url === '/api/login') {
+  if (req.url === '/api/login' || req.url === '/api/init_products') {
     next();
   } else {
     var authorization = req.headers.authorization;

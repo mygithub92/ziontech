@@ -8,6 +8,8 @@ import { HyperledgerServiceProvider } from '../../services/hyperledger.service.p
 import { Subject } from 'rxjs/Subject';
 import { Product } from '../../model/Product';
 import { ProductListComponent } from '../../product-list/product-list.component';
+import { DeleteConfirmDialogComponent } from '../../delete-confirm-dialog/delete-confirm-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-add-product',
@@ -20,12 +22,14 @@ export class AddProductComponent implements OnInit {
 
   form;
   companies = ['Penley', 'Hoggies Estate'];
+  id: string;
 
   constructor(
     private service: AbstractHyperledgerService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
   }
 
@@ -43,13 +47,13 @@ export class AddProductComponent implements OnInit {
       }
     );
     this.route.params.subscribe(params => {
-      if (params['id'] && params['id'] !== '0') {
-        this.service.getProduct(params['id'])
+      this.id = params['id'];
+      if (this.id && this.id !== '0') {
+        this.service.getProduct(this.id)
           .takeUntil(this.componentDestroyed$)
-          .subscribe(products => {
-            products[0].companyName = products[0].product.companyName;
+          .subscribe(product => {
             setTimeout(() => {
-              this.form.patchValue(products[0]);
+              this.form.patchValue(product);
             });
           });
       }
@@ -59,10 +63,34 @@ export class AddProductComponent implements OnInit {
   }
   onSubmit(data) {
     if (this.form.valid) {
-      this.service.addProduct(data)
+      if (this.id !== '0') {
+        data._id = this.id;
+      }
+      this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', 'grower']))
         .subscribe(res => console.log(res));
     }
+  }
+
+  showDeleteButton() {
+    return this.id && this.id !== '0';
+  }
+
+  delete() {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+      width: '550px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.service.deleteProduct(this.id)
+          .finally(() => this.router.navigate(['/home/products', 'grower']))
+          .subscribe(res => {
+            console.log(res);
+          });
+      }
+    });
   }
 
   getErrorMessage() {

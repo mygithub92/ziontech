@@ -7,15 +7,12 @@ import { Product } from '../../model/Product';
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.css']
 })
-export class ConfirmDialogComponent implements OnInit {
+export class ConfirmDialogComponent {
 
   product: Product;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: Product) {
     this.product = data;
-  }
-
-  ngOnInit() {
   }
 
 }

@@ -1,34 +1,72 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
   <div class="example-container">
-    <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Actual Weight</mat-label>
-          <input matInput placeholder="Actual Weight" formControlName="actualWeight">
-          <mat-error *ngIf="form.get('actualWeight').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Volume</mat-label>
-          <input matInput placeholder="Actual Weight" formControlName="volume">
-          <mat-error *ngIf="form.get('volume').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>
-            <mat-icon>domain</mat-icon>
-            <i> Bottling Company Name </i>
-          </mat-label>
-          <mat-select formControlName="bottlingCompany" required>
-            <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let company of bottlingCompanies" [value]="company">{{ company }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('bottlingCompany').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div class="row">
+      <div class="col-6">
+        <mat-grid-list cols="1" rowHeight="70px" gutterSize="20px">
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>Actual Weight</mat-label>
+              <input matInput placeholder="Actual Weight" formControlName="actualWeight">
+              <mat-error *ngIf="form.get('actualWeight').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>Volume</mat-label>
+              <input matInput placeholder="Volume" formControlName="volume">
+              <mat-error *ngIf="form.get('volume').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>
+                <mat-icon>domain</mat-icon>
+                <i> Bottling Company Name </i>
+              </mat-label>
+              <mat-select formControlName="bottler" required>
+                <mat-option>-- None --</mat-option>
+                <mat-option *ngFor="let company of bottlingCompanies" [value]="company">{{ company }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('bottler').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title">Product information</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Compnay:</div>
+                  <div class="col">{{ product.companyName }}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Variety:</div>
+                  <div class="col">{{ product.variety }}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Vintage:</div>
+                  <div class="col">{{ product.vintage }}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Weight:</div>
+                  <div class="col">{{ product.estimatedWeight }}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div class="button-row">
     <button mat-raised-button color="primary" type="submit">Submit</button>

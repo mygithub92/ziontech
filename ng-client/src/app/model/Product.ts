@@ -1,7 +1,7 @@
 
 
 export interface Product {
-  key: string;
+  _id: string;
   companyName: string;
   region: string;
   vineyard: string;
@@ -10,7 +10,7 @@ export interface Product {
   variety: string;
   vintage: string;
   dateDelivered: string;
-  winery: string;
+  winery: Winery;
   estimatedWeight: string;
   actualWeight: string;
   volume: string;
@@ -21,6 +21,12 @@ export interface Product {
   seller: string;
   status: string;
   stage: Stage[];
+}
+
+export interface Winery {
+  _id: string;
+  volume: number;
+  bottler: string;
 }
 
 export interface Stage {

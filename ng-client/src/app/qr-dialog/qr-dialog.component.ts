@@ -6,15 +6,11 @@ import { MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './qr-dialog.component.html',
   styleUrls: ['./qr-dialog.component.css']
 })
-export class QrDialogComponent implements OnInit {
+export class QrDialogComponent {
 
   imagePath: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any) {
     this.imagePath = `assets/qr/qr${data.id}.png`;
    }
-
-  ngOnInit() {
-  }
-
 }

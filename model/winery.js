@@ -5,16 +5,20 @@ var winerySchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Product'
     },
-    name: {
-        type: String,
-        required: true
-    },
     volume: {
         type: Number,
         required: true
+    },
+    bottler: {
+        type: String,
+        required: true
+    },
+    transferred: {
+        type: Boolean,
+        default: false
     }
  });
  
-var Winery = mongoose.model('Winery', winerySchema);
+var Winery = mongoose.model('Winery', winerySchema, 'wineries');
  
 module.exports = Winery;

@@ -12,6 +12,10 @@ var grapeSchema = mongoose.Schema({
         ref: 'User',
         autopopulate: true
     },
+    companyName: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -41,10 +45,7 @@ var grapeSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    actualWeight: {
-        type: Number,
-        required: true
-    },
+    actualWeight: Number,
     transferred: {
         type: Boolean,
         default: false

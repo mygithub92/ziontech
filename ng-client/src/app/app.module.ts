@@ -31,6 +31,7 @@ import {
   GrowerAuthGuard,
   WineryAuthGuard
  } from './guard-services/auth-guard.service';
+import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,11 +45,13 @@ import {
     LoginComponent,
     NoAccessComponent,
     ConfirmDialogComponent,
-    DriverComponent
+    DriverComponent,
+    DeleteConfirmDialogComponent
   ],
   entryComponents: [
     QrDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    DeleteConfirmDialogComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

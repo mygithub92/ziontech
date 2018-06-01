@@ -9,9 +9,10 @@ import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 
 export abstract class AbstractHyperledgerService {
-    abstract getAllProducts(): Observable<any>;
+    abstract getAllProducts(history: boolean): Observable<any>;
     abstract getProduct(id: string): Observable<any>;
-    abstract addProduct(data): Observable<any>;
+    abstract addOrUpdateProduct(data): Observable<any>;
+    abstract deleteProduct(id: string): Observable<any>;
     abstract vineryUpdate(data): Observable<any>;
     abstract bottlerUpdate(data): Observable<any>;
 }
@@ -21,8 +22,8 @@ export class HyperledgerService implements AbstractHyperledgerService {
 
   constructor(private baseUrl: string, private http: Http) { }
 
-  getAllProducts() {
-    return this.http.get(this.baseUrl + '/api/all_products')
+  getAllProducts(history: boolean) {
+    return this.http.get(this.baseUrl + `/api/all_products?history=${history}`)
     .map(res => res.json())
     .catch(this.handleError);
   }
@@ -33,8 +34,14 @@ export class HyperledgerService implements AbstractHyperledgerService {
     .catch(this.handleError);
   }
 
-  addProduct(data) {
-      return this.http.post(this.baseUrl + '/add_wine', data)
+  addOrUpdateProduct(data) {
+      return this.http.post(this.baseUrl + '/api/add_update_product', data)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  deleteProduct(id: string) {
+      return this.http.delete(this.baseUrl + `/api/delete_product?id=${id}`)
       .map(res => res.json())
       .catch(this.handleError);
   }
