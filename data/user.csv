@@ -1,0 +1,5 @@
+id,name,email,password,role_id
+1,Gavin Hogg,gavin.hogg@titaniumthread.com,1234,1
+2,David Stokoe,david.stokoe@titaniumthread.com,1234,2
+3,Chris Hogg,chris.hogg@titaniumthread.com,1234,3
+4,Sean Gould,sean.gould@titaniumthread.com,1234,4

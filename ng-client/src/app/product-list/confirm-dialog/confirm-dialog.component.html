@@ -5,7 +5,7 @@
           ID:
         </mat-grid-tile>
         <mat-grid-tile>
-            {{ product.key}}
+            {{ product.id}}
         </mat-grid-tile>
         <mat-grid-tile>
           Company Name:
@@ -17,22 +17,22 @@
           Region:
         </mat-grid-tile>
         <mat-grid-tile>
-            {{ product.region}}
+            {{ product.grapes[0].region}}
         </mat-grid-tile>
         <mat-grid-tile>
           Variety:
         </mat-grid-tile>
         <mat-grid-tile>
-            {{ product.variety}}
+            {{ product.grapes[0].variety}}
         </mat-grid-tile>
         <mat-grid-tile>
           Vintage:
         </mat-grid-tile>
         <mat-grid-tile>
-            {{ product.vintage}}
+            {{ product.grapes[0].vintage}}
         </mat-grid-tile>
       </mat-grid-list>
-  <p>Are you sure you want to transfer this product to <strong>{{ product.vinery }}</strong>?</p>
+  <p>Are you sure you want to transfer this product?</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close="yes" color="primary">Yes</button>

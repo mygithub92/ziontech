@@ -1,54 +1,78 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
   <div class="example-container">
-    <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Brand</mat-label>
-          <input matInput placeholder="Brand" formControlName="brand">
-          <mat-error *ngIf="form.get('brand').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Label</mat-label>
-          <input matInput placeholder="Label" formControlName="label">
-          <mat-error *ngIf="form.get('label').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Cork Cap</mat-label>
-          <input matInput placeholder="Cork Cap" formControlName="corkCap">
-          <mat-error *ngIf="form.get('corkCap').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>
-            <mat-icon>domain</mat-icon>
-            <i> Seller </i>
-          </mat-label>
-          <mat-select formControlName="seller" required>
-            <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let seller of sellers" [value]="seller">{{ seller }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('seller').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>
-            <mat-icon>domain</mat-icon>
-            <i> Status </i>
-          </mat-label>
-          <mat-select formControlName="status" required>
-            <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('status').invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div class="row">
+      <div class="col-8">
+        <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>Brand</mat-label>
+              <input matInput placeholder="Brand" formControlName="brand">
+              <mat-error *ngIf="form.get('brand').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>Label</mat-label>
+              <input matInput placeholder="Label" formControlName="label">
+              <mat-error *ngIf="form.get('label').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>Cork Cap</mat-label>
+              <input matInput placeholder="Cork Cap" formControlName="corkCap">
+              <mat-error *ngIf="form.get('corkCap').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>
+                <mat-icon>domain</mat-icon>
+                <i> Status </i>
+              </mat-label>
+              <mat-select formControlName="status" required>
+                <mat-option>-- None --</mat-option>
+                <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('status').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div class="col" *ngIf="showCard()">
+        <div class="card" style="width: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title">Product information</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Compnay:</div>
+                  <div class="col">{{ product.companyName }}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Variety:</div>
+                  <div class="col">{{ grape.variety }}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Vintage:</div>
+                  <div class="col">{{ grape.vintage }}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Weight:</div>
+                  <div class="col">{{ grape.estimatedWeight }}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="button-row">
     <button mat-raised-button color="primary" type="submit">Submit</button>

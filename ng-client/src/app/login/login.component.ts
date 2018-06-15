@@ -1,20 +1,18 @@
-import { AbstractAuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthServiceProvider } from '../services/auth.service.provider';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [AuthServiceProvider]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   invalidLogin: boolean;
 
   constructor(
     private router: Router,
-    private authService: AbstractAuthService) { }
+    private authService: AuthService) { }
 
   signIn(credentials) {
     this.authService.login(credentials)

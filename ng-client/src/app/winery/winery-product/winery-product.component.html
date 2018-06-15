@@ -17,22 +17,9 @@
               <mat-error *ngIf="form.get('volume').invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-form-field>
-              <mat-label>
-                <mat-icon>domain</mat-icon>
-                <i> Bottling Company Name </i>
-              </mat-label>
-              <mat-select formControlName="bottler" required>
-                <mat-option>-- None --</mat-option>
-                <mat-option *ngFor="let company of bottlingCompanies" [value]="company">{{ company }}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="form.get('bottler').invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
         </mat-grid-list>
       </div>
-      <div class="col">
+      <div class="col" *ngIf="showCard()">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title">Product information</h5>
@@ -46,19 +33,19 @@
               <li class="list-group-item">
                 <div class="row">
                   <div class="col">Variety:</div>
-                  <div class="col">{{ product.variety }}</div>
+                  <div class="col">{{ grape.variety }}</div>
                 </div>
               </li>
               <li class="list-group-item">
                 <div class="row">
                   <div class="col">Vintage:</div>
-                  <div class="col">{{ product.vintage }}</div>
+                  <div class="col">{{ grape.vintage }}</div>
                 </div>
               </li>
               <li class="list-group-item">
                 <div class="row">
                   <div class="col">Weight:</div>
-                  <div class="col">{{ product.estimatedWeight }}</div>
+                  <div class="col">{{ grape.estimatedWeight }}</div>
                 </div>
               </li>
             </ul>

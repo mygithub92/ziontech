@@ -1,6 +1,3 @@
-//SPDX-License-Identifier: Apache-2.0
-var wine = require('./controller.mock.js');
-var db = require('./db');
 
 module.exports = function(app){
   app.post('/api/login', function(req, res) {

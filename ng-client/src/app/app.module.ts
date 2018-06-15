@@ -19,8 +19,6 @@ import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/
 import { NoAccessComponent } from './no-access/no-access.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmDialogComponent } from './product-list/confirm-dialog/confirm-dialog.component';
-import { AppService } from './services/app.service';
-import { AuthServiceProvider } from './services/auth.service.provider';
 import { DriverComponent } from './driver/driver.component';
 import { httpFactory } from './http-interceptor/http.factory';
 import {
@@ -32,6 +30,8 @@ import {
   WineryAuthGuard
  } from './guard-services/auth-guard.service';
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
+import { HyperledgerService } from './services/hyperledger.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -70,15 +70,15 @@ import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-con
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions]
     },
-    AppService,
-    AuthServiceProvider,
     AuthGuard,
     AdminAuthGuard,
     BottlerAuthGuard,
     DriverAuthGuard,
     GrowerAuthGuard,
     WineryAuthGuard,
-    AuthHttp
+    AuthHttp,
+    HyperledgerService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,21 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
 import { Router } from '@angular/router';
-import { AbstractAuthService } from '../services/auth.service';
-import { AuthServiceProvider } from '../services/auth.service.provider';
+import { AuthService } from '../services/auth.service';
+import { Roles } from '../shared/Roles.enum';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
-  providers: [AuthServiceProvider]
-
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
   isCollapsed = true;
   role;
 
-  constructor(private dialog: MatDialog, private router: Router, private authService: AbstractAuthService) { }
+  constructor(private dialog: MatDialog, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     if (this.authService.currentUser) {
@@ -43,15 +41,15 @@ export class MainComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
   isGrower() {
-    return this.role === 'grower';
+    return this.role === Roles.Grower;
   }
   isWinery() {
-    return this.role === 'winery';
+    return this.role === Roles.Winery;
   }
   isBottler() {
-    return this.role === 'bottler';
+    return this.role === Roles.Bottler;
   }
   isDriver1() {
-    return this.role === 'driver1';
+    return this.role === Roles.Distributor;
   }
 }

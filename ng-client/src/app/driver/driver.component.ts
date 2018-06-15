@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AbstractHyperledgerService } from '../services/hyperledger.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HyperledgerServiceProvider } from '../services/hyperledger.service.provider';
+import { HyperledgerService } from '../services/hyperledger.service';
 
 @Component({
   selector: 'app-driver',
   templateUrl: './driver.component.html',
-  styleUrls: ['./driver.component.css'],
-  providers: [HyperledgerServiceProvider]
+  styleUrls: ['./driver.component.css']
 })
 export class DriverComponent implements OnInit {
   form;
   selectedId: string;
 
   constructor(
-    private service: AbstractHyperledgerService,
+    private service: HyperledgerService,
     private route: ActivatedRoute,
     private router: Router,
     fb: FormBuilder) {
@@ -32,9 +30,9 @@ export class DriverComponent implements OnInit {
 
   onSubmit(data) {
     if (this.form.valid) {
-      this.service.bottlerUpdate({key: this.selectedId, ...data})
-      .finally(() => this.router.navigate(['/home/products', 'driver1']))
-      .subscribe(res => console.log(res));
+      // this.service.bottlerUpdate({key: this.selectedId, ...data})
+      // .finally(() => this.router.navigate(['/home/products', 'driver1']))
+      // .subscribe(res => console.log(res));
     }
   }
 

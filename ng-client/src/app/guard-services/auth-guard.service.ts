@@ -1,12 +1,12 @@
-import { AuthService, AbstractAuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Injectable, Inject } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { AuthServiceProvider } from '../services/auth.service.provider';
+import { Roles } from '../shared/Roles.enum';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-constructor(protected router: Router, protected authService: AbstractAuthService) { }
+constructor(protected router: Router, protected authService: AuthService) { }
 
   canActivate() {
     if (this.authService.isLoggedIn()) { return true; }
@@ -44,7 +44,7 @@ export class BottlerAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.role === 'bottler') {
+    if (this.authService.currentUser.role === Roles.Bottler) {
       return true;
     }
 
@@ -63,7 +63,7 @@ export class DriverAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.role === 'driver1') {
+    if (this.authService.currentUser.role === Roles.Distributor) {
       return true;
     }
 
@@ -82,7 +82,7 @@ export class GrowerAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.role === 'grower') {
+    if (this.authService.currentUser.role === Roles.Grower) {
       return true;
     }
 
@@ -102,7 +102,7 @@ export class WineryAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.currentUser.role === 'winery') {
+    if (this.authService.currentUser.role === Roles.Winery) {
       return true;
     }
 

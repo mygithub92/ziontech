@@ -19,6 +19,7 @@ var jwt = require('jsonwebtoken');
 // Load all of our middleware
 // configure app to use bodyParser()
 // this will let us get the data from a POST
+// this will let us get the data from a POST
 // app.use(express.static(__dirname + '/client'));
 app.set('view engine', 'pug');
 

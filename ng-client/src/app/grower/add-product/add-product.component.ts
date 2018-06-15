@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractHyperledgerService } from '../../services/hyperledger.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/finally';
-import { Observable } from 'rxjs/Observable';
-import { HyperledgerServiceProvider } from '../../services/hyperledger.service.provider';
-import { Subject } from 'rxjs/Subject';
-import { Product } from '../../model/Product';
-import { ProductListComponent } from '../../product-list/product-list.component';
-import { DeleteConfirmDialogComponent } from '../../delete-confirm-dialog/delete-confirm-dialog.component';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import 'rxjs/add/operator/finally';
+import { Subject } from 'rxjs/Subject';
+import { DeleteConfirmDialogComponent } from '../../delete-confirm-dialog/delete-confirm-dialog.component';
+import { AuthService } from '../../services/auth.service';
+import { Product } from '../../model/Product';
+import { HyperledgerService } from '../../services/hyperledger.service';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css'],
-  providers: [HyperledgerServiceProvider]
+  styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
@@ -23,13 +20,16 @@ export class AddProductComponent implements OnInit {
   form;
   companies = ['Penley', 'Hoggies Estate'];
   id: string;
+  prodcut: Product;
 
   constructor(
-    private service: AbstractHyperledgerService,
+    private service: HyperledgerService,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authSevice: AuthService
   ) {
   }
 
@@ -53,19 +53,23 @@ export class AddProductComponent implements OnInit {
           .takeUntil(this.componentDestroyed$)
           .subscribe(product => {
             setTimeout(() => {
+              this.prodcut = product;
               this.form.patchValue(product);
+              this.form.patchValue(product.grapes[0]);
             });
           });
       }
     });
-
-
   }
   onSubmit(data) {
     if (this.form.valid) {
-      if (this.id !== '0') {
-        data._id = this.id;
+      if (this.prodcut) {
+        data.id = this.prodcut.id;
+        if (this.prodcut.grapes || this.prodcut.grapes[0].id) {
+          data.grapeId = this.prodcut.grapes[0].id;
+        }
       }
+
       this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', 'grower']))
         .subscribe(res => console.log(res));
@@ -84,7 +88,7 @@ export class AddProductComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.service.deleteProduct(this.id)
+        this.service.deleteProduct(this.prodcut.id)
           .finally(() => this.router.navigate(['/home/products', 'grower']))
           .subscribe(res => {
             console.log(res);

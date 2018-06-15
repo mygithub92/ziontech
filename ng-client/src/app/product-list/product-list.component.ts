@@ -1,20 +1,19 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { AbstractHyperledgerService } from '../services/hyperledger.service';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
-import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
-import { Subject } from 'rxjs/Subject';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/takeUntil';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { HyperledgerServiceProvider } from '../services/hyperledger.service.provider';
+import { Subject } from 'rxjs/Subject';
 import { Product } from '../model/Product';
-import { AbstractAuthService } from '../services/auth.service';
+import { QrDialogComponent } from '../qr-dialog/qr-dialog.component';
+import { AuthService } from '../services/auth.service';
+import { HyperledgerService } from '../services/hyperledger.service';
+import { Roles } from '../shared/Roles.enum';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css'],
-  providers: [HyperledgerServiceProvider]
+  styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
@@ -29,9 +28,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private service: AbstractHyperledgerService,
+    private service: HyperledgerService,
     private router: Router,
-    private authService: AbstractAuthService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private dialog: MatDialog) { }
 
@@ -41,11 +40,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       this.action = params['action'];
       this.populateMetaData();
-      console.log(this.action);
       this.service.getAllProducts(this.action === 'transaction')
         .takeUntil(this.componentDestroyed$)
         .subscribe(response => {
           setTimeout(() => {
+            console.log(response);
             this.records = response;
             this.dataSource = new MatTableDataSource(this.records);
             this.dataSource.paginator = this.paginator;
@@ -62,16 +61,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   populateMetaData() {
     switch (this.authService.currentUser.role) {
-      case 'grower':
+      case Roles.Grower:
         this.populateGrowerMetaData();
         break;
-      case 'winery':
+      case Roles.Winery:
         this.populateWineryMetaData();
         break;
-      case 'bottler':
+      case Roles.Bottler:
         this.populateBottlerMetaData();
         break;
-      case 'driver1':
+      case Roles.Distributor:
         this.populateDriverMetaData();
         break;
       // default:
@@ -84,16 +83,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   populateGrowerMetaData() {
     this.columns = [
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
-      { columnDef: 'region', header: 'Region', cell: (row: Product) => `${row.region}` },
-      { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${row.vineyard}` },
-      { columnDef: 'block', header: 'Block', cell: (row: Product) => `${row.block}` },
-      { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.rowRange}` },
-      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.variety}` },
-      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.vintage}` },
-      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.estimatedWeight}` }
+      { columnDef: 'region', header: 'Region', cell: (row: Product) => `${row.grapes[0].region}` },
+      { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${row.grapes[0].vineyard}` },
+      { columnDef: 'block', header: 'Block', cell: (row: Product) => `${row.grapes[0].block}` },
+      { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.grapes[0].rowRange}` },
+      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.grapes[0].variety}` },
+      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
+      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` }
     ];
     if (this.action === 'transaction') {
-      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.actualWeight}` });
+      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.grapes[0].actualWeight}` });
     } else {
       this.columns.push({ columnDef: 'action', header: 'Action', cell: (row: Product) => 'Transfer' });
     }
@@ -102,47 +101,44 @@ export class ProductListComponent implements OnInit, OnDestroy {
   populateWineryMetaData() {
     this.columns = [
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
-      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.variety}` },
-      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.vintage}` },
-      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.estimatedWeight}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.actualWeight ? row.actualWeight : ''}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.winery && row.winery.volume ? row.winery.volume : ''}` },
-      { columnDef: 'bottler', header: 'Bottler', cell: (row: Product) => `${row.winery && row.winery.bottler ? row.winery.bottler : ''}` }
+      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.grapes[0].variety}` },
+      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
+      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` },
+      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.grapes[0].actualWeight ? row.grapes[0].actualWeight : ''}` },
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries.length && row.wineries[0].volume ? row.wineries[0].volume : ''}` }
     ];
     if (this.action !== 'transaction') {
       this.columns.push({
         columnDef: 'action',
         header: 'Action',
-        cell: (row: Product) => row.actualWeight && row.winery && row.winery.volume ? 'Transfer' : ''});
+        cell: (row: Product) => row.grapes[0].actualWeight && row.wineries.length && row.wineries[0].volume ? 'Transfer' : ''
+      });
     }
 
   }
 
   populateBottlerMetaData() {
     this.columns = [
-      { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
-      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.variety}` },
-      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.vintage}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.volume}` },
-      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${row.brand}` },
-      { columnDef: 'label', header: 'Label', cell: (row: Product) => `${row.label}` },
-      { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${row.corkCap}` },
-      { columnDef: 'seller', header: 'Seller', cell: (row: Product) => `${row.seller}` },
-      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${row.status}` }
+      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.grapes[0].variety}` },
+      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries[0].volume}` },
+      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${row.wines.length && row.wines[0].brand ? row.wines[0].brand : ''}` },
+      { columnDef: 'label', header: 'Label', cell: (row: Product) => `${row.wines.length && row.wines[0].label ? row.wines[0].label : ''}` },
+      { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${row.wines.length && row.wines[0].corkCap ? row.wines[0].corkCap : ''}` },
+      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${row.wines.length && row.wines[0].status ? row.wines[0].status : ''}` }
     ];
   }
 
   populateDriverMetaData() {
     this.columns = [
-      { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
+      // { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
-      { columnDef: 'region', header: 'Region', cell: (row: Product) => `${row.region}` },
-      { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${row.vineyard}` },
-      { columnDef: 'block', header: 'Block', cell: (row: Product) => `${row.block}` },
-      { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.rowRange}` },
-      { columnDef: 'winery', header: 'Winery', cell: (row: Product) => `${row.winery}` },
-      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.estimatedWeight}` }
+      { columnDef: 'region', header: 'Region', cell: (row: Product) => `${row.grapes[0].region}` },
+      { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${row.grapes[0].vineyard}` },
+      { columnDef: 'block', header: 'Block', cell: (row: Product) => `${row.grapes[0].block}` },
+      { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.grapes[0].rowRange}` },
+      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` }
     ];
   }
 
@@ -152,34 +148,49 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue;
   }
 
-  cellClick($event, row, cell) {
+  transfer($event, row, cell) {
     if (cell.header === 'Action') {
-      this.openConfirmDialog(row);
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '550px',
+        disableClose: true,
+        data: row
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.records = this.records.filter(e => e.id !== row.id);
+          this.dataSource = new MatTableDataSource(this.records);
+          this.service.transportProduct(row.id)
+            .subscribe(res => console.log(res));
+        }
+      });
+
       $event.stopPropagation();
     }
     return;
   }
 
   get showAddButton() {
-    return this.authService.currentUser.role === 'grower' && this.action !== 'transaction';
+    return this.authService.currentUser.role === Roles.Grower && this.action !== 'transaction';
   }
+
   rowClick(row) {
     if (this.action === 'transaction') {
-      this.openQrDialog(row._id);
+      this.openQrDialog(row.id);
       return;
     }
     switch (this.authService.currentUser.role) {
-      case 'grower':
-        this.router.navigateByUrl(`/home/grower/new/${row._id}`);
+      case Roles.Grower:
+        this.router.navigateByUrl(`/home/grower/new/${row.id}`);
         break;
-      case 'winery':
-        this.router.navigateByUrl(`/home/winery/product/${row._id}`);
+      case Roles.Winery:
+        this.router.navigateByUrl(`/home/winery/product/${row.id}`);
         break;
-      case 'bottler':
-        this.router.navigateByUrl(`/home/bottler/product/${row._id}`);
+      case Roles.Bottler:
+        this.router.navigateByUrl(`/home/bottler/product/${row.id}`);
         break;
-      case 'driver1':
-        this.router.navigateByUrl(`/home/driver/product/${row._id}`);
+      case Roles.Distributor:
+        this.router.navigateByUrl(`/home/driver/product/${row.id}`);
         break;
     }
   }
@@ -188,23 +199,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.dialog.open(QrDialogComponent, {
       data: {
         id
-      }
-    });
-  }
-
-  openConfirmDialog(data) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '550px',
-      disableClose: true,
-      data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        this.records = this.records.filter(e => e._id !== data._id);
-        this.dataSource = new MatTableDataSource(this.records);
-        this.service.addOrUpdateProduct({_id: data._id, transferred: true})
-        .subscribe(res => console.log(res));
       }
     });
   }
