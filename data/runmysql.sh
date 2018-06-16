@@ -1,0 +1,1 @@
+mysql --user=root --password ziontech < mysql-ubuntu.sql
