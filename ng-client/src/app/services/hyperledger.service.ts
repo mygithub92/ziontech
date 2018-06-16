@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class HyperledgerService {
-    private baseUrl = '';
+    private baseUrl = 'http://localhost:5000';
 
     constructor(private http: Http, private authService: AuthService) { }
 

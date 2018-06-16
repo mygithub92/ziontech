@@ -4,7 +4,6 @@ import * as cors from 'cors';
 import * as jwt from 'jsonwebtoken';
 import setRoutes from './routes';
 import { sequelize } from "./sequelize";
-import * as path from "path";
 
 const app = express();
 
@@ -12,15 +11,6 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
-
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('ng-client/dist'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'ng-client/dist/index.html'));
-  });
-}
-
 
 app.use(function(req, res, next) {
   if (req.url === '/api/login') {
@@ -32,6 +22,7 @@ app.use(function(req, res, next) {
       token = authorization.split(' ')[1];
     }
     token = token || req.body.token || req.params.token || req.headers['token'] || req.headers['x-access-token'];
+
     if (token) {
       jwt.verify(token, 'JIOwld*232f&l', function(err, decoded) {
         if (err) {
