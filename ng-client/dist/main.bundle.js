@@ -1588,7 +1588,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.baseUrl = 'http://localhost:5000';
+        this.baseUrl = '';
         var token = localStorage.getItem('token');
         if (token) {
             var jwt = new __WEBPACK_IMPORTED_MODULE_2_angular2_jwt__["JwtHelper"]();
