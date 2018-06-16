@@ -1671,7 +1671,7 @@ var HyperledgerService = /** @class */ (function () {
     function HyperledgerService(http, authService) {
         this.http = http;
         this.authService = authService;
-        this.baseUrl = 'http://localhost:5000';
+        this.baseUrl = '';
     }
     HyperledgerService.prototype.getAllProducts = function (history) {
         switch (this.authService.currentUser.role) {
