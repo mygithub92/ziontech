@@ -12,6 +12,16 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('ng-client/dist'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ng-client/dist/index.html'));
+  });
+}
+
+
 app.use(function(req, res, next) {
   if (req.url === '/api/login') {
     next();
@@ -21,7 +31,7 @@ app.use(function(req, res, next) {
     if (authorization) {
       token = authorization.split(' ')[1];
     }
-    token = token || req.body.token || req.param('token') || req.headers['token'] || req.headers['x-access-token'];
+    token = token || req.body.token || req.params.token || req.headers['token'] || req.headers['x-access-token'];
     if (token) {
       jwt.verify(token, 'JIOwld*232f&l', function(err, decoded) {
         if (err) {
@@ -41,13 +51,6 @@ app.use(function(req, res, next) {
 });
 
 setRoutes(app);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('ng-client/dist'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'ng-client/dist/index.html'));
-  });
-}
 
 // Save our port
 const port = process.env.PORT || 5000;
