@@ -1588,7 +1588,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.baseUrl = 'http://localhost:5000';
+        this.baseUrl = 'http://18.221.40.162:5000';
         var token = localStorage.getItem('token');
         if (token) {
             var jwt = new __WEBPACK_IMPORTED_MODULE_2_angular2_jwt__["JwtHelper"]();
@@ -1671,7 +1671,7 @@ var HyperledgerService = /** @class */ (function () {
     function HyperledgerService(http, authService) {
         this.http = http;
         this.authService = authService;
-        this.baseUrl = 'http://localhost:5000';
+        this.baseUrl = 'http://18.221.40.162:5000';
     }
     HyperledgerService.prototype.getAllProducts = function (history) {
         switch (this.authService.currentUser.role) {
