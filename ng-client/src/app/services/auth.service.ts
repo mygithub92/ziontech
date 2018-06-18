@@ -18,13 +18,13 @@ export class AuthService {
     if (token) {
       const jwt = new JwtHelper();
       this.currentUser = jwt.decodeToken(token);
+      console.log(this.currentUser);
       this.currentUser.roleMap = new Map();
       this.currentUser.roleIds = this.currentUser.roles.map(role => {
         this.currentUser.roleMap.set(role.id, role.name);
         return role.id;
       });
       this.currentRole = this.currentUser.roleIds[0];
-      console.log(this.currentUser);
     }
   }
 

@@ -131,7 +131,7 @@ export default class Controller {
 
     transportWinery = (req, res) => {
         Winery.update({ transferred: true }, { where: { productId: req.body.id } }).then(() => {
-            Product.update({ stageId: 30 }, { where: { id: req.body.id } }).then(() => {
+            Product.update({ stageId: 40 }, { where: { id: req.body.id } }).then(() => {
                 res.json('Done');
             });
         });
@@ -191,9 +191,9 @@ export default class Controller {
     }
 
     getTransportById = (req, res) => {
-        Transport.findOne({
+        Product.findOne({
             where: { id: req.query.id },
-            include: [{ model: Grape }, { model: Winery }, { model: Wine }]
+            include: [{ model: Grape }, { model: Winery }, { model: Wine }, {model: Transport}]
         }).then(product => res.json(product));
     }
 
@@ -204,6 +204,7 @@ export default class Controller {
     }
 
     createTransport = (req, res) => {
+        console.log(req.body);
         Transport.create({ ...req.body, userId: req.body.userId, productId: req.body.id }).then(transport => {
             res.json(transport);
         });

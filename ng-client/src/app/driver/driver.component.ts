@@ -46,8 +46,8 @@ export class DriverComponent implements OnInit {
             this.product = product;
             this.grape = product.grapes[0];
             this.form.patchValue(this.grape);
-            if (this.product.tranports && this.product.tranports.length) {
-              this.form.patchValue(this.product.tranports[0]);
+            if (this.product.transports && this.product.transports.length) {
+              this.form.patchValue(this.product.transports[0]);
             }
           });
         });
@@ -62,8 +62,8 @@ export class DriverComponent implements OnInit {
     console.log(this.product);
     if (this.form.valid) {
       data.id = this.product.id;
-      if (this.product.tranports && this.product.tranports.length) {
-        data['transportId'] = this.product.tranports[0].id;
+      if (this.product.transports && this.product.transports.length) {
+        data['transportId'] = this.product.transports[0].id;
       }
       this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', this.authService.currentRole]))

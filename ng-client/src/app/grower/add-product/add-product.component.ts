@@ -87,7 +87,7 @@ export class AddProductComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.service.deleteProduct(this.prodcut.id)
+        this.service.deleteProduct(''+this.prodcut.id)
           .finally(() => this.router.navigate(['/home/products', this.authSevice.currentRole]))
           .subscribe(res => {
             console.log(res);

@@ -7,7 +7,7 @@ export interface Product {
   wineries: Winery[];
   wines: Wine[];
   stage: Stage[];
-  tranports: Transport[];
+  transports: Transport[];
 }
 
 export interface Grape {

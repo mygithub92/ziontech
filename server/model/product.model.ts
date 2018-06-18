@@ -33,11 +33,11 @@ import Stage from "./stage.model";
     },
     distributor: {
         where: {stageId: {$in: [20, 40, 60]}},
-        include: [() => Grape, () => Winery, () => Wine]
+        include: [() => Grape, () => Winery, () => Wine, () => Transport]
     },
     hDistributor: {
         where: {stageId: {$in: [30, 50, 70]}},
-        include: [() => Grape, () => Winery, () => Wine]
+        include: [() => Grape, () => Winery, () => Wine, () => Transport]
     }
 })
 

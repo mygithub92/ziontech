@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 import { HyperledgerService } from '../services/hyperledger.service';
 import { Roles } from '../shared/Roles.enum';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
@@ -17,6 +18,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
+  datePipe: DatePipe = new DatePipe('en-AU');
   componentDestroyed$: Subject<boolean> = new Subject();
 
   dataSource: MatTableDataSource<any>;
@@ -43,6 +45,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .takeUntil(this.componentDestroyed$)
         .subscribe(response => {
           setTimeout(() => {
+            console.log(response);
             this.currentRolename = this.authService.currentRoleName();
             this.records = response;
             this.dataSource = new MatTableDataSource(this.records);
@@ -121,7 +124,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.grapes[0].variety}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries && row.wineries[0].volume}` },
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries && row.wineries.length ? row.wineries[0].volume : ''}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].brand ? row.wines[0].brand : ''}` },
       { columnDef: 'label', header: 'Label', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].label ? row.wines[0].label : ''}` },
       { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].corkCap ? row.wines[0].corkCap : ''}` },
@@ -142,9 +145,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'region', header: 'Region', cell: (row: Product) => `${row.grapes[0].region}` },
       { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${row.grapes[0].vineyard}` },
-      { columnDef: 'block', header: 'Block', cell: (row: Product) => `${row.grapes[0].block}` },
-      { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.grapes[0].rowRange}` },
-      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` }
+      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.grapes[0].actualWeight}` },
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries && row.wineries.length ? row.wineries[0].volume : ''}` },
+      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${row.wines && row.wines.length ? row.wines[0].brand : ''}` },
+      { columnDef: 'from', header: 'From', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].from : ''}` },
+      { columnDef: 'to', header: 'To', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].to : ''}` },
+      { columnDef: 'start', header: 'Start', cell: (row: Product) => `${row.transports && row.transports.length ? this.datePipe.transform(row.transports[0].start, 'd MMM yyyy') : ''}` },
+      { columnDef: 'end', header: 'End', cell: (row: Product) => `${row.transports && row.transports.length ? this.datePipe.transform(row.transports[0].end, 'd MMM yyyy') : ''}` },
+      { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].driverId : ''}` },
+      { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].plateNumber : '44'}` },
     ];
     if (!this.authService.transaction) {
       this.columns.push({
@@ -184,7 +193,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   get showAddButton() {
-    return this.authService.isAuth(Roles.Grower) && !this.authService.transaction;
+    return this.authService.currentRole === Roles.Grower && !this.authService.transaction;
   }
 
   rowClick(row) {

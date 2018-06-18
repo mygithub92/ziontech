@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
   <div class="example-container">
     <div class="row">
-      <div class="col-8">
+      <div class="col-7">
 
         <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
           <mat-grid-tile>
@@ -86,9 +86,9 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="button-row">
-    <button mat-raised-button color="primary" type="submit">Submit</button>
-    <button mat-raised-button color="warn" [routerLink]="['/home/products','driver']">Cancel</button>
+    <div class="button-row">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="warn" [routerLink]="['/home/products','driver']">Cancel</button>
+    </div>
   </div>
 </form>
