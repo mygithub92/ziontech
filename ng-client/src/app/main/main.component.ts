@@ -12,15 +12,11 @@ import { Roles } from '../shared/Roles.enum';
 })
 export class MainComponent implements OnInit {
   isCollapsed = true;
-  role;
-
+  roles = Roles;
   constructor(private dialog: MatDialog, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.authService.currentUser) {
-      this.role = this.authService.currentUser.role;
-    }
-    this.router.navigate([`/home/products/${this.role}`]);
+    this.router.navigate([`/home/products/${this.authService.currentRole}`]);
   }
 
   openDialog() {
@@ -40,16 +36,15 @@ export class MainComponent implements OnInit {
   toggleMenu() {
     this.isCollapsed = !this.isCollapsed;
   }
-  isGrower() {
-    return this.role === Roles.Grower;
+
+  navigateTo(asRole: number) {
+    this.authService.currentRole = asRole;
+    this.authService.transaction = false;
+    this.router.navigate([`/home/products/${this.authService.currentRole}`]);
   }
-  isWinery() {
-    return this.role === Roles.Winery;
-  }
-  isBottler() {
-    return this.role === Roles.Bottler;
-  }
-  isDriver1() {
-    return this.role === Roles.Distributor;
+
+  navigateToTransaction() {
+    this.authService.transaction = true;
+    this.router.navigate(['/home/products/transaction']);
   }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Product, Grape } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-winery-product',
@@ -21,6 +22,7 @@ export class WineryProductComponent implements OnInit {
     private service: HyperledgerService,
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private fb: FormBuilder
   ) {
   }
@@ -67,7 +69,7 @@ export class WineryProductComponent implements OnInit {
         obj['wineryId'] = this.product.wineries[0].id;
       }
       this.service.addOrUpdateProduct(obj)
-        .finally(() => this.router.navigate(['/home/products', 'winery']))
+        .finally(() => this.router.navigate(['/home/products', this.authService.currentRole]))
         .subscribe(res => console.log(res));
     }
   }

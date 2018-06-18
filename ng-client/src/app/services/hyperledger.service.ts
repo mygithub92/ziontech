@@ -9,15 +9,16 @@ import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
 import { Roles } from '../shared/Roles.enum';
 import { AuthService } from './auth.service';
+import { baseUrl } from './server.url';
 
 @Injectable()
 export class HyperledgerService {
-    private baseUrl = '';
+    private baseUrl = baseUrl;
 
     constructor(private http: Http, private authService: AuthService) { }
 
     getAllProducts(history: boolean) {
-        switch (this.authService.currentUser.role) {
+        switch (this.authService.currentRole) {
             case Roles.Grower:
                 return this.http.get(`${this.baseUrl}/api/grapes`, { params: { history } })
                     .map(res => res.json())
@@ -31,14 +32,14 @@ export class HyperledgerService {
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Distributor:
-                return this.http.get(`${this.baseUrl}/api/grapes`, { params: { history } })
+                return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
                     .map(res => res.json())
                     .catch(this.handleError);
         }
     }
 
     getProduct(id: string) {
-        switch (this.authService.currentUser.role) {
+        switch (this.authService.currentRole) {
             case Roles.Grower:
                 return this.http.get(`${this.baseUrl}/api/grape`, { params: { id } })
                     .map(res => res.json())
@@ -52,7 +53,7 @@ export class HyperledgerService {
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Distributor:
-                return this.http.get(`${this.baseUrl}/api/grape`, { params: { id } })
+                return this.http.get(`${this.baseUrl}/api/transport`, { params: { id } })
                     .map(res => res.json())
                     .catch(this.handleError);
         }
@@ -60,9 +61,9 @@ export class HyperledgerService {
     }
 
     addOrUpdateProduct(data) {
-        data.userId = this.authService.currentUser.sub;
+        data.userId = this.authService.currentUser.id;
         console.log(data);
-        switch (this.authService.currentUser.role) {
+        switch (this.authService.currentRole) {
             case Roles.Grower:
                 if (data.id) {
                     return this.http.post(this.baseUrl + '/api/grape/update/', data)
@@ -93,6 +94,16 @@ export class HyperledgerService {
                         .map(res => res.json())
                         .catch(this.handleError);
                 }
+            case Roles.Distributor:
+                if (data.wineId) {
+                    return this.http.post(this.baseUrl + '/api/transport/update/', data)
+                        .map(res => res.json())
+                        .catch(this.handleError);
+                } else {
+                    return this.http.put(this.baseUrl + '/api/transport/create', data)
+                        .map(res => res.json())
+                        .catch(this.handleError);
+                }
 
         }
     }
@@ -105,7 +116,7 @@ export class HyperledgerService {
 
     transportProduct(id: string) {
         console.log(id);
-        switch (this.authService.currentUser.role) {
+        switch (this.authService.currentRole) {
             case Roles.Grower:
                 return this.http.post(this.baseUrl + '/api/grape/transport', { id })
                     .map(res => res.json())
@@ -116,6 +127,10 @@ export class HyperledgerService {
                     .catch(this.handleError);
             case Roles.Bottler:
                 return this.http.post(this.baseUrl + '/api/bottler/transport', { id })
+                    .map(res => res.json())
+                    .catch(this.handleError);
+            case Roles.Distributor:
+                return this.http.post(this.baseUrl + '/api/transport/transport', { id })
                     .map(res => res.json())
                     .catch(this.handleError);
 

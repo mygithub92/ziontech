@@ -13,6 +13,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
       <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      <li class="nav-item"><mat-icon color="warn">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>
     </ul>
     <a class="nav-link" (click)="logout()"><mat-icon color="warn">exit_to_app</mat-icon>Logout</a>
   </div>
@@ -22,21 +23,21 @@
   <div class="row">
     <div class="col-11 col-md-1 sidebar bg-dark" id="sidebar" role="navigation">
         <ul class="nav flex-column sidebar">
-          <li class="nav-item active" *ngIf="isGrower()" >
-              <a class="nav-link" [routerLink]="['./products','grower']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Grower</a>
+          <li class="nav-item active" *ngIf="authService.isAuth(roles.Grower)" >
+              <a class="nav-link" (click)="navigateTo(roles.Grower)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Grower</a>
           </li>
-          <li class="nav-item" *ngIf="isWinery()">
-            <a class="nav-link" [routerLink]="['./products','winery']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Winery</a>
+          <li class="nav-item" *ngIf="authService.isAuth(roles.Winery)">
+            <a class="nav-link" (click)="navigateTo(roles.Winery)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Winery</a>
           </li>
-          <li class="nav-item" *ngIf="isBottler()">
-            <a class="nav-link" [routerLink]="['./products','bottler']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Bottler</a>
+          <li class="nav-item" *ngIf="authService.isAuth(roles.Bottler)">
+            <a class="nav-link" (click)="navigateTo(roles.Bottler)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Bottler</a>
           </li>
-          <li class="nav-item" *ngIf="isDriver1()">
-            <a class="nav-link" [routerLink]="['./products','driver1']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Grape Driver</a>
+          <li class="nav-item" *ngIf="authService.isAuth(roles.Distributor)">
+            <a class="nav-link" (click)="navigateTo(roles.Distributor)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Driver</a>
           </li>
           <li class="nav-divider"><mat-divider></mat-divider></li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['./products','transaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction</a>
+            <a class="nav-link" (click)="navigateToTransaction()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction</a>
           </li>
         </ul>
     </div>

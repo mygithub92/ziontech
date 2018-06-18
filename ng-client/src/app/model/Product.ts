@@ -1,12 +1,13 @@
 
 
 export interface Product {
-  id: string;
+  id: number;
   companyName: string;
   grapes: Grape[];
   wineries: Winery[];
   wines: Wine[];
   stage: Stage[];
+  tranports: Transport[];
 }
 
 export interface Grape {
@@ -38,4 +39,14 @@ export interface Wine {
 export interface Stage {
   stageId: number;
   period: { start: string, end: string};
+}
+
+export interface Transport {
+  id: number;
+  from: string;
+  to: string;
+  start: Date;
+  end: Date;
+  driverId: string;
+  plateNumber: string;
 }

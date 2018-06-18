@@ -21,8 +21,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<any>;
   columns: any;
-  action: string;
   records;
+  currentRolename;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -38,13 +38,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.action = params['action'];
       this.populateMetaData();
-      this.service.getAllProducts(this.action === 'transaction')
+      this.service.getAllProducts(this.authService.transaction)
         .takeUntil(this.componentDestroyed$)
         .subscribe(response => {
           setTimeout(() => {
-            console.log(response);
+            this.currentRolename = this.authService.currentRoleName();
             this.records = response;
             this.dataSource = new MatTableDataSource(this.records);
             this.dataSource.paginator = this.paginator;
@@ -60,7 +59,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   populateMetaData() {
-    switch (this.authService.currentUser.role) {
+    switch (this.authService.currentRole) {
       case Roles.Grower:
         this.populateGrowerMetaData();
         break;
@@ -91,7 +90,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
       { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` }
     ];
-    if (this.action === 'transaction') {
+    if (this.authService.transaction) {
       this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.grapes[0].actualWeight}` });
     } else {
       this.columns.push({ columnDef: 'action', header: 'Action', cell: (row: Product) => 'Transfer' });
@@ -105,13 +104,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
       { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` },
       { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${row.grapes[0].actualWeight ? row.grapes[0].actualWeight : ''}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries.length && row.wineries[0].volume ? row.wineries[0].volume : ''}` }
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries && row.wineries.length && row.wineries[0].volume ? row.wineries[0].volume : ''}` }
     ];
-    if (this.action !== 'transaction') {
+    if (!this.authService.transaction) {
       this.columns.push({
         columnDef: 'action',
         header: 'Action',
-        cell: (row: Product) => row.grapes[0].actualWeight && row.wineries.length && row.wineries[0].volume ? 'Transfer' : ''
+        cell: (row: Product) => row.grapes[0].actualWeight && row.wineries && row.wineries.length && row.wineries[0].volume ? 'Transfer' : ''
       });
     }
 
@@ -122,12 +121,19 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${row.grapes[0].variety}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${row.grapes[0].vintage}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries[0].volume}` },
-      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${row.wines.length && row.wines[0].brand ? row.wines[0].brand : ''}` },
-      { columnDef: 'label', header: 'Label', cell: (row: Product) => `${row.wines.length && row.wines[0].label ? row.wines[0].label : ''}` },
-      { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${row.wines.length && row.wines[0].corkCap ? row.wines[0].corkCap : ''}` },
-      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${row.wines.length && row.wines[0].status ? row.wines[0].status : ''}` }
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${row.wineries && row.wineries[0].volume}` },
+      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].brand ? row.wines[0].brand : ''}` },
+      { columnDef: 'label', header: 'Label', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].label ? row.wines[0].label : ''}` },
+      { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].corkCap ? row.wines[0].corkCap : ''}` },
+      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${row.wines && row.wines.length && row.wines[0].status ? row.wines[0].status : ''}` }
     ];
+    if (!this.authService.transaction) {
+      this.columns.push({
+        columnDef: 'action',
+        header: 'Action',
+        cell: (row: Product) => row.grapes[0].actualWeight && row.wineries && row.wineries.length && row.wineries[0].volume ? 'Transfer' : ''
+      });
+    }
   }
 
   populateDriverMetaData() {
@@ -140,6 +146,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${row.grapes[0].rowRange}` },
       { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${row.grapes[0].estimatedWeight}` }
     ];
+    if (!this.authService.transaction) {
+      this.columns.push({
+        columnDef: 'action',
+        header: 'Action',
+        cell: (row: Product) => 'Transfer'
+      });
+    }
   }
 
   applyFilter(filterValue: string) {
@@ -171,15 +184,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   get showAddButton() {
-    return this.authService.currentUser.role === Roles.Grower && this.action !== 'transaction';
+    return this.authService.isAuth(Roles.Grower) && !this.authService.transaction;
   }
 
   rowClick(row) {
-    if (this.action === 'transaction') {
+    if (this.authService.transaction) {
       this.openQrDialog(row.id);
       return;
     }
-    switch (this.authService.currentUser.role) {
+    switch (this.authService.currentRole) {
       case Roles.Grower:
         this.router.navigateByUrl(`/home/grower/new/${row.id}`);
         break;

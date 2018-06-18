@@ -25,7 +25,6 @@ export class AddProductComponent implements OnInit {
   constructor(
     private service: HyperledgerService,
     private route: ActivatedRoute,
-    private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -71,7 +70,7 @@ export class AddProductComponent implements OnInit {
       }
 
       this.service.addOrUpdateProduct(data)
-        .finally(() => this.router.navigate(['/home/products', 'grower']))
+        .finally(() => this.router.navigate(['/home/products', this.authSevice.currentRole]))
         .subscribe(res => console.log(res));
     }
   }
@@ -89,7 +88,7 @@ export class AddProductComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.service.deleteProduct(this.prodcut.id)
-          .finally(() => this.router.navigate(['/home/products', 'grower']))
+          .finally(() => this.router.navigate(['/home/products', this.authSevice.currentRole]))
           .subscribe(res => {
             console.log(res);
           });

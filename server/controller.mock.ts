@@ -4,18 +4,26 @@ import User from "./model/user.model";
 import Wine from "./model/wine.model";
 import * as jwt from 'jsonwebtoken';
 import Winery from "./model/winery.model";
+import Role from "./model/role.model";
+import Transport from "./model/transport.model";
 
 export default class Controller {
 
     login = (req, res) => {
         const body = req.body;
-        User.findOne({ where: { email: body.email, password: body.password } }).then(user => {
+        User.findOne({
+            where: { email: body.email, password: body.password },
+            include: [{ model: Role }]
+        }).then(user => {
             let token;
             if (user) {
+                const roles = user.getDataValue('roles').map(role => {
+                    return { id: role.id, name: role.name };
+                });
                 const payload = {
-                    sub: user.getDataValue('id'),
+                    id: user.getDataValue('id'),
                     name: user.getDataValue('name'),
-                    role: user.getDataValue('roleId')
+                    roles
                 };
                 token = jwt.sign(payload, 'JIOwld*232f&l', {
                     expiresIn: '12h'
@@ -80,7 +88,7 @@ export default class Controller {
     }
     transportGrape = (req, res) => {
         Grape.update({ transferred: true }, { where: { productId: req.body.id } }).then(grape => {
-            Product.update({ stageId: 30 }, { where: { id: req.body.id } }).then(() => {
+            Product.update({ stageId: 20 }, { where: { id: req.body.id } }).then(() => {
                 res.json('Done');
             });
         });
@@ -123,7 +131,7 @@ export default class Controller {
 
     transportWinery = (req, res) => {
         Winery.update({ transferred: true }, { where: { productId: req.body.id } }).then(() => {
-            Product.update({ stageId: 40 }, { where: { id: req.body.id } }).then(() => {
+            Product.update({ stageId: 30 }, { where: { id: req.body.id } }).then(() => {
                 res.json('Done');
             });
         });
@@ -164,10 +172,52 @@ export default class Controller {
 
     transportBottler = (req, res) => {
         Wine.update({ transferred: true }, { where: { productId: req.body.id } }).then(() => {
-            Product.update({ stageId: 60 }, { where: { id: req.body.id } }).then(() => {
+            Product.update({ stageId: 50 }, { where: { id: req.body.id } }).then(() => {
                 res.json('Done');
             });
         });
     }
+    // Distributor
+    getTransports = (req, res) => {
+        if (req.query.history === 'true') {
+            Product.scope("hDistributor").findAll().then(products => {
+                res.json(products);
+            });
+        } else {
+            Product.scope("distributor").findAll().then(products => {
+                res.json(products);
+            });
+        }
+    }
+
+    getTransportById = (req, res) => {
+        Transport.findOne({
+            where: { id: req.query.id },
+            include: [{ model: Grape }, { model: Winery }, { model: Wine }]
+        }).then(product => res.json(product));
+    }
+
+    updateTransport = (req, res) => {
+        Transport.update(req.body, { where: { id: req.body.transportId } }).then(transport => {
+            res.json(transport);
+        });
+    }
+
+    createTransport = (req, res) => {
+        Transport.create({ ...req.body, userId: req.body.userId, productId: req.body.id }).then(transport => {
+            res.json(transport);
+        });
+    }
+
+    transport = (req, res) => {
+        Product.findOne({ where: { id: req.body.id } }).then(product => {
+            if (product) {
+                Product.update({ stageId: product.stageId + 10 }, { where: { id: product.id } }).then(() => {
+                    res.json('Done');
+                });
+            }
+        });
+    }
+
 }
 

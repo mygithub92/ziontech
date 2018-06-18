@@ -1,5 +1,6 @@
-import { Column, Model, Table, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Column, Model, Table, BelongsToMany } from "sequelize-typescript";
 import Role from "./role.model";
+import UserRole from "./user-role.model";
 
 @Table({
     tableName: 'user'
@@ -17,12 +18,6 @@ export default class User extends Model<User> {
     @Column
     password: string;
 
-    @ForeignKey(() => Role)
-    @Column({ field: "role_id" })
-    roleId: number;
-
-    @BelongsTo(() => Role)
-    role: Role;
-
-
+    @BelongsToMany(() => Role, () => UserRole)
+    roles: Role[];
 }
