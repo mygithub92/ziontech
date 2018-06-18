@@ -7,7 +7,7 @@ node_modules
 coverage
 
 # server dist
-dist
+/dist
 # production
 # build
 
