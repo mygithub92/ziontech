@@ -5,6 +5,7 @@ import { HyperledgerService } from '../services/hyperledger.service';
 import { Subject } from 'rxjs/Subject';
 import { Grape, Product } from '../model/Product';
 import { AuthService } from '../services/auth.service';
+import { NoAuthError } from '../common/no-auth-error';
 
 @Component({
   selector: 'app-driver',
@@ -50,6 +51,10 @@ export class DriverComponent implements OnInit {
               this.form.patchValue(this.product.transports[0]);
             }
           });
+        }, err => {
+          if (err instanceof NoAuthError) {
+            this.router.navigate(['login']);
+          }
         });
     });
 
@@ -61,10 +66,10 @@ export class DriverComponent implements OnInit {
   onSubmit(data) {
     console.log(this.product);
     if (this.form.valid) {
-      data.id = this.product.id;
       if (this.product.transports && this.product.transports.length) {
         data['transportId'] = this.product.transports[0].id;
       }
+      console.log(data);
       this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', this.authService.currentRole]))
         .subscribe(res => console.log(res));

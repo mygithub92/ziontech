@@ -6,6 +6,7 @@ import { HyperledgerService } from '../../services/hyperledger.service';
 import { Product, Grape } from '../../model/Product';
 import { Subject } from 'rxjs/Subject';
 import { AuthService } from '../../services/auth.service';
+import { NoAuthError } from '../../common/no-auth-error';
 
 @Component({
   selector: 'app-bottler-product',
@@ -51,6 +52,10 @@ export class BottlerProductComponent implements OnInit {
               this.form.patchValue(this.product.wines[0]);
             }
           });
+        }, err => {
+          if (err instanceof NoAuthError) {
+            this.router.navigate(['login']);
+          }
         });
     });
   }
@@ -60,9 +65,7 @@ export class BottlerProductComponent implements OnInit {
   }
 
   onSubmit(data) {
-    console.log('---------------');
     if (this.form.valid) {
-      data.id = this.product.id;
       if (this.product.wines && this.product.wines.length) {
         data['wineId'] = this.product.wines[0].id;
       }

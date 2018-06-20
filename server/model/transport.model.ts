@@ -1,6 +1,7 @@
-import { Column, Model, Table, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Column, Model, Table, BelongsTo, ForeignKey, CreatedAt, UpdatedAt } from "sequelize-typescript";
 import Product from "./product.model";
 import User from "./user.model";
+import Stage from "./stage.model";
 
 @Table({
     tableName: 'transport'
@@ -21,12 +22,26 @@ export default class Transport extends Model<Transport> {
     @Column
     end: Date;
 
+    @Column({ field: "transferred" })
+    transferred: boolean;
+
     @Column({field: "driver_id"})
     driverId: string;
 
     @Column({field: "plate_number"})
     plateNumber: string;
 
+    @ForeignKey(() => Stage)
+    @Column({field: "from_stage"})
+    fromStage: number;
+
+    @ForeignKey(() => Stage)
+    @Column({ field: "stage_id" })
+    stageId: number;
+
+    @BelongsTo(() => Stage)
+    stage: Stage;
+    
     @ForeignKey(() => User)
     @Column({ field: "user_id" })
     userId: number;
@@ -40,4 +55,12 @@ export default class Transport extends Model<Transport> {
 
     @BelongsTo(() => Product)
     product: Product;
+
+    @CreatedAt
+    @Column({field: "creation_date"})
+    creationDate: Date;
+  
+    @UpdatedAt
+    @Column({field: "updated_date"})
+    updatedDate: Date;
 }

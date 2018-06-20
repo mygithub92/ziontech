@@ -10,6 +10,7 @@ import { AppError } from '../common/app-error';
 import { Roles } from '../shared/Roles.enum';
 import { AuthService } from './auth.service';
 import { baseUrl } from './server.url';
+import { NoAuthError } from '../common/no-auth-error';
 
 @Injectable()
 export class HyperledgerService {
@@ -95,7 +96,7 @@ export class HyperledgerService {
                         .catch(this.handleError);
                 }
             case Roles.Distributor:
-                if (data.wineId) {
+                if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(res => res.json())
                         .catch(this.handleError);
@@ -146,6 +147,9 @@ export class HyperledgerService {
             return Observable.throw(new NotFoundError(error));
         }
 
+        if (error.status === 401) {
+            return Observable.throw(new NoAuthError(error));
+        }
         return Observable.throw(new AppError(error));
     }
 }

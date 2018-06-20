@@ -1,4 +1,4 @@
-import { Column, Model, Table, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Column, Model, Table, BelongsTo, ForeignKey, CreatedAt, UpdatedAt } from "sequelize-typescript";
 import User from "./user.model";
 import Product from "./product.model";
 
@@ -31,4 +31,11 @@ export default class Winery extends Model<Winery> {
     @BelongsTo(() => Product)
     product: Product;
 
+    @CreatedAt
+    @Column({field: "creation_date"})
+    creationDate: Date;
+  
+    @UpdatedAt
+    @Column({field: "updated_date"})
+    updatedDate: Date;
 }

@@ -8,6 +8,7 @@ import { DeleteConfirmDialogComponent } from '../../delete-confirm-dialog/delete
 import { AuthService } from '../../services/auth.service';
 import { Product } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
+import { NoAuthError } from '../../common/no-auth-error';
 
 @Component({
   selector: 'app-add-product',
@@ -56,6 +57,10 @@ export class AddProductComponent implements OnInit {
               this.form.patchValue(product);
               this.form.patchValue(product.grapes[0]);
             });
+          }, err => {
+            if (err instanceof NoAuthError) {
+              this.router.navigate(['login']);
+            }
           });
       }
     });

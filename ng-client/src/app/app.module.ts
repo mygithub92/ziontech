@@ -32,6 +32,7 @@ import {
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 import { HyperledgerService } from './services/hyperledger.service';
 import { AuthService } from './services/auth.service';
+import { BaseComponent } from './shared/base/base.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AuthService } from './services/auth.service';
     NoAccessComponent,
     ConfirmDialogComponent,
     DriverComponent,
-    DeleteConfirmDialogComponent
+    DeleteConfirmDialogComponent,
+    BaseComponent
   ],
   entryComponents: [
     QrDialogComponent,

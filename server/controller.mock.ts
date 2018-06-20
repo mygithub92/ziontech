@@ -26,7 +26,7 @@ export default class Controller {
                     roles
                 };
                 token = jwt.sign(payload, 'JIOwld*232f&l', {
-                    expiresIn: '12h'
+                    expiresIn: '2h'
                 });
             }
 
@@ -180,12 +180,33 @@ export default class Controller {
     // Distributor
     getTransports = (req, res) => {
         if (req.query.history === 'true') {
-            Product.scope("hDistributor").findAll().then(products => {
-                res.json(products);
-            });
+            Product.findAll({
+                include: [
+                    { model: Grape },
+                    { model: Winery }, { model: Wine },
+                    {
+                        model: Transport,
+                        where: { transferred: true }
+                    }
+                ]
+            }).then(products => res.json(products));
         } else {
             Product.scope("distributor").findAll().then(products => {
-                res.json(products);
+                const productIds = products.map(product => product.id);
+                Transport.findAll({
+                    where: { productId: { $in: productIds }, transferred: { $not: true } }
+                }).then(transports => {
+                    products.forEach(product => {
+                        product.transports = product.transports || [];
+                        transports.forEach(transport => {
+                            if (product.id === transport.productId) {
+                                product.transports.push(transport);
+                            }
+                        });
+                    });
+                    res.json(products);
+                });
+
             });
         }
     }
@@ -193,8 +214,20 @@ export default class Controller {
     getTransportById = (req, res) => {
         Product.findOne({
             where: { id: req.query.id },
-            include: [{ model: Grape }, { model: Winery }, { model: Wine }, {model: Transport}]
-        }).then(product => res.json(product));
+            include: [{ model: Grape }, { model: Winery }, { model: Wine }]
+        }).then(product => {
+            if (product) {
+                Transport.findOne({
+                    where: { productId: req.query.id, transferred: { $not: true } }
+                }).then(transport => {
+                    if (transport) {
+                        product.transports = [];
+                        product.transports.push(transport);
+                    }
+                    res.json(product);
+                });
+            }
+        });
     }
 
     updateTransport = (req, res) => {
@@ -204,19 +237,25 @@ export default class Controller {
     }
 
     createTransport = (req, res) => {
-        console.log(req.body);
-        Transport.create({ ...req.body, userId: req.body.userId, productId: req.body.id }).then(transport => {
-            res.json(transport);
+        Product.findOne({ where: { id: req.body.id } }).then(product => {
+            if (product) {
+                const a = { ...req.body, fromStage: product.stageId, userId: req.body.userId, productId: req.body.id }
+                Transport.create(a).then(transport => {
+                    res.json(transport);
+                });
+            }
         });
     }
 
     transport = (req, res) => {
-        Product.findOne({ where: { id: req.body.id } }).then(product => {
-            if (product) {
-                Product.update({ stageId: product.stageId + 10 }, { where: { id: product.id } }).then(() => {
-                    res.json('Done');
-                });
-            }
+        Transport.update({ transferred: true }, { where: { productId: req.body.id } }).then(() => {
+            Product.findOne({ where: { id: req.body.id } }).then(product => {
+                if (product) {
+                    Product.update({ stageId: product.stageId + 10 }, { where: { id: product.id } }).then(() => {
+                        res.json('Done');
+                    });
+                }
+            });
         });
     }
 

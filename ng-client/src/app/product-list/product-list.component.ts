@@ -10,6 +10,7 @@ import { HyperledgerService } from '../services/hyperledger.service';
 import { Roles } from '../shared/Roles.enum';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DatePipe } from '@angular/common';
+import { NoAuthError } from '../common/no-auth-error';
 
 @Component({
   selector: 'app-product-list',
@@ -52,6 +53,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           });
+        }, err => {
+          if (err instanceof NoAuthError) {
+            this.router.navigate(['login']);
+          }
         });
     });
   }
@@ -153,7 +158,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'start', header: 'Start', cell: (row: Product) => `${row.transports && row.transports.length ? this.datePipe.transform(row.transports[0].start, 'd MMM yyyy') : ''}` },
       { columnDef: 'end', header: 'End', cell: (row: Product) => `${row.transports && row.transports.length ? this.datePipe.transform(row.transports[0].end, 'd MMM yyyy') : ''}` },
       { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].driverId : ''}` },
-      { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].plateNumber : '44'}` },
+      { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${row.transports && row.transports.length ? row.transports[0].plateNumber : ''}` },
     ];
     if (!this.authService.transaction) {
       this.columns.push({

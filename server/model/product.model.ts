@@ -1,4 +1,4 @@
-import { Column, Model, Table, BelongsTo, ForeignKey, HasMany, Scopes } from "sequelize-typescript";
+import { Column, Model, Table, BelongsTo, ForeignKey, HasMany, Scopes, CreatedAt, UpdatedAt } from "sequelize-typescript";
 import User from "./user.model";
 import Grape from "./grape.model";
 import Winery from "./winery.model";
@@ -33,11 +33,7 @@ import Stage from "./stage.model";
     },
     distributor: {
         where: {stageId: {$in: [20, 40, 60]}},
-        include: [() => Grape, () => Winery, () => Wine, () => Transport]
-    },
-    hDistributor: {
-        where: {stageId: {$in: [30, 50, 70]}},
-        include: [() => Grape, () => Winery, () => Wine, () => Transport]
+        include: [() => Grape, () => Winery, () => Wine]
     }
 })
 
@@ -76,4 +72,13 @@ export default class Product extends Model<Product> {
 
     @HasMany(() => Transport)
     transports: Transport[];
+
+    
+    @CreatedAt
+    @Column({field: "creation_date"})
+    creationDate: Date;
+  
+    @UpdatedAt
+    @Column({field: "updated_date"})
+    updatedDate: Date;
 }

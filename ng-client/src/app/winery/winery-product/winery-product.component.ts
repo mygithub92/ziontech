@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Product, Grape } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
 import { AuthService } from '../../services/auth.service';
+import { NoAuthError } from '../../common/no-auth-error';
 
 @Component({
   selector: 'app-winery-product',
@@ -49,6 +50,10 @@ export class WineryProductComponent implements OnInit {
                 this.form.patchValue(this.product.wineries[0]);
               }
             });
+          }, err => {
+            if (err instanceof NoAuthError) {
+              this.router.navigate(['login']);
+            }
           });
     });
   }

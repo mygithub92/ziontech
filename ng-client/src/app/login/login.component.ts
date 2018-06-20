@@ -17,11 +17,13 @@ export class LoginComponent {
   signIn(credentials) {
     this.authService.login(credentials)
       .subscribe(result => {
-        if (result) {
-          this.router.navigate(['/home']);
-        } else {
-          this.invalidLogin = true;
-        }
+        setTimeout(() => {
+          if (result) {
+            this.router.navigate(['/home']);
+          } else {
+            this.invalidLogin = true;
+          }
+        });
       });
   }
 }

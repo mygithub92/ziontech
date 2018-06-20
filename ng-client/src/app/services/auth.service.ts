@@ -18,13 +18,7 @@ export class AuthService {
     if (token) {
       const jwt = new JwtHelper();
       this.currentUser = jwt.decodeToken(token);
-      console.log(this.currentUser);
-      this.currentUser.roleMap = new Map();
-      this.currentUser.roleIds = this.currentUser.roles.map(role => {
-        this.currentUser.roleMap.set(role.id, role.name);
-        return role.id;
-      });
-      this.currentRole = this.currentUser.roleIds[0];
+      this.populateUserInfor();
     }
   }
 
@@ -38,10 +32,21 @@ export class AuthService {
 
           const jwt = new JwtHelper();
           this.currentUser = jwt.decodeToken(localStorage.getItem('token'));
-          console.log(this.currentUser);
+          this.populateUserInfor();
           return true;
         } else { return false; }
       });
+  }
+
+  private populateUserInfor() {
+    console.log(this.currentUser);
+    this.currentUser.roleMap = new Map();
+    this.currentUser.roleIds = this.currentUser.roles.map(role => {
+      this.currentUser.roleMap.set(role.id, role.name);
+      return role.id;
+    });
+    this.currentRole = this.currentUser.roleIds[0];
+
   }
 
   isAuth(roleId: number) {
@@ -54,7 +59,7 @@ export class AuthService {
   }
 
   currentRoleName() {
-    if (this.currentRole && this.currentUser.roleMap.size > 1) {
+    if (this.currentRole && this.currentUser.roleMap && this.currentUser.roleMap.size > 1) {
       const roleName = this.currentUser.roleMap.get(this.currentRole);
       return roleName;
     }
