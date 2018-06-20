@@ -189,22 +189,14 @@ export default class Controller {
                         where: { transferred: true }
                     }
                 ]
-            }).then(products => res.json(products));
+        }).then(products => res.json(products));
         } else {
             Product.scope("distributor").findAll().then(products => {
                 const productIds = products.map(product => product.id);
                 Transport.findAll({
                     where: { productId: { $in: productIds }, transferred: { $not: true } }
                 }).then(transports => {
-                    products.forEach(product => {
-                        product.transports = product.transports || [];
-                        transports.forEach(transport => {
-                            if (product.id === transport.productId) {
-                                product.transports.push(transport);
-                            }
-                        });
-                    });
-                    res.json(products);
+                    res.json({products, transports});
                 });
 
             });
@@ -218,13 +210,9 @@ export default class Controller {
         }).then(product => {
             if (product) {
                 Transport.findOne({
-                    where: { productId: req.query.id, transferred: { $not: true } }
+                    where: { productId: product.id, transferred: { $not: true } }
                 }).then(transport => {
-                    if (transport) {
-                        product.transports = [];
-                        product.transports.push(transport);
-                    }
-                    res.json(product);
+                    res.json({ product, transport });
                 });
             }
         });
@@ -237,9 +225,10 @@ export default class Controller {
     }
 
     createTransport = (req, res) => {
-        Product.findOne({ where: { id: req.body.id } }).then(product => {
+        Product.findOne({ where: { id: req.body.productId } }).then(product => {
             if (product) {
-                const a = { ...req.body, fromStage: product.stageId, userId: req.body.userId, productId: req.body.id }
+                delete req.body.productId;
+                const a = { ...req.body, fromStage: product.stageId, userId: req.body.userId, productId: product.id }
                 Transport.create(a).then(transport => {
                     res.json(transport);
                 });

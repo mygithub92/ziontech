@@ -33,8 +33,27 @@ export class HyperledgerService {
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Distributor:
+                if (history) {
+                    return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
+                        .map(res => res.json())
+                        .catch(this.handleError);
+                }
                 return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
-                    .map(res => res.json())
+                    .map(res => {
+                        const ps = res.json();
+                        console.log(ps);
+
+                        ps.products.forEach(product => {
+                            product.transports = product.transports || [];
+                            ps.transports.forEach(transport => {
+                                if (product.id === transport.productId) {
+                                    product.transports.push(transport);
+                                }
+                            });
+                        });
+                        console.log(ps.products);
+                        return ps.products;
+                    })
                     .catch(this.handleError);
         }
     }
@@ -55,7 +74,15 @@ export class HyperledgerService {
                     .catch(this.handleError);
             case Roles.Distributor:
                 return this.http.get(`${this.baseUrl}/api/transport`, { params: { id } })
-                    .map(res => res.json())
+                    .map(res => {
+                        const ps = res.json();
+                        console.log(ps);
+                        if (ps.transport) {
+                            ps.product.transports = [];
+                            ps.product.transports.push(ps.transport);
+                        }
+                        return ps.product;
+                    })
                     .catch(this.handleError);
         }
 
@@ -64,6 +91,7 @@ export class HyperledgerService {
     addOrUpdateProduct(data) {
         data.userId = this.authService.currentUser.id;
         console.log(data);
+        console.log(this.authService.currentRole);
         switch (this.authService.currentRole) {
             case Roles.Grower:
                 if (data.id) {
@@ -96,6 +124,7 @@ export class HyperledgerService {
                         .catch(this.handleError);
                 }
             case Roles.Distributor:
+                console.log('--------------------');
                 if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(res => res.json())

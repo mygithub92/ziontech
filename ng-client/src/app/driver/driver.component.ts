@@ -65,6 +65,7 @@ export class DriverComponent implements OnInit {
 
   onSubmit(data) {
     console.log(this.product);
+    data.productId = this.product.id;
     if (this.form.valid) {
       if (this.product.transports && this.product.transports.length) {
         data['transportId'] = this.product.transports[0].id;
