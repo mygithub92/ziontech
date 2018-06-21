@@ -9,7 +9,7 @@ import { Roles } from '../shared/Roles.enum';
 export class AuthService {
   private baseUrl = baseUrl;
 
-  currentUser: { id: number, name: string, roles: { id: number, name: string }[], roleIds: number[], roleMap: Map<number, string> };
+  currentUser: { id: number, name: string, roles: { id: number, name: string }[], roleIds: number[] };
   currentRole;
   transaction;
 
@@ -39,13 +39,10 @@ export class AuthService {
   }
 
   private populateUserInfor() {
-    this.currentUser.roleMap = new Map();
     this.currentUser.roleIds = this.currentUser.roles.map(role => {
-      this.currentUser.roleMap.set(role.id, role.name);
       return role.id;
     });
     this.currentRole = this.currentUser.roleIds[0];
-
   }
 
   isAuth(roleId: number) {
@@ -58,11 +55,7 @@ export class AuthService {
   }
 
   currentRoleName() {
-    if (this.currentRole && this.currentUser.roleMap && this.currentUser.roleMap.size > 1) {
-      const roleName = this.currentUser.roleMap.get(this.currentRole);
-      return roleName;
-    }
-    return '';
+    return this.currentRole ? Roles[this.currentRole] : '';
   }
 
   isLoggedIn() {
