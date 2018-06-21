@@ -35,13 +35,25 @@ export class HyperledgerService {
             case Roles.Distributor:
                 if (history) {
                     return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
-                        .map(res => res.json())
+                        .map(res => {
+                            const result = [];
+                            res.json().forEach(product => {
+                                product.transports.forEach(transport => {
+                                    const temp = { ...product };
+                                    delete temp.transports;
+                                    temp.transports = [];
+                                    temp.transports.push(transport);
+
+                                    result.push(temp);
+                                });
+                            });
+                            return result;
+                        })
                         .catch(this.handleError);
                 }
                 return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
                     .map(res => {
                         const ps = res.json();
-                        console.log(ps);
 
                         ps.products.forEach(product => {
                             product.transports = product.transports || [];
@@ -51,32 +63,30 @@ export class HyperledgerService {
                                 }
                             });
                         });
-                        console.log(ps.products);
                         return ps.products;
                     })
                     .catch(this.handleError);
         }
     }
 
-    getProduct(id: string) {
+    getProduct(productId: string) {
         switch (this.authService.currentRole) {
             case Roles.Grower:
-                return this.http.get(`${this.baseUrl}/api/grape`, { params: { id } })
+                return this.http.get(`${this.baseUrl}/api/grape`, { params: { productId } })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Winery:
-                return this.http.get(`${this.baseUrl}/api/winery`, { params: { id } })
+                return this.http.get(`${this.baseUrl}/api/winery`, { params: { productId } })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Bottler:
-                return this.http.get(`${this.baseUrl}/api/bottler`, { params: { id } })
+                return this.http.get(`${this.baseUrl}/api/bottler`, { params: { productId } })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Distributor:
-                return this.http.get(`${this.baseUrl}/api/transport`, { params: { id } })
+                return this.http.get(`${this.baseUrl}/api/transport`, { params: { productId } })
                     .map(res => {
                         const ps = res.json();
-                        console.log(ps);
                         if (ps.transport) {
                             ps.product.transports = [];
                             ps.product.transports.push(ps.transport);
@@ -90,11 +100,9 @@ export class HyperledgerService {
 
     addOrUpdateProduct(data) {
         data.userId = this.authService.currentUser.id;
-        console.log(data);
-        console.log(this.authService.currentRole);
         switch (this.authService.currentRole) {
             case Roles.Grower:
-                if (data.id) {
+                if (data.productId) {
                     return this.http.post(this.baseUrl + '/api/grape/update/', data)
                         .map(res => res.json())
                         .catch(this.handleError);
@@ -124,7 +132,6 @@ export class HyperledgerService {
                         .catch(this.handleError);
                 }
             case Roles.Distributor:
-                console.log('--------------------');
                 if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(res => res.json())
@@ -144,23 +151,22 @@ export class HyperledgerService {
             .catch(this.handleError);
     }
 
-    transportProduct(id: string) {
-        console.log(id);
+    transportProduct(productId: string) {
         switch (this.authService.currentRole) {
             case Roles.Grower:
-                return this.http.post(this.baseUrl + '/api/grape/transport', { id })
+                return this.http.post(this.baseUrl + '/api/grape/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Winery:
-                return this.http.post(this.baseUrl + '/api/winery/transport', { id })
+                return this.http.post(this.baseUrl + '/api/winery/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Bottler:
-                return this.http.post(this.baseUrl + '/api/bottler/transport', { id })
+                return this.http.post(this.baseUrl + '/api/bottler/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Distributor:
-                return this.http.post(this.baseUrl + '/api/transport/transport', { id })
+                return this.http.post(this.baseUrl + '/api/transport/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);
 

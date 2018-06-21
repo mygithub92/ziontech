@@ -25,7 +25,7 @@ export class MainComponent implements OnInit {
         courseId: 1
       }
     }).afterClosed()
-      .subscribe(result => console.log(result));
+      .subscribe(result => result);
   }
 
   logout() {

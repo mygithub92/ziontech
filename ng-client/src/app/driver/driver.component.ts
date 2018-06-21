@@ -43,7 +43,6 @@ export class DriverComponent implements OnInit {
         .takeUntil(this.componentDestroyed$)
         .subscribe(product => {
           setTimeout(() => {
-            console.log(product);
             this.product = product;
             this.grape = product.grapes[0];
             this.form.patchValue(this.grape);
@@ -64,16 +63,14 @@ export class DriverComponent implements OnInit {
   }
 
   onSubmit(data) {
-    console.log(this.product);
     data.productId = this.product.id;
     if (this.form.valid) {
       if (this.product.transports && this.product.transports.length) {
         data['transportId'] = this.product.transports[0].id;
       }
-      console.log(data);
       this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', this.authService.currentRole]))
-        .subscribe(res => console.log(res));
+        .subscribe(res => res);
     }
   }
 

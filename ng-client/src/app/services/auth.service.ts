@@ -39,7 +39,6 @@ export class AuthService {
   }
 
   private populateUserInfor() {
-    console.log(this.currentUser);
     this.currentUser.roleMap = new Map();
     this.currentUser.roleIds = this.currentUser.roles.map(role => {
       this.currentUser.roleMap.set(role.id, role.name);

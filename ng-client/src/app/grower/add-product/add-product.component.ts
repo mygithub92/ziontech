@@ -68,7 +68,7 @@ export class AddProductComponent implements OnInit {
   onSubmit(data) {
     if (this.form.valid) {
       if (this.prodcut) {
-        data.id = this.prodcut.id;
+        data.productId = this.prodcut.id;
         if (this.prodcut.grapes || this.prodcut.grapes[0].id) {
           data.grapeId = this.prodcut.grapes[0].id;
         }
@@ -76,7 +76,7 @@ export class AddProductComponent implements OnInit {
 
       this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', this.authSevice.currentRole]))
-        .subscribe(res => console.log(res));
+        .subscribe(res => res);
     }
   }
 
@@ -92,11 +92,9 @@ export class AddProductComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.service.deleteProduct(''+this.prodcut.id)
+        this.service.deleteProduct('' + this.prodcut.id)
           .finally(() => this.router.navigate(['/home/products', this.authSevice.currentRole]))
-          .subscribe(res => {
-            console.log(res);
-          });
+          .subscribe(res => res);
       }
     });
   }

@@ -44,7 +44,6 @@ export class BottlerProductComponent implements OnInit {
         .takeUntil(this.componentDestroyed$)
         .subscribe(product => {
           setTimeout(() => {
-            console.log(product);
             this.product = product;
             this.grape = product.grapes[0];
             this.form.patchValue(this.grape);
@@ -66,12 +65,13 @@ export class BottlerProductComponent implements OnInit {
 
   onSubmit(data) {
     if (this.form.valid) {
+      data.productId = this.product.id;
       if (this.product.wines && this.product.wines.length) {
         data['wineId'] = this.product.wines[0].id;
       }
       this.service.addOrUpdateProduct(data)
         .finally(() => this.router.navigate(['/home/products', this.authService.currentRole]))
-        .subscribe(res => console.log(res));
+        .subscribe(res => res);
     }
   }
 

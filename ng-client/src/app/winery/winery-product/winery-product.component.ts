@@ -42,7 +42,6 @@ export class WineryProductComponent implements OnInit {
           .takeUntil(this.componentDestroyed$)
           .subscribe(product => {
             setTimeout(() => {
-              console.log(product);
               this.product = product;
               this.grape = product.grapes[0];
               this.form.patchValue(this.grape);
@@ -65,7 +64,7 @@ export class WineryProductComponent implements OnInit {
   onSubmit(data) {
     if (this.form.valid) {
       const obj = {
-        id: this.product.id,
+        productId: this.product.id,
         actualWeight: data.actualWeight,
         volume: data.volume
       };
@@ -75,7 +74,7 @@ export class WineryProductComponent implements OnInit {
       }
       this.service.addOrUpdateProduct(obj)
         .finally(() => this.router.navigate(['/home/products', this.authService.currentRole]))
-        .subscribe(res => console.log(res));
+        .subscribe(res => res);
     }
   }
 

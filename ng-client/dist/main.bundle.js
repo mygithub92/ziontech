@@ -258,7 +258,6 @@ var BottlerProductComponent = /** @class */ (function () {
                 .takeUntil(_this.componentDestroyed$)
                 .subscribe(function (product) {
                 setTimeout(function () {
-                    console.log(product);
                     _this.product = product;
                     _this.grape = product.grapes[0];
                     _this.form.patchValue(_this.grape);
@@ -279,12 +278,13 @@ var BottlerProductComponent = /** @class */ (function () {
     BottlerProductComponent.prototype.onSubmit = function (data) {
         var _this = this;
         if (this.form.valid) {
+            data.productId = this.product.id;
             if (this.product.wines && this.product.wines.length) {
                 data['wineId'] = this.product.wines[0].id;
             }
             this.service.addOrUpdateProduct(data)
                 .finally(function () { return _this.router.navigate(['/home/products', _this.authService.currentRole]); })
-                .subscribe(function (res) { return console.log(res); });
+                .subscribe(function (res) { return res; });
         }
     };
     BottlerProductComponent.prototype.getErrorMessage = function () {
@@ -421,7 +421,7 @@ module.exports = ""
 /***/ "./src/app/delete-confirm-dialog/delete-confirm-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>Are you sure to delete it?</h2>\r\n<mat-dialog-content>\r\n  The product is going to be deleted.\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n  <button mat-raised-button mat-dialog-close=\"yes\">Yes</button>\r\n  <button mat-raised-button mat-dialog-close=\"yes\">No</button>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<h2 mat-dialog-title>Are you sure to delete it?</h2>\n<mat-dialog-content>\n  The product is going to be deleted.\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-raised-button mat-dialog-close=\"yes\">Yes</button>\n  <button mat-raised-button mat-dialog-close=\"yes\">No</button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -533,7 +533,6 @@ var DriverComponent = /** @class */ (function () {
                 .takeUntil(_this.componentDestroyed$)
                 .subscribe(function (product) {
                 setTimeout(function () {
-                    console.log(product);
                     _this.product = product;
                     _this.grape = product.grapes[0];
                     _this.form.patchValue(_this.grape);
@@ -553,16 +552,14 @@ var DriverComponent = /** @class */ (function () {
     };
     DriverComponent.prototype.onSubmit = function (data) {
         var _this = this;
-        console.log(this.product);
         data.productId = this.product.id;
         if (this.form.valid) {
             if (this.product.transports && this.product.transports.length) {
                 data['transportId'] = this.product.transports[0].id;
             }
-            console.log(data);
             this.service.addOrUpdateProduct(data)
                 .finally(function () { return _this.router.navigate(['/home/products', _this.authService.currentRole]); })
-                .subscribe(function (res) { return console.log(res); });
+                .subscribe(function (res) { return res; });
         }
     };
     DriverComponent.prototype.getErrorMessage = function () {
@@ -681,14 +678,14 @@ var AddProductComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.valid) {
             if (this.prodcut) {
-                data.id = this.prodcut.id;
+                data.productId = this.prodcut.id;
                 if (this.prodcut.grapes || this.prodcut.grapes[0].id) {
                     data.grapeId = this.prodcut.grapes[0].id;
                 }
             }
             this.service.addOrUpdateProduct(data)
                 .finally(function () { return _this.router.navigate(['/home/products', _this.authSevice.currentRole]); })
-                .subscribe(function (res) { return console.log(res); });
+                .subscribe(function (res) { return res; });
         }
     };
     AddProductComponent.prototype.showDeleteButton = function () {
@@ -704,9 +701,7 @@ var AddProductComponent = /** @class */ (function () {
             if (result === 'yes') {
                 _this.service.deleteProduct('' + _this.prodcut.id)
                     .finally(function () { return _this.router.navigate(['/home/products', _this.authSevice.currentRole]); })
-                    .subscribe(function (res) {
-                    console.log(res);
-                });
+                    .subscribe(function (res) { return res; });
             }
         });
     };
@@ -990,14 +985,14 @@ var InterceptedHttp = /** @class */ (function (_super) {
 /***/ "./src/app/login/login.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.form-signin {\r\n  max-width: 330px;\r\n  padding: 15px;\r\n  margin: 0 auto;\r\n}\r\n.form-signin .form-signin-heading,\r\n.form-signin .checkbox {\r\n  margin-bottom: 10px;\r\n}\r\n.form-signin .checkbox {\r\n  font-weight: normal;\r\n}\r\n.form-signin .form-control {\r\n  position: relative;\r\n  height: auto;\r\n  -webkit-box-sizing: border-box;\r\n          box-sizing: border-box;\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n.form-signin .form-control:focus {\r\n  z-index: 2;\r\n}\r\n.form-signin input[type=\"email\"] {\r\n  margin-bottom: -1px;\r\n  border-bottom-right-radius: 0;\r\n  border-bottom-left-radius: 0;\r\n}\r\n.form-signin input[type=\"password\"] {\r\n  margin-bottom: 10px;\r\n  border-top-left-radius: 0;\r\n  border-top-right-radius: 0;\r\n}"
+module.exports = "\n.form-signin {\n  max-width: 330px;\n  padding: 15px;\n  margin: 0 auto;\n}\n.form-signin .form-signin-heading,\n.form-signin .checkbox {\n  margin-bottom: 10px;\n}\n.form-signin .checkbox {\n  font-weight: normal;\n}\n.form-signin .form-control {\n  position: relative;\n  height: auto;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 10px;\n  font-size: 16px;\n}\n.form-signin .form-control:focus {\n  z-index: 2;\n}\n.form-signin input[type=\"email\"] {\n  margin-bottom: -1px;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.form-signin input[type=\"password\"] {\n  margin-bottom: 10px;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}"
 
 /***/ }),
 
 /***/ "./src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"form-signin\" #f=\"ngForm\" (ngSubmit)=\"signIn(f.value)\">\r\n  <h2 class=\"form-signin-heading\">Please sign in</h2>\r\n  <div *ngIf=\"invalidLogin\" class=\"alert alert-danger\">Invalid username and/or password.</div>\r\n  <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\r\n  <input type=\"email\" id=\"inputEmail\" name=\"email\" ngModel class=\"form-control\" placeholder=\"Email address\" required autofocus>\r\n  <label for=\"inputPassword\" class=\"sr-only\">Password</label>\r\n  <input type=\"password\" id=\"inputPassword\" name=\"password\" ngModel class=\"form-control\" placeholder=\"Password\" required>\r\n  <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\r\n</form>"
+module.exports = "<form class=\"form-signin\" #f=\"ngForm\" (ngSubmit)=\"signIn(f.value)\">\n  <h2 class=\"form-signin-heading\">Please sign in</h2>\n  <div *ngIf=\"invalidLogin\" class=\"alert alert-danger\">Invalid username and/or password.</div>\n  <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n  <input type=\"email\" id=\"inputEmail\" name=\"email\" ngModel class=\"form-control\" placeholder=\"Email address\" required autofocus>\n  <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n  <input type=\"password\" id=\"inputPassword\" name=\"password\" ngModel class=\"form-control\" placeholder=\"Password\" required>\n  <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n</form>"
 
 /***/ }),
 
@@ -1113,7 +1108,7 @@ var MainComponent = /** @class */ (function () {
                 courseId: 1
             }
         }).afterClosed()
-            .subscribe(function (result) { return console.log(result); });
+            .subscribe(function (result) { return result; });
     };
     MainComponent.prototype.logout = function () {
         this.authService.logout();
@@ -1197,6 +1192,105 @@ var MatComponentsModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/model/Product.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Product; });
+/* unused harmony export Grape */
+/* unused harmony export Winery */
+/* unused harmony export Wine */
+/* unused harmony export Transport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
+
+var Product = /** @class */ (function () {
+    function Product() {
+    }
+    Product.grapeValue = function (product, field) {
+        if (product.grapes && product.grapes.length) {
+            return product.grapes[0][field] || '';
+        }
+        return '';
+    };
+    Product.wineryValue = function (product, field) {
+        if (product.wineries && product.wineries.length) {
+            return product.wineries[0][field] || '';
+        }
+        return '';
+    };
+    Product.wineValue = function (product, field) {
+        if (product.wines && product.wines.length) {
+            return product.wines[0][field] || '';
+        }
+        return '';
+    };
+    Product.transportValue = function (product, field, isDate) {
+        if (isDate === void 0) { isDate = false; }
+        if (product.transports && product.transports.length) {
+            var value = product.transports[0][field] || '';
+            if (value && isDate) {
+                return new __WEBPACK_IMPORTED_MODULE_0__angular_common__["d" /* DatePipe */]('en-AU').transform(value, 'd MMM yyyy');
+            }
+            return value;
+        }
+        return '';
+    };
+    Product.isVaidGrape = function (product) {
+        return product.companyName != null && product.grapes && product.grapes.length && Grape.isValid(product.grapes[0]);
+    };
+    Product.isValidWinery = function (product) {
+        return product.wineries && product.wineries.length && Winery.isValid(product.wineries[0]);
+    };
+    Product.isValidWine = function (product) {
+        return product.wines && product.wines.length && Wine.isValid(product.wines[0]);
+    };
+    Product.isValidTansport = function (product) {
+        return product.transports && product.transports.length && Transport.isValid(product.transports[0]);
+    };
+    return Product;
+}());
+
+var Grape = /** @class */ (function () {
+    function Grape() {
+    }
+    Grape.isValid = function (grape) {
+        return grape.region != null && grape.vineyard != null && grape.block != null
+            && grape.rowRange != null && grape.variety != null && grape.vintage != null && grape.estimatedWeight != null;
+    };
+    return Grape;
+}());
+
+var Winery = /** @class */ (function () {
+    function Winery() {
+    }
+    Winery.isValid = function (winery) {
+        return winery.volume != null;
+    };
+    return Winery;
+}());
+
+var Wine = /** @class */ (function () {
+    function Wine() {
+    }
+    Wine.isValid = function (wine) {
+        return wine.brand != null && wine.label != null && wine.corkCap != null && wine.status != null;
+    };
+    return Wine;
+}());
+
+var Transport = /** @class */ (function () {
+    function Transport() {
+    }
+    Transport.isValid = function (transport) {
+        return transport.from != null && transport.to != null && transport.start != null && transport.end != null && transport.driverId != null && transport.plateNumber != null;
+    };
+    return Transport;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/no-access/no-access.component.css":
 /***/ (function(module, exports) {
 
@@ -1207,7 +1301,7 @@ module.exports = ""
 /***/ "./src/app/no-access/no-access.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<h1>Access Denied</h1>"
+module.exports = "\n<h1>Access Denied</h1>"
 
 /***/ }),
 
@@ -1257,7 +1351,7 @@ module.exports = ".confirm-tranfer-grid .mat-grid-tile:nth-child(odd) {\r\n    t
 /***/ "./src/app/product-list/confirm-dialog/confirm-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>Please confirm...</h2>\r\n<mat-dialog-content>\r\n    <mat-grid-list cols=\"2\" rowHeight=\"30px\" class=\"confirm-tranfer-grid\">\r\n        <mat-grid-tile>\r\n          ID:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.id}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Company Name:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.companyName}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Region:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.grapes[0].region}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Variety:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.grapes[0].variety}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Vintage:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.grapes[0].vintage}}\r\n        </mat-grid-tile>\r\n      </mat-grid-list>\r\n  <p>Are you sure you want to transfer this product?</p>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n  <button mat-raised-button mat-dialog-close=\"yes\" color=\"primary\">Yes</button>\r\n  <button mat-raised-button mat-dialog-close=\"no\" color=\"warn\">No</button>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<h2 mat-dialog-title>Please confirm...</h2>\n<mat-dialog-content>\n    <mat-grid-list cols=\"2\" rowHeight=\"30px\" class=\"confirm-tranfer-grid\">\n        <mat-grid-tile>\n          ID:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.id}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Company Name:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.companyName}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Region:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.grapes[0].region}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Variety:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.grapes[0].variety}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Vintage:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.grapes[0].vintage}}\n        </mat-grid-tile>\n      </mat-grid-list>\n  <p>Are you sure you want to transfer this product?</p>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-raised-button mat-dialog-close=\"yes\" color=\"primary\">Yes</button>\n  <button mat-raised-button mat-dialog-close=\"no\" color=\"warn\">No</button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -1268,6 +1362,7 @@ module.exports = "<h2 mat-dialog-title>Please confirm...</h2>\r\n<mat-dialog-con
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfirmDialogComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Product__ = __webpack_require__("./src/app/model/Product.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1282,6 +1377,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 
 
+
 var ConfirmDialogComponent = /** @class */ (function () {
     function ConfirmDialogComponent(data) {
         this.product = data;
@@ -1293,7 +1389,7 @@ var ConfirmDialogComponent = /** @class */ (function () {
             styles: [__webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.css")]
         }),
         __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__model_Product__["a" /* Product */]])
     ], ConfirmDialogComponent);
     return ConfirmDialogComponent;
 }());
@@ -1326,13 +1422,14 @@ module.exports = "<div class=\"button-row\" *ngIf=\"showAddButton\">\r\n  <butto
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_takeUntil__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/takeUntil.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__qr_dialog_qr_dialog_component__ = __webpack_require__("./src/app/qr-dialog/qr-dialog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_hyperledger_service__ = __webpack_require__("./src/app/services/hyperledger.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__ = __webpack_require__("./src/app/shared/Roles.enum.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__confirm_dialog_confirm_dialog_component__ = __webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__common_no_auth_error__ = __webpack_require__("./src/app/common/no-auth-error.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_Product__ = __webpack_require__("./src/app/model/Product.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__qr_dialog_qr_dialog_component__ = __webpack_require__("./src/app/qr-dialog/qr-dialog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_hyperledger_service__ = __webpack_require__("./src/app/services/hyperledger.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__ = __webpack_require__("./src/app/shared/Roles.enum.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__confirm_dialog_confirm_dialog_component__ = __webpack_require__("./src/app/product-list/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__common_no_auth_error__ = __webpack_require__("./src/app/common/no-auth-error.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1354,6 +1451,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(service, router, authService, route, dialog) {
         this.service = service;
@@ -1361,19 +1459,18 @@ var ProductListComponent = /** @class */ (function () {
         this.authService = authService;
         this.route = route;
         this.dialog = dialog;
-        this.datePipe = new __WEBPACK_IMPORTED_MODULE_10__angular_common__["d" /* DatePipe */]('en-AU');
+        this.datePipe = new __WEBPACK_IMPORTED_MODULE_11__angular_common__["d" /* DatePipe */]('en-AU');
         this.componentDestroyed$ = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["a" /* Subject */]();
         this.displayedColumns = [];
     }
     ProductListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.subscribe(function (params) {
+        this.route.params.subscribe(function () {
             _this.populateMetaData();
             _this.service.getAllProducts(_this.authService.transaction)
                 .takeUntil(_this.componentDestroyed$)
                 .subscribe(function (response) {
                 setTimeout(function () {
-                    console.log(response);
                     _this.currentRolename = _this.authService.currentRoleName();
                     _this.records = response;
                     _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatTableDataSource */](_this.records);
@@ -1381,7 +1478,7 @@ var ProductListComponent = /** @class */ (function () {
                     _this.dataSource.sort = _this.sort;
                 });
             }, function (err) {
-                if (err instanceof __WEBPACK_IMPORTED_MODULE_11__common_no_auth_error__["a" /* NoAuthError */]) {
+                if (err instanceof __WEBPACK_IMPORTED_MODULE_12__common_no_auth_error__["a" /* NoAuthError */]) {
                     _this.router.navigate(['login']);
                 }
             });
@@ -1393,16 +1490,16 @@ var ProductListComponent = /** @class */ (function () {
     };
     ProductListComponent.prototype.populateMetaData = function () {
         switch (this.authService.currentRole) {
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Grower:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Grower:
                 this.populateGrowerMetaData();
                 break;
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Winery:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Winery:
                 this.populateWineryMetaData();
                 break;
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Bottler:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Bottler:
                 this.populateBottlerMetaData();
                 break;
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
                 this.populateDriverMetaData();
                 break;
         }
@@ -1412,79 +1509,75 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.populateGrowerMetaData = function () {
         this.columns = [
             { columnDef: 'companyName', header: 'Company Name', cell: function (row) { return "" + row.companyName; } },
-            { columnDef: 'region', header: 'Region', cell: function (row) { return "" + row.grapes[0].region; } },
-            { columnDef: 'vineyard', header: 'Vineyard', cell: function (row) { return "" + row.grapes[0].vineyard; } },
-            { columnDef: 'block', header: 'Block', cell: function (row) { return "" + row.grapes[0].block; } },
-            { columnDef: 'rowRange', header: 'Row Range', cell: function (row) { return "" + row.grapes[0].rowRange; } },
-            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + row.grapes[0].variety; } },
-            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + row.grapes[0].vintage; } },
-            { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: function (row) { return "" + row.grapes[0].estimatedWeight; } }
+            { columnDef: 'region', header: 'Region', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'region'); } },
+            { columnDef: 'vineyard', header: 'Vineyard', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'vineyard'); } },
+            { columnDef: 'block', header: 'Block', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'block'); } },
+            { columnDef: 'rowRange', header: 'Row Range', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'rowRange'); } },
+            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'variety'); } },
+            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'vintage'); } },
+            { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'estimatedWeight'); } },
+            { columnDef: 'actualWeight', header: 'Actual Weight', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'actualWeight'); } }
         ];
-        if (this.authService.transaction) {
-            this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight', cell: function (row) { return "" + row.grapes[0].actualWeight; } });
-        }
-        else {
+        if (!this.authService.transaction) {
             this.columns.push({ columnDef: 'action', header: 'Action', cell: function (row) { return 'Transfer'; } });
         }
     };
     ProductListComponent.prototype.populateWineryMetaData = function () {
         this.columns = [
             { columnDef: 'companyName', header: 'Company Name', cell: function (row) { return "" + row.companyName; } },
-            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + row.grapes[0].variety; } },
-            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + row.grapes[0].vintage; } },
-            { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: function (row) { return "" + row.grapes[0].estimatedWeight; } },
-            { columnDef: 'actualWeight', header: 'Actual Weight', cell: function (row) { return "" + (row.grapes[0].actualWeight ? row.grapes[0].actualWeight : ''); } },
-            { columnDef: 'volume', header: 'Volume', cell: function (row) { return "" + (row.wineries && row.wineries.length && row.wineries[0].volume ? row.wineries[0].volume : ''); } }
+            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'variety'); } },
+            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'vintage'); } },
+            { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'estimatedWeight'); } },
+            { columnDef: 'actualWeight', header: 'Actual Weight', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'actualWeight'); } },
+            { columnDef: 'volume', header: 'Volume', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineryValue(row, 'volume'); } }
         ];
         if (!this.authService.transaction) {
             this.columns.push({
                 columnDef: 'action',
                 header: 'Action',
-                cell: function (row) { return row.grapes[0].actualWeight && row.wineries && row.wineries.length && row.wineries[0].volume ? 'Transfer' : ''; }
+                cell: function (row) { return __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].isValidWinery(row) ? 'Transfer' : ''; }
             });
         }
     };
     ProductListComponent.prototype.populateBottlerMetaData = function () {
         this.columns = [
             { columnDef: 'companyName', header: 'Company Name', cell: function (row) { return "" + row.companyName; } },
-            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + row.grapes[0].variety; } },
-            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + row.grapes[0].vintage; } },
-            { columnDef: 'volume', header: 'Volume', cell: function (row) { return "" + (row.wineries && row.wineries.length ? row.wineries[0].volume : ''); } },
-            { columnDef: 'brand', header: 'Brand', cell: function (row) { return "" + (row.wines && row.wines.length && row.wines[0].brand ? row.wines[0].brand : ''); } },
-            { columnDef: 'label', header: 'Label', cell: function (row) { return "" + (row.wines && row.wines.length && row.wines[0].label ? row.wines[0].label : ''); } },
-            { columnDef: 'corkCap', header: 'Cork Cap', cell: function (row) { return "" + (row.wines && row.wines.length && row.wines[0].corkCap ? row.wines[0].corkCap : ''); } },
-            { columnDef: 'status', header: 'Status', cell: function (row) { return "" + (row.wines && row.wines.length && row.wines[0].status ? row.wines[0].status : ''); } }
+            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'variety'); } },
+            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'vintage'); } },
+            { columnDef: 'volume', header: 'Volume', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineryValue(row, 'volume'); } },
+            { columnDef: 'brand', header: 'Brand', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineValue(row, 'brand'); } },
+            { columnDef: 'label', header: 'Label', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineValue(row, 'label'); } },
+            { columnDef: 'corkCap', header: 'Cork Cap', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineValue(row, 'corkCap'); } },
+            { columnDef: 'status', header: 'Status', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineValue(row, 'status'); } }
         ];
         if (!this.authService.transaction) {
             this.columns.push({
                 columnDef: 'action',
                 header: 'Action',
-                cell: function (row) { return row.grapes[0].actualWeight && row.wineries && row.wineries.length && row.wineries[0].volume ? 'Transfer' : ''; }
+                cell: function (row) { return __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].isValidWine(row) ? 'Transfer' : ''; }
             });
         }
     };
     ProductListComponent.prototype.populateDriverMetaData = function () {
-        var _this = this;
         this.columns = [
-            // { columnDef: 'key', header: '#', cell: (row: Product) => `${row.key}` },
             { columnDef: 'companyName', header: 'Company Name', cell: function (row) { return "" + row.companyName; } },
-            { columnDef: 'region', header: 'Region', cell: function (row) { return "" + row.grapes[0].region; } },
-            { columnDef: 'vineyard', header: 'Vineyard', cell: function (row) { return "" + row.grapes[0].vineyard; } },
-            { columnDef: 'actualWeight', header: 'Actual Weight', cell: function (row) { return "" + row.grapes[0].actualWeight; } },
-            { columnDef: 'volume', header: 'Volume', cell: function (row) { return "" + (row.wineries && row.wineries.length ? row.wineries[0].volume : ''); } },
-            { columnDef: 'brand', header: 'Brand', cell: function (row) { return "" + (row.wines && row.wines.length ? row.wines[0].brand : ''); } },
-            { columnDef: 'from', header: 'From', cell: function (row) { return "" + (row.transports && row.transports.length ? row.transports[0].from : ''); } },
-            { columnDef: 'to', header: 'To', cell: function (row) { return "" + (row.transports && row.transports.length ? row.transports[0].to : ''); } },
-            { columnDef: 'start', header: 'Start', cell: function (row) { return "" + (row.transports && row.transports.length ? _this.datePipe.transform(row.transports[0].start, 'd MMM yyyy') : ''); } },
-            { columnDef: 'end', header: 'End', cell: function (row) { return "" + (row.transports && row.transports.length ? _this.datePipe.transform(row.transports[0].end, 'd MMM yyyy') : ''); } },
-            { columnDef: 'driverId', header: 'Driver Id', cell: function (row) { return "" + (row.transports && row.transports.length ? row.transports[0].driverId : ''); } },
-            { columnDef: 'plateNumber', header: 'Plate Number', cell: function (row) { return "" + (row.transports && row.transports.length ? row.transports[0].plateNumber : ''); } },
+            { columnDef: 'region', header: 'Region', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'region'); } },
+            { columnDef: 'vineyard', header: 'Vineyard', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'vineyard'); } },
+            { columnDef: 'actualWeight', header: 'Actual Weight', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'actualWeight'); } },
+            { columnDef: 'volume', header: 'Volume', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineryValue(row, 'volume'); } },
+            { columnDef: 'brand', header: 'Brand', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineValue(row, 'brand'); } },
+            { columnDef: 'from', header: 'From', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].transportValue(row, 'from'); } },
+            { columnDef: 'to', header: 'To', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].transportValue(row, 'to'); } },
+            { columnDef: 'start', header: 'Start', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].transportValue(row, 'start', true); } },
+            { columnDef: 'end', header: 'End', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].transportValue(row, 'end', true); } },
+            { columnDef: 'driverId', header: 'Driver Id', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].transportValue(row, 'driverId'); } },
+            { columnDef: 'plateNumber', header: 'Plate Number', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].transportValue(row, 'plateNumber'); } },
         ];
         if (!this.authService.transaction) {
             this.columns.push({
                 columnDef: 'action',
                 header: 'Action',
-                cell: function (row) { return 'Transfer'; }
+                cell: function (row) { return __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].isValidTansport(row) ? 'Transfer' : ''; }
             });
         }
     };
@@ -1496,7 +1589,7 @@ var ProductListComponent = /** @class */ (function () {
     ProductListComponent.prototype.transfer = function ($event, row, cell) {
         var _this = this;
         if (cell.header === 'Action') {
-            var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_9__confirm_dialog_confirm_dialog_component__["a" /* ConfirmDialogComponent */], {
+            var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_10__confirm_dialog_confirm_dialog_component__["a" /* ConfirmDialogComponent */], {
                 width: '550px',
                 disableClose: true,
                 data: row
@@ -1506,7 +1599,7 @@ var ProductListComponent = /** @class */ (function () {
                     _this.records = _this.records.filter(function (e) { return e.id !== row.id; });
                     _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatTableDataSource */](_this.records);
                     _this.service.transportProduct(row.id)
-                        .subscribe(function (res) { return console.log(res); });
+                        .subscribe(function (res) { return res; });
                 }
             });
             $event.stopPropagation();
@@ -1515,7 +1608,7 @@ var ProductListComponent = /** @class */ (function () {
     };
     Object.defineProperty(ProductListComponent.prototype, "showAddButton", {
         get: function () {
-            return this.authService.currentRole === __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Grower && !this.authService.transaction;
+            return this.authService.currentRole === __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Grower && !this.authService.transaction;
         },
         enumerable: true,
         configurable: true
@@ -1526,22 +1619,22 @@ var ProductListComponent = /** @class */ (function () {
             return;
         }
         switch (this.authService.currentRole) {
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Grower:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Grower:
                 this.router.navigateByUrl("/home/grower/new/" + row.id);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Winery:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Winery:
                 this.router.navigateByUrl("/home/winery/product/" + row.id);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Bottler:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Bottler:
                 this.router.navigateByUrl("/home/bottler/product/" + row.id);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_8__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
                 this.router.navigateByUrl("/home/driver/product/" + row.id);
                 break;
         }
     };
     ProductListComponent.prototype.openQrDialog = function (id) {
-        this.dialog.open(__WEBPACK_IMPORTED_MODULE_5__qr_dialog_qr_dialog_component__["a" /* QrDialogComponent */], {
+        this.dialog.open(__WEBPACK_IMPORTED_MODULE_6__qr_dialog_qr_dialog_component__["a" /* QrDialogComponent */], {
             data: {
                 id: id
             }
@@ -1561,9 +1654,9 @@ var ProductListComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/product-list/product-list.component.html"),
             styles: [__webpack_require__("./src/app/product-list/product-list.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7__services_hyperledger_service__["a" /* HyperledgerService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_8__services_hyperledger_service__["a" /* HyperledgerService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */],
-            __WEBPACK_IMPORTED_MODULE_6__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_7__services_auth_service__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
             __WEBPACK_IMPORTED_MODULE_1__angular_material__["f" /* MatDialog */]])
     ], ProductListComponent);
@@ -1728,7 +1821,6 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.populateUserInfor = function () {
         var _this = this;
-        console.log(this.currentUser);
         this.currentUser.roleMap = new Map();
         this.currentUser.roleIds = this.currentUser.roles.map(function (role) {
             _this.currentUser.roleMap.set(role.id, role.name);
@@ -1782,6 +1874,14 @@ var AuthService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__server_url__ = __webpack_require__("./src/app/services/server.url.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__common_no_auth_error__ = __webpack_require__("./src/app/common/no-auth-error.ts");
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1827,13 +1927,24 @@ var HyperledgerService = /** @class */ (function () {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
                 if (history) {
                     return this.http.get(this.baseUrl + "/api/transports", { params: { history: history } })
-                        .map(function (res) { return res.json(); })
+                        .map(function (res) {
+                        var result = [];
+                        res.json().forEach(function (product) {
+                            product.transports.forEach(function (transport) {
+                                var temp = __assign({}, product);
+                                delete temp.transports;
+                                temp.transports = [];
+                                temp.transports.push(transport);
+                                result.push(temp);
+                            });
+                        });
+                        return result;
+                    })
                         .catch(this.handleError);
                 }
                 return this.http.get(this.baseUrl + "/api/transports", { params: { history: history } })
                     .map(function (res) {
                     var ps = res.json();
-                    console.log(ps);
                     ps.products.forEach(function (product) {
                         product.transports = product.transports || [];
                         ps.transports.forEach(function (transport) {
@@ -1842,31 +1953,29 @@ var HyperledgerService = /** @class */ (function () {
                             }
                         });
                     });
-                    console.log(ps.products);
                     return ps.products;
                 })
                     .catch(this.handleError);
         }
     };
-    HyperledgerService.prototype.getProduct = function (id) {
+    HyperledgerService.prototype.getProduct = function (productId) {
         switch (this.authService.currentRole) {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Grower:
-                return this.http.get(this.baseUrl + "/api/grape", { params: { id: id } })
+                return this.http.get(this.baseUrl + "/api/grape", { params: { productId: productId } })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Winery:
-                return this.http.get(this.baseUrl + "/api/winery", { params: { id: id } })
+                return this.http.get(this.baseUrl + "/api/winery", { params: { productId: productId } })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Bottler:
-                return this.http.get(this.baseUrl + "/api/bottler", { params: { id: id } })
+                return this.http.get(this.baseUrl + "/api/bottler", { params: { productId: productId } })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
-                return this.http.get(this.baseUrl + "/api/transport", { params: { id: id } })
+                return this.http.get(this.baseUrl + "/api/transport", { params: { productId: productId } })
                     .map(function (res) {
                     var ps = res.json();
-                    console.log(ps);
                     if (ps.transport) {
                         ps.product.transports = [];
                         ps.product.transports.push(ps.transport);
@@ -1878,11 +1987,9 @@ var HyperledgerService = /** @class */ (function () {
     };
     HyperledgerService.prototype.addOrUpdateProduct = function (data) {
         data.userId = this.authService.currentUser.id;
-        console.log(data);
-        console.log(this.authService.currentRole);
         switch (this.authService.currentRole) {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Grower:
-                if (data.id) {
+                if (data.productId) {
                     return this.http.post(this.baseUrl + '/api/grape/update/', data)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
@@ -1915,7 +2022,6 @@ var HyperledgerService = /** @class */ (function () {
                         .catch(this.handleError);
                 }
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
-                console.log('--------------------');
                 if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(function (res) { return res.json(); })
@@ -1933,23 +2039,22 @@ var HyperledgerService = /** @class */ (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    HyperledgerService.prototype.transportProduct = function (id) {
-        console.log(id);
+    HyperledgerService.prototype.transportProduct = function (productId) {
         switch (this.authService.currentRole) {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Grower:
-                return this.http.post(this.baseUrl + '/api/grape/transport', { id: id })
+                return this.http.post(this.baseUrl + '/api/grape/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Winery:
-                return this.http.post(this.baseUrl + '/api/winery/transport', { id: id })
+                return this.http.post(this.baseUrl + '/api/winery/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Bottler:
-                return this.http.post(this.baseUrl + '/api/bottler/transport', { id: id })
+                return this.http.post(this.baseUrl + '/api/bottler/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
-                return this.http.post(this.baseUrl + '/api/transport/transport', { id: id })
+                return this.http.post(this.baseUrl + '/api/transport/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
         }
@@ -2013,7 +2118,7 @@ module.exports = ""
 /***/ "./src/app/shared/base/base.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  base works!\r\n</p>\r\n"
+module.exports = "<p>\n  base works!\n</p>\n"
 
 /***/ }),
 
@@ -2118,7 +2223,6 @@ var WineryProductComponent = /** @class */ (function () {
                 .takeUntil(_this.componentDestroyed$)
                 .subscribe(function (product) {
                 setTimeout(function () {
-                    console.log(product);
                     _this.product = product;
                     _this.grape = product.grapes[0];
                     _this.form.patchValue(_this.grape);
@@ -2140,7 +2244,7 @@ var WineryProductComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.valid) {
             var obj = {
-                id: this.product.id,
+                productId: this.product.id,
                 actualWeight: data.actualWeight,
                 volume: data.volume
             };
@@ -2149,7 +2253,7 @@ var WineryProductComponent = /** @class */ (function () {
             }
             this.service.addOrUpdateProduct(obj)
                 .finally(function () { return _this.router.navigate(['/home/products', _this.authService.currentRole]); })
-                .subscribe(function (res) { return console.log(res); });
+                .subscribe(function (res) { return res; });
         }
     };
     WineryProductComponent.prototype.getErrorMessage = function () {
