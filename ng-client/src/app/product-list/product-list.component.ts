@@ -76,7 +76,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       case Roles.Bottler:
         this.populateBottlerMetaData();
         break;
-      case Roles.Distributor:
+      case Roles.Logistic:
         this.populateDriverMetaData();
         break;
       // default:
@@ -213,7 +213,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       case Roles.Bottler:
         this.router.navigateByUrl(`/home/bottler/product/${row.id}`);
         break;
-      case Roles.Distributor:
+      case Roles.Logistic:
         this.router.navigateByUrl(`/home/driver/product/${row.id}`);
         break;
     }

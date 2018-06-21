@@ -421,7 +421,7 @@ module.exports = ""
 /***/ "./src/app/delete-confirm-dialog/delete-confirm-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>Are you sure to delete it?</h2>\n<mat-dialog-content>\n  The product is going to be deleted.\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-raised-button mat-dialog-close=\"yes\">Yes</button>\n  <button mat-raised-button mat-dialog-close=\"yes\">No</button>\n</mat-dialog-actions>\n"
+module.exports = "<h2 mat-dialog-title>Are you sure to delete it?</h2>\r\n<mat-dialog-content>\r\n  The product is going to be deleted.\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n  <button mat-raised-button mat-dialog-close=\"yes\">Yes</button>\r\n  <button mat-raised-button mat-dialog-close=\"yes\">No</button>\r\n</mat-dialog-actions>\r\n"
 
 /***/ }),
 
@@ -838,7 +838,7 @@ var DriverAuthGuard = /** @class */ (function (_super) {
         if (!isAuthenticated) {
             return false;
         }
-        if (this.authService.isAuth(__WEBPACK_IMPORTED_MODULE_3__shared_Roles_enum__["a" /* Roles */].Distributor)) {
+        if (this.authService.isAuth(__WEBPACK_IMPORTED_MODULE_3__shared_Roles_enum__["a" /* Roles */].Logistic)) {
             return true;
         }
         this.router.navigate(['/no-access']);
@@ -985,14 +985,14 @@ var InterceptedHttp = /** @class */ (function (_super) {
 /***/ "./src/app/login/login.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\n.form-signin {\n  max-width: 330px;\n  padding: 15px;\n  margin: 0 auto;\n}\n.form-signin .form-signin-heading,\n.form-signin .checkbox {\n  margin-bottom: 10px;\n}\n.form-signin .checkbox {\n  font-weight: normal;\n}\n.form-signin .form-control {\n  position: relative;\n  height: auto;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 10px;\n  font-size: 16px;\n}\n.form-signin .form-control:focus {\n  z-index: 2;\n}\n.form-signin input[type=\"email\"] {\n  margin-bottom: -1px;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.form-signin input[type=\"password\"] {\n  margin-bottom: 10px;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}"
+module.exports = "\r\n.form-signin {\r\n  max-width: 330px;\r\n  padding: 15px;\r\n  margin: 0 auto;\r\n}\r\n.form-signin .form-signin-heading,\r\n.form-signin .checkbox {\r\n  margin-bottom: 10px;\r\n}\r\n.form-signin .checkbox {\r\n  font-weight: normal;\r\n}\r\n.form-signin .form-control {\r\n  position: relative;\r\n  height: auto;\r\n  -webkit-box-sizing: border-box;\r\n          box-sizing: border-box;\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n.form-signin .form-control:focus {\r\n  z-index: 2;\r\n}\r\n.form-signin input[type=\"email\"] {\r\n  margin-bottom: -1px;\r\n  border-bottom-right-radius: 0;\r\n  border-bottom-left-radius: 0;\r\n}\r\n.form-signin input[type=\"password\"] {\r\n  margin-bottom: 10px;\r\n  border-top-left-radius: 0;\r\n  border-top-right-radius: 0;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"form-signin\" #f=\"ngForm\" (ngSubmit)=\"signIn(f.value)\">\n  <h2 class=\"form-signin-heading\">Please sign in</h2>\n  <div *ngIf=\"invalidLogin\" class=\"alert alert-danger\">Invalid username and/or password.</div>\n  <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n  <input type=\"email\" id=\"inputEmail\" name=\"email\" ngModel class=\"form-control\" placeholder=\"Email address\" required autofocus>\n  <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n  <input type=\"password\" id=\"inputPassword\" name=\"password\" ngModel class=\"form-control\" placeholder=\"Password\" required>\n  <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n</form>"
+module.exports = "<form class=\"form-signin\" #f=\"ngForm\" (ngSubmit)=\"signIn(f.value)\">\r\n  <h2 class=\"form-signin-heading\">Please sign in</h2>\r\n  <div *ngIf=\"invalidLogin\" class=\"alert alert-danger\">Invalid username and/or password.</div>\r\n  <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\r\n  <input type=\"email\" id=\"inputEmail\" name=\"email\" ngModel class=\"form-control\" placeholder=\"Email address\" required autofocus>\r\n  <label for=\"inputPassword\" class=\"sr-only\">Password</label>\r\n  <input type=\"password\" id=\"inputPassword\" name=\"password\" ngModel class=\"form-control\" placeholder=\"Password\" required>\r\n  <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\r\n</form>"
 
 /***/ }),
 
@@ -1061,7 +1061,7 @@ module.exports = "\r\n.sidebar {\r\n    min-height: 500px;\r\n    max-height: 50
 /***/ "./src/app/main/main.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner\">\r\n  <a class=\"navbar-brand\" routerLink=\"/\"><i class=\"fa fa-leaf\" aria-hidden=\"true\">\r\n      <img src=\"/assets/logo.svg\" width=\"30\" height=\"30\" class=\"d-inline-block align-top\" alt=\"\">\r\n      Ziontech</i></a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" \r\n    aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleMenu()\"\r\n    [attr.aria-expanded]=\"!isCollapsed\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" [ngbCollapse]=\"isCollapsed\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">Contact</a></li>\r\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"#\">About</a></li>\r\n      <li class=\"nav-item\"><mat-icon color=\"warn\">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>\r\n    </ul>\r\n    <a class=\"nav-link\" (click)=\"logout()\"><mat-icon color=\"warn\">exit_to_app</mat-icon>Logout</a>\r\n  </div>\r\n</nav>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-11 col-md-1 sidebar bg-dark\" id=\"sidebar\" role=\"navigation\">\r\n        <ul class=\"nav flex-column sidebar\">\r\n          <li class=\"nav-item active\" *ngIf=\"authService.isAuth(roles.Grower)\" >\r\n              <a class=\"nav-link\" (click)=\"navigateTo(roles.Grower)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Grower</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Winery)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Winery)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Winery</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Bottler)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Bottler)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Bottler</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Distributor)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Distributor)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Driver</a>\r\n          </li>\r\n          <li class=\"nav-divider\"><mat-divider></mat-divider></li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" (click)=\"navigateToTransaction()\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Transaction</a>\r\n          </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-11 col-md-10\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner\">\r\n  <a class=\"navbar-brand\" href=\"https://www.ziontech.com.au/\" target=\"_blank\"><i class=\"fa fa-leaf\" aria-hidden=\"true\">\r\n      <img src=\"/assets/ziontech.png\" width=\"30\" height=\"30\" class=\"d-inline-block align-top\" alt=\"\">\r\n      Ziontech</i></a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" \r\n    aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleMenu()\"\r\n    [attr.aria-expanded]=\"!isCollapsed\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" [ngbCollapse]=\"isCollapsed\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"https://www.ziontech.com.au/\" target=\"_blank\">About Us</a></li>\r\n      <li class=\"nav-item\"><mat-icon color=\"warn\">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>\r\n    </ul>\r\n    <a class=\"nav-link\" (click)=\"logout()\"><mat-icon color=\"warn\">exit_to_app</mat-icon>Logout</a>\r\n  </div>\r\n</nav>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-11 col-md-1 sidebar bg-dark\" id=\"sidebar\" role=\"navigation\">\r\n        <ul class=\"nav flex-column sidebar\">\r\n          <li class=\"nav-item active\" *ngIf=\"authService.isAuth(roles.Grower)\" >\r\n              <a class=\"nav-link\" (click)=\"navigateTo(roles.Grower)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Grower</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Winery)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Winery)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Winery</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Bottler)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Bottler)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Bottler</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Logistic)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Logistic)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Logistic</a>\r\n          </li>\r\n          <li class=\"nav-divider\"><mat-divider></mat-divider></li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" (click)=\"navigateToTransaction()\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Transaction</a>\r\n          </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-11 col-md-10\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1301,7 +1301,7 @@ module.exports = ""
 /***/ "./src/app/no-access/no-access.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<h1>Access Denied</h1>"
+module.exports = "\r\n<h1>Access Denied</h1>"
 
 /***/ }),
 
@@ -1351,7 +1351,7 @@ module.exports = ".confirm-tranfer-grid .mat-grid-tile:nth-child(odd) {\r\n    t
 /***/ "./src/app/product-list/confirm-dialog/confirm-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>Please confirm...</h2>\n<mat-dialog-content>\n    <mat-grid-list cols=\"2\" rowHeight=\"30px\" class=\"confirm-tranfer-grid\">\n        <mat-grid-tile>\n          ID:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.id}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Company Name:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.companyName}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Region:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.grapes[0].region}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Variety:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.grapes[0].variety}}\n        </mat-grid-tile>\n        <mat-grid-tile>\n          Vintage:\n        </mat-grid-tile>\n        <mat-grid-tile>\n            {{ product.grapes[0].vintage}}\n        </mat-grid-tile>\n      </mat-grid-list>\n  <p>Are you sure you want to transfer this product?</p>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <button mat-raised-button mat-dialog-close=\"yes\" color=\"primary\">Yes</button>\n  <button mat-raised-button mat-dialog-close=\"no\" color=\"warn\">No</button>\n</mat-dialog-actions>\n"
+module.exports = "<h2 mat-dialog-title>Please confirm...</h2>\r\n<mat-dialog-content>\r\n    <mat-grid-list cols=\"2\" rowHeight=\"30px\" class=\"confirm-tranfer-grid\">\r\n        <mat-grid-tile>\r\n          ID:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.id}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Company Name:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.companyName}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Region:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.grapes[0].region}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Variety:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.grapes[0].variety}}\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n          Vintage:\r\n        </mat-grid-tile>\r\n        <mat-grid-tile>\r\n            {{ product.grapes[0].vintage}}\r\n        </mat-grid-tile>\r\n      </mat-grid-list>\r\n  <p>Are you sure you want to transfer this product?</p>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n  <button mat-raised-button mat-dialog-close=\"yes\" color=\"primary\">Yes</button>\r\n  <button mat-raised-button mat-dialog-close=\"no\" color=\"warn\">No</button>\r\n</mat-dialog-actions>\r\n"
 
 /***/ }),
 
@@ -1499,7 +1499,7 @@ var ProductListComponent = /** @class */ (function () {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Bottler:
                 this.populateBottlerMetaData();
                 break;
-            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 this.populateDriverMetaData();
                 break;
         }
@@ -1628,7 +1628,7 @@ var ProductListComponent = /** @class */ (function () {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Bottler:
                 this.router.navigateByUrl("/home/bottler/product/" + row.id);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 this.router.navigateByUrl("/home/driver/product/" + row.id);
                 break;
         }
@@ -1777,6 +1777,7 @@ var appRoutes = [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_jwt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__server_url__ = __webpack_require__("./src/app/services/server.url.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_Roles_enum__ = __webpack_require__("./src/app/shared/Roles.enum.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1786,6 +1787,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1820,10 +1822,7 @@ var AuthService = /** @class */ (function () {
         });
     };
     AuthService.prototype.populateUserInfor = function () {
-        var _this = this;
-        this.currentUser.roleMap = new Map();
         this.currentUser.roleIds = this.currentUser.roles.map(function (role) {
-            _this.currentUser.roleMap.set(role.id, role.name);
             return role.id;
         });
         this.currentRole = this.currentUser.roleIds[0];
@@ -1836,11 +1835,7 @@ var AuthService = /** @class */ (function () {
         this.currentUser = null;
     };
     AuthService.prototype.currentRoleName = function () {
-        if (this.currentRole && this.currentUser.roleMap && this.currentUser.roleMap.size > 1) {
-            var roleName = this.currentUser.roleMap.get(this.currentRole);
-            return roleName;
-        }
-        return '';
+        return this.currentRole ? __WEBPACK_IMPORTED_MODULE_5__shared_Roles_enum__["a" /* Roles */][this.currentRole] : '';
     };
     AuthService.prototype.isLoggedIn = function () {
         return Object(__WEBPACK_IMPORTED_MODULE_2_angular2_jwt__["tokenNotExpired"])('token');
@@ -1924,7 +1919,7 @@ var HyperledgerService = /** @class */ (function () {
                 return this.http.get(this.baseUrl + "/api/bottlers", { params: { history: history } })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
-            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 if (history) {
                     return this.http.get(this.baseUrl + "/api/transports", { params: { history: history } })
                         .map(function (res) {
@@ -1972,7 +1967,7 @@ var HyperledgerService = /** @class */ (function () {
                 return this.http.get(this.baseUrl + "/api/bottler", { params: { productId: productId } })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
-            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 return this.http.get(this.baseUrl + "/api/transport", { params: { productId: productId } })
                     .map(function (res) {
                     var ps = res.json();
@@ -2021,7 +2016,7 @@ var HyperledgerService = /** @class */ (function () {
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 }
-            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(function (res) { return res.json(); })
@@ -2053,7 +2048,7 @@ var HyperledgerService = /** @class */ (function () {
                 return this.http.post(this.baseUrl + '/api/bottler/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
-            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Distributor:
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 return this.http.post(this.baseUrl + '/api/transport/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
@@ -2102,7 +2097,7 @@ var Roles;
     Roles[Roles["Grower"] = 1] = "Grower";
     Roles[Roles["Winery"] = 2] = "Winery";
     Roles[Roles["Bottler"] = 3] = "Bottler";
-    Roles[Roles["Distributor"] = 4] = "Distributor";
+    Roles[Roles["Logistic"] = 4] = "Logistic";
 })(Roles || (Roles = {}));
 
 
@@ -2118,7 +2113,7 @@ module.exports = ""
 /***/ "./src/app/shared/base/base.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  base works!\n</p>\n"
+module.exports = "<p>\r\n  base works!\r\n</p>\r\n"
 
 /***/ }),
 

@@ -32,7 +32,7 @@ export class HyperledgerService {
                 return this.http.get(`${this.baseUrl}/api/bottlers`, { params: { history } })
                     .map(res => res.json())
                     .catch(this.handleError);
-            case Roles.Distributor:
+            case Roles.Logistic:
                 if (history) {
                     return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
                         .map(res => {
@@ -83,7 +83,7 @@ export class HyperledgerService {
                 return this.http.get(`${this.baseUrl}/api/bottler`, { params: { productId } })
                     .map(res => res.json())
                     .catch(this.handleError);
-            case Roles.Distributor:
+            case Roles.Logistic:
                 return this.http.get(`${this.baseUrl}/api/transport`, { params: { productId } })
                     .map(res => {
                         const ps = res.json();
@@ -131,7 +131,7 @@ export class HyperledgerService {
                         .map(res => res.json())
                         .catch(this.handleError);
                 }
-            case Roles.Distributor:
+            case Roles.Logistic:
                 if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(res => res.json())
@@ -165,7 +165,7 @@ export class HyperledgerService {
                 return this.http.post(this.baseUrl + '/api/bottler/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);
-            case Roles.Distributor:
+            case Roles.Logistic:
                 return this.http.post(this.baseUrl + '/api/transport/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner">
-  <a class="navbar-brand" routerLink="/"><i class="fa fa-leaf" aria-hidden="true">
-      <img src="/assets/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+  <a class="navbar-brand" href="https://www.ziontech.com.au/" target="_blank"><i class="fa fa-leaf" aria-hidden="true">
+      <img src="/assets/ziontech.png" width="30" height="30" class="d-inline-block align-top" alt="">
       Ziontech</i></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
@@ -11,8 +11,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      <li class="nav-item"><a class="nav-link" href="https://www.ziontech.com.au/" target="_blank">About Us</a></li>
       <li class="nav-item"><mat-icon color="warn">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>
     </ul>
     <a class="nav-link" (click)="logout()"><mat-icon color="warn">exit_to_app</mat-icon>Logout</a>
@@ -32,8 +31,8 @@
           <li class="nav-item" *ngIf="authService.isAuth(roles.Bottler)">
             <a class="nav-link" (click)="navigateTo(roles.Bottler)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Bottler</a>
           </li>
-          <li class="nav-item" *ngIf="authService.isAuth(roles.Distributor)">
-            <a class="nav-link" (click)="navigateTo(roles.Distributor)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Driver</a>
+          <li class="nav-item" *ngIf="authService.isAuth(roles.Logistic)">
+            <a class="nav-link" (click)="navigateTo(roles.Logistic)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Logistic</a>
           </li>
           <li class="nav-divider"><mat-divider></mat-divider></li>
           <li class="nav-item">
