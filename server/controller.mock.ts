@@ -222,5 +222,20 @@ export default class Controller {
         });
     }
 
+    getWarehouse = (req, res) => {
+        if (req.query.history === 'true') {
+            Product.scope("hWarehouse").findAll().then(products => {
+                res.json(products);
+            });
+        } else {
+            Product.scope("warehouse").findAll().then(products => {
+                res.json(products);
+            });
+        }
+    }
+
+    transportWarehouse = (req, res) => {
+        Product.update({ stageId: 80 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
+    }
 }
 

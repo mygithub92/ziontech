@@ -32,6 +32,10 @@ export class HyperledgerService {
                 return this.http.get(`${this.baseUrl}/api/bottlers`, { params: { history } })
                     .map(res => res.json())
                     .catch(this.handleError);
+            case Roles.Warehouse:
+                return this.http.get(`${this.baseUrl}/api/warehouse`, { params: { history } })
+                    .map(res => res.json())
+                    .catch(this.handleError);
             case Roles.Logistic:
                 if (history) {
                     return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
@@ -163,6 +167,10 @@ export class HyperledgerService {
                     .catch(this.handleError);
             case Roles.Bottler:
                 return this.http.post(this.baseUrl + '/api/bottler/transport', { productId })
+                    .map(res => res.json())
+                    .catch(this.handleError);
+            case Roles.Warehouse:
+                return this.http.post(this.baseUrl + '/api/warehouse/transport', { productId })
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Logistic:

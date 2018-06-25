@@ -1061,7 +1061,7 @@ module.exports = "\r\n.sidebar {\r\n    min-height: 500px;\r\n    max-height: 50
 /***/ "./src/app/main/main.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner\">\r\n  <a class=\"navbar-brand\" href=\"https://www.ziontech.com.au/\" target=\"_blank\"><i class=\"fa fa-leaf\" aria-hidden=\"true\">\r\n      <img src=\"/assets/ziontech.png\" width=\"30\" height=\"30\" class=\"d-inline-block align-top\" alt=\"\">\r\n      Ziontech</i></a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" \r\n    aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleMenu()\"\r\n    [attr.aria-expanded]=\"!isCollapsed\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" [ngbCollapse]=\"isCollapsed\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"https://www.ziontech.com.au/\" target=\"_blank\">About Us</a></li>\r\n      <li class=\"nav-item\"><mat-icon color=\"warn\">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>\r\n    </ul>\r\n    <a class=\"nav-link\" (click)=\"logout()\"><mat-icon color=\"warn\">exit_to_app</mat-icon>Logout</a>\r\n  </div>\r\n</nav>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-11 col-md-1 sidebar bg-dark\" id=\"sidebar\" role=\"navigation\">\r\n        <ul class=\"nav flex-column sidebar\">\r\n          <li class=\"nav-item active\" *ngIf=\"authService.isAuth(roles.Grower)\" >\r\n              <a class=\"nav-link\" (click)=\"navigateTo(roles.Grower)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Grower</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Winery)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Winery)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Winery</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Bottler)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Bottler)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Bottler</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Logistic)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Logistic)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Logistic</a>\r\n          </li>\r\n          <li class=\"nav-divider\"><mat-divider></mat-divider></li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" (click)=\"navigateToTransaction()\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Transaction</a>\r\n          </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-11 col-md-10\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner\">\r\n  <a class=\"navbar-brand\" href=\"https://www.ziontech.com.au/\" target=\"_blank\"><i class=\"fa fa-leaf\" aria-hidden=\"true\">\r\n      <img src=\"/assets/ziontech.png\" width=\"30\" height=\"30\" class=\"d-inline-block align-top\" alt=\"\">\r\n      Ziontech</i></a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" \r\n    aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleMenu()\"\r\n    [attr.aria-expanded]=\"!isCollapsed\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\" [ngbCollapse]=\"isCollapsed\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\"><a class=\"nav-link\" href=\"https://www.ziontech.com.au/\" target=\"_blank\">About Us</a></li>\r\n      <li class=\"nav-item\"><mat-icon color=\"warn\">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>\r\n    </ul>\r\n    <a class=\"nav-link\" (click)=\"logout()\"><mat-icon color=\"warn\">exit_to_app</mat-icon>Logout</a>\r\n  </div>\r\n</nav>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-11 col-md-1 sidebar bg-dark\" id=\"sidebar\" role=\"navigation\">\r\n        <ul class=\"nav flex-column sidebar\">\r\n          <li class=\"nav-item active\" *ngIf=\"authService.isAuth(roles.Grower)\" >\r\n              <a class=\"nav-link\" (click)=\"navigateTo(roles.Grower)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Grower</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Winery)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Winery)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Winery</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Bottler)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Bottler)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Bottler</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Logistic)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Logistic)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Logistic</a>\r\n          </li>\r\n          <li class=\"nav-item\" *ngIf=\"authService.isAuth(roles.Warehouse)\">\r\n            <a class=\"nav-link\" (click)=\"navigateTo(roles.Warehouse)\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Warehouse</a>\r\n          </li>\r\n          <li class=\"nav-divider\"><mat-divider></mat-divider></li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" (click)=\"navigateToTransaction()\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Transaction</a>\r\n          </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-11 col-md-10\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1502,6 +1502,9 @@ var ProductListComponent = /** @class */ (function () {
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 this.populateDriverMetaData();
                 break;
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Warehouse:
+                this.populateWarehouseMetaData();
+                break;
         }
         /** Column definitions in order */
         this.displayedColumns = this.columns.map(function (x) { return x.columnDef; });
@@ -1581,6 +1584,21 @@ var ProductListComponent = /** @class */ (function () {
             });
         }
     };
+    ProductListComponent.prototype.populateWarehouseMetaData = function () {
+        this.columns = [
+            { columnDef: 'companyName', header: 'Company Name', cell: function (row) { return "" + row.companyName; } },
+            { columnDef: 'variety', header: 'Variety', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'variety'); } },
+            { columnDef: 'vintage', header: 'Vintage', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].grapeValue(row, 'vintage'); } },
+            { columnDef: 'brand', header: 'Brand', cell: function (row) { return "" + __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].wineValue(row, 'brand'); } },
+        ];
+        if (!this.authService.transaction) {
+            this.columns.push({
+                columnDef: 'action',
+                header: 'Action',
+                cell: function (row) { return __WEBPACK_IMPORTED_MODULE_5__model_Product__["a" /* Product */].isValidWine(row) ? 'Transfer' : ''; }
+            });
+        }
+    };
     ProductListComponent.prototype.applyFilter = function (filterValue) {
         filterValue = filterValue.trim(); // Remove whitespace
         filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -1614,6 +1632,9 @@ var ProductListComponent = /** @class */ (function () {
         configurable: true
     });
     ProductListComponent.prototype.rowClick = function (row) {
+        if (this.authService.currentRole === __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Warehouse) {
+            return;
+        }
         if (this.authService.transaction) {
             this.openQrDialog(row.id);
             return;
@@ -1919,6 +1940,10 @@ var HyperledgerService = /** @class */ (function () {
                 return this.http.get(this.baseUrl + "/api/bottlers", { params: { history: history } })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Warehouse:
+                return this.http.get(this.baseUrl + "/api/warehouse", { params: { history: history } })
+                    .map(function (res) { return res.json(); })
+                    .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 if (history) {
                     return this.http.get(this.baseUrl + "/api/transports", { params: { history: history } })
@@ -2048,6 +2073,10 @@ var HyperledgerService = /** @class */ (function () {
                 return this.http.post(this.baseUrl + '/api/bottler/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
                     .catch(this.handleError);
+            case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Warehouse:
+                return this.http.post(this.baseUrl + '/api/warehouse/transport', { productId: productId })
+                    .map(function (res) { return res.json(); })
+                    .catch(this.handleError);
             case __WEBPACK_IMPORTED_MODULE_9__shared_Roles_enum__["a" /* Roles */].Logistic:
                 return this.http.post(this.baseUrl + '/api/transport/transport', { productId: productId })
                     .map(function (res) { return res.json(); })
@@ -2082,7 +2111,7 @@ var HyperledgerService = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return baseUrl; });
-var baseUrl = '';
+var baseUrl = 'http://localhost:5000';
 
 
 /***/ }),
@@ -2098,6 +2127,7 @@ var Roles;
     Roles[Roles["Winery"] = 2] = "Winery";
     Roles[Roles["Bottler"] = 3] = "Bottler";
     Roles[Roles["Logistic"] = 4] = "Logistic";
+    Roles[Roles["Warehouse"] = 5] = "Warehouse";
 })(Roles || (Roles = {}));
 
 

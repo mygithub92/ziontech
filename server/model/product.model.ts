@@ -32,8 +32,16 @@ import Stage from "./stage.model";
         include: [() => Grape, () => Winery, () => Wine]
     },
     distributor: {
-        where: {stageId: {$in: [20, 40, 60]}},
+        where: {stageId: {$in: [20, 40, 60, 80]}},
         include: [() => Grape, () => Winery, () => Wine]
+    },
+    warehouse: {
+        where: {stageId: 70},
+        include: [() => Grape, () => Wine]
+    },
+    hWarehouse: {
+        where: {stageId: 80},
+        include: [() => Grape, () => Wine]
     }
 })
 

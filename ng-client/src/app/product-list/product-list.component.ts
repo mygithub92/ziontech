@@ -79,6 +79,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       case Roles.Logistic:
         this.populateDriverMetaData();
         break;
+      case Roles.Warehouse:
+        this.populateWarehouseMetaData();
+        break;
       // default:
       //   this.populateGrowerMetaData();
     }
@@ -166,6 +169,24 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
   }
 
+  
+  populateWarehouseMetaData() {
+    this.columns = [
+      { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
+      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
+      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
+      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
+    ];
+    if (!this.authService.transaction) {
+      this.columns.push({
+        columnDef: 'action',
+        header: 'Action',
+        cell: (row: Product) => Product.isValidWine(row) ? 'Transfer' : ''
+      });
+    }
+
+  }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -199,6 +220,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   rowClick(row) {
+    if (this.authService.currentRole === Roles.Warehouse) {
+      return;
+    }
     if (this.authService.transaction) {
       this.openQrDialog(row.id);
       return;
