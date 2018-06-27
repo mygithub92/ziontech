@@ -2111,7 +2111,7 @@ var HyperledgerService = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return baseUrl; });
-var baseUrl = 'http://localhost:5000';
+var baseUrl = '';
 
 
 /***/ }),
