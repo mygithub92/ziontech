@@ -15,15 +15,13 @@ Install server dependencies
 
 ```
 npm install
-cd ng-client
-npm install
 ```
 
 To connect MySQL Database
 ```
 create a db called 'ziontech'
 open file server/sequelize.ts
-change to you local Database password.
+change 'password' value to your local Database password.
 ```
 
 
@@ -54,7 +52,7 @@ Config client to use local server
 
 ```
 open ng-client/src/app/services/server.url.ts
-set baseUrl variable to 'http://localhost:5000' (Note, DO NOT check this check in, in PROD server/client share the same port)
+set baseUrl variable to 'http://localhost:5000' (Note, DO NOT check this chaneg in, in PROD server/client share the same port)
 ```
 
 
