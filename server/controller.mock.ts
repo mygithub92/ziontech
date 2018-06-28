@@ -6,6 +6,9 @@ import * as jwt from 'jsonwebtoken';
 import Winery from "./model/winery.model";
 import Role from "./model/role.model";
 import Transport from "./model/transport.model";
+import * as qr from 'qr-image';
+import * as fs from 'fs';
+import { config } from "./config";
 
 export default class Controller {
 
@@ -53,6 +56,8 @@ export default class Controller {
         Product.create({ companyName: req.body.companyName, stageId: 10 }).then(product => {
             delete req.body.companyName;
             Grape.create({ ...req.body, productId: product.id }).then(grape => res.json(grape));
+
+            this.genereateQR(product.id);
         });
     }
 
@@ -174,13 +179,13 @@ export default class Controller {
                         where: { transferred: true }
                     }
                 ]
-        }).then(products => res.json(products));
+            }).then(products => res.json(products));
         } else {
             Product.scope("distributor").findAll().then(products => {
                 const productIds = products.map(product => product.id);
                 Transport.findAll({
                     where: { productId: { $in: productIds }, transferred: { $not: true } }
-                }).then(transports => res.json({products, transports}));
+                }).then(transports => res.json({ products, transports }));
 
             });
         }
@@ -236,6 +241,28 @@ export default class Controller {
 
     transportWarehouse = (req, res) => {
         Product.update({ stageId: 80 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
+    }
+
+    getWineJourney = (req, res) => {
+        Product.findOne({
+            where: { id: req.params.id },
+            include: [
+                {
+                    model: Grape,
+                    attributes: ['region', 'vineyard', 'variety', 'vintage']
+                }, 
+                { 
+                    model: Transport,
+                    attributes: ['from', 'to', 'start', 'end']
+                }
+            ],
+            attributes: ['companyName']
+        }).then(product => res.json(product));
+    }
+
+    genereateQR = (id) => {
+        qr.image(`http://18.221.40.162/wine/${id}`)
+            .pipe(fs.createWriteStream(config.qr(id)));
     }
 }
 

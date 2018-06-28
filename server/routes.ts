@@ -2,6 +2,7 @@ import Controller from './controller.mock';
 
 export default function setRoutes(app, checkIfAuthenticated) {
   const controller = new Controller();
+  app.route('/wine/:id').get(controller.getWineJourney);
 
   app.route('/api/login').post(controller.login);
   app.route('/api/grapes').get(checkIfAuthenticated, controller.getGrapes);
@@ -32,6 +33,5 @@ export default function setRoutes(app, checkIfAuthenticated) {
 
   app.route('/api/warehouse').get(checkIfAuthenticated, controller.getWarehouse);
   app.route('/api/warehouse/transport').post(checkIfAuthenticated, controller.transportWarehouse);
-
 
 }
