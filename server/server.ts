@@ -1,7 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-// import * as jwt from 'jsonwebtoken';
 import setRoutes from './routes';
 import { sequelize } from "./sequelize";
 import * as path from 'path';

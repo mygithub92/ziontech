@@ -56,8 +56,6 @@ export default class Controller {
         Product.create({ companyName: req.body.companyName, stageId: 10 }).then(product => {
             delete req.body.companyName;
             Grape.create({ ...req.body, productId: product.id }).then(grape => res.json(grape));
-
-            this.genereateQR(product.id);
         });
     }
 
@@ -260,8 +258,16 @@ export default class Controller {
         }).then(product => res.json(product));
     }
 
+    genereate = (req, res) => {
+        for (let i=1;i<21;i++) {
+            this.genereateQR(i);
+        }
+        res.json('done');
+    }
+
     genereateQR = (id) => {
-        qr.image(`http://18.221.40.162/wine/${id}`)
+        const ip = '18.221.40.162';
+        qr.image(`http://${ip}/wine/${id}`)
             .pipe(fs.createWriteStream(config.qr(id)));
     }
 }

@@ -3,6 +3,7 @@ import Controller from './controller.mock';
 export default function setRoutes(app, checkIfAuthenticated) {
   const controller = new Controller();
   app.route('/wine/:id').get(controller.getWineJourney);
+  app.route('/wine/create/:id').get(controller.genereate);
 
   app.route('/api/login').post(controller.login);
   app.route('/api/grapes').get(checkIfAuthenticated, controller.getGrapes);
