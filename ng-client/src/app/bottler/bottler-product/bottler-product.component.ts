@@ -14,12 +14,14 @@ import { NoAuthError } from '../../common/no-auth-error';
   styleUrls: ['./bottler-product.component.css']
 })
 export class BottlerProductComponent implements OnInit {
-  form;
+  form: FormGroup;
   componentDestroyed$: Subject<boolean> = new Subject();
   sellers = ['Liquid Shop', 'BWS'];
-  statuses = ['Labeled', 'Not Labeled'];
+  statuses = ['Bulk Wine', '12 pk boxes', '6 pk boxes'];
+  corkCaps = ['corkCaps'];
   product: Product;
   grape: Grape;
+  unsubscribe = new Subject<void>();
 
   constructor(
     private service: HyperledgerService,
@@ -35,9 +37,21 @@ export class BottlerProductComponent implements OnInit {
         brand: ['', Validators.required],
         label: ['', Validators.required],
         corkCap: ['', Validators.required],
-        status: ['', Validators.required]
+        status: [null, Validators.required],
+        boxes: ['', Validators.required]
       }
     );
+
+    this.form.controls.status.valueChanges
+    .takeUntil(this.unsubscribe)
+    .subscribe(newValue => {
+      if (newValue === 'Bulk Wine') {
+        this.form.controls.boxes.clearValidators();
+      } else {
+        this.form.controls.boxes.setValidators(Validators.required);
+
+      }
+    });
 
     this.route.params.subscribe(pamams => {
       this.service.getProduct(pamams.id)
@@ -57,6 +71,10 @@ export class BottlerProductComponent implements OnInit {
           }
         });
     });
+  }
+
+  showBoxQuestion() {
+    return ['12 pk boxes', '6 pk boxes'].includes(this.form.controls.status.value);
   }
 
   public showCard() {

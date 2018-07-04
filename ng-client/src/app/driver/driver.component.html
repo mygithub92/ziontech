@@ -3,39 +3,7 @@
     <div class="row">
       <div class="col-7">
 
-        <mat-grid-list cols="2" rowHeight="70px" gutterSize="20px">
-          <mat-grid-tile>
-            <mat-form-field>
-              <mat-label>From</mat-label>
-              <input matInput placeholder="From" formControlName="from">
-              <mat-error *ngIf="form.get('from').invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-form-field>
-              <mat-label>To</mat-label>
-              <input matInput placeholder="To" formControlName="to">
-              <mat-error *ngIf="form.get('to').invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-form-field>
-              <mat-label>Pick Date</mat-label>
-              <input matInput [matDatepicker]="start" placeholder="Choose a date" formControlName="start">
-              <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-              <mat-datepicker #start></mat-datepicker>
-              <mat-error *ngIf="form.get('start').invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-form-field>
-              <mat-label>Delivery Date</mat-label>
-              <input matInput [matDatepicker]="end" placeholder="Choose a date" formControlName="end">
-              <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
-              <mat-datepicker #end></mat-datepicker>
-              <mat-error *ngIf="form.get('end').invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+        <mat-grid-list cols="1" rowHeight="70px" gutterSize="20px">
           <mat-grid-tile>
             <mat-form-field>
               <mat-label>Driver licence</mat-label>

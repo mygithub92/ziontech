@@ -24,6 +24,9 @@ export default class Wine extends Model<Wine> {
     brand: string;
 
     @Column
+    boxes: number;
+    
+    @Column
     transferred: boolean;
 
     @ForeignKey(() => User)

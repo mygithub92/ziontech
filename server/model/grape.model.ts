@@ -42,6 +42,12 @@ export default class Grape extends Model<Grape> {
     @Column({ field: "transferred" })
     transferred: boolean;
 
+    @Column({ field: "bins" })
+    bins: number;
+
+    @Column({ field: "status" })
+    status: string;
+
     @ForeignKey(() => User)
     @Column({ field: "user_id" })
     userId: number;

@@ -108,7 +108,7 @@ export default class Controller {
 
     updateWinery = (req, res) => {
         Grape.update({ actualWeight: req.body.actualWeight }, { where: { productId: req.body.productId } }).then(() => {
-            Winery.update({ volume: req.body.volume }, { where: { id: req.body.wineryId } }).then(winery => {
+            Winery.update(req.body, { where: { id: req.body.wineryId } }).then(winery => {
                 res.json(winery);
             });
         });
@@ -248,8 +248,8 @@ export default class Controller {
                 {
                     model: Grape,
                     attributes: ['region', 'vineyard', 'variety', 'vintage']
-                }, 
-                { 
+                },
+                {
                     model: Transport,
                     attributes: ['from', 'to', 'start', 'end']
                 }
@@ -259,7 +259,7 @@ export default class Controller {
     }
 
     genereate = (req, res) => {
-        for (let i=1;i<21;i++) {
+        for (let i = 1; i < 31; i++) {
             this.genereateQR(i);
         }
         res.json('done');

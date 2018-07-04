@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { FormBuilder, Validators, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { MatDialog, ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/finally';
 import { Subject } from 'rxjs/Subject';
@@ -18,10 +18,12 @@ import { NoAuthError } from '../../common/no-auth-error';
 export class AddProductComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
 
-  form;
+  form: FormGroup;
   companies = ['Penley', 'Hoggies Estate'];
+  statuses = ['Grapes'];
   id: string;
   prodcut: Product;
+  numberPattern = '\d+(\.\d{1,2})?';
 
   constructor(
     private service: HyperledgerService,
@@ -43,7 +45,9 @@ export class AddProductComponent implements OnInit {
         rowRange: ['', Validators.required],
         variety: ['', Validators.required],
         vintage: ['', Validators.required],
-        estimatedWeight: ['', Validators.required]
+        bins: ['', Validators.required],
+        status: ['', Validators.required],
+        estimatedWeight: ['', [Validators.required, Validators.pattern(this.numberPattern)]]
       }
     );
     this.route.params.subscribe(params => {
