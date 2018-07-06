@@ -1,8 +1,10 @@
 import Controller from './controller.mock';
+import TimelineController from './timeline.controller';
 
 export default function setRoutes(app, checkIfAuthenticated) {
+  app.route('/wine/:id').get(new TimelineController().getWineJourney);
+  
   const controller = new Controller();
-  app.route('/wine/:id').get(controller.getWineJourney);
   app.route('/wine/create/:id').get(controller.genereate);
 
   app.route('/api/login').post(controller.login);

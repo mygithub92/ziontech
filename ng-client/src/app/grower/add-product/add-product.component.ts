@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { FormBuilder, Validators, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { MatDialog, ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/finally';
 import { Subject } from 'rxjs/Subject';
@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { Product } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
 import { NoAuthError } from '../../common/no-auth-error';
+import { AppValidators } from '../../shared/app.validators';
 
 @Component({
   selector: 'app-add-product',
@@ -18,10 +19,12 @@ import { NoAuthError } from '../../common/no-auth-error';
 export class AddProductComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
 
-  form;
+  form: FormGroup;
   companies = ['Penley', 'Hoggies Estate'];
+  statuses = ['Grapes'];
   id: string;
   prodcut: Product;
+  numberPattern = '\d+(\.\d{1,2})?';
 
   constructor(
     private service: HyperledgerService,
@@ -36,14 +39,16 @@ export class AddProductComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        companyName: ['', Validators.required],
-        region: ['', Validators.required],
-        vineyard: ['', Validators.required],
-        block: ['', Validators.required],
-        rowRange: ['', Validators.required],
-        variety: ['', Validators.required],
-        vintage: ['', Validators.required],
-        estimatedWeight: ['', Validators.required]
+        companyName: [null, Validators.required],
+        region: [null, Validators.required],
+        vineyard: [null, Validators.required],
+        block: [null, Validators.required],
+        rowRange: [null, Validators.required],
+        variety: [null, Validators.required],
+        vintage: [null, [Validators.required, AppValidators.numberSpace]],
+        bins: [null, [Validators.required, AppValidators.numberSpace]],
+        status: [null, Validators.required],
+        estimatedWeight: [null, [Validators.required, AppValidators.float]]
       }
     );
     this.route.params.subscribe(params => {
@@ -100,6 +105,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getErrorMessage() {
+    const e = this.form.controls.vintage.errors;
     return 'You must enter a value';
   }
 }

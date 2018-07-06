@@ -7,6 +7,7 @@ import { Product, Grape } from '../../model/Product';
 import { Subject } from 'rxjs/Subject';
 import { AuthService } from '../../services/auth.service';
 import { NoAuthError } from '../../common/no-auth-error';
+import { AppValidators } from '../../shared/app.validators';
 
 @Component({
   selector: 'app-bottler-product',
@@ -14,12 +15,14 @@ import { NoAuthError } from '../../common/no-auth-error';
   styleUrls: ['./bottler-product.component.css']
 })
 export class BottlerProductComponent implements OnInit {
-  form;
+  form: FormGroup;
   componentDestroyed$: Subject<boolean> = new Subject();
   sellers = ['Liquid Shop', 'BWS'];
-  statuses = ['Labeled', 'Not Labeled'];
+  statuses = ['Bulk Wine', '12 pk boxes', '6 pk boxes'];
+  corkCaps = ['Cork', 'Caps'];
   product: Product;
   grape: Grape;
+  unsubscribe = new Subject<void>();
 
   constructor(
     private service: HyperledgerService,
@@ -32,12 +35,24 @@ export class BottlerProductComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        brand: ['', Validators.required],
-        label: ['', Validators.required],
-        corkCap: ['', Validators.required],
-        status: ['', Validators.required]
+        brand: [null, Validators.required],
+        lcode: [null, Validators.required],
+        label: [null, Validators.required],
+        corkCap: [null, Validators.required],
+        status: [null, Validators.required],
+        boxes: [null, [Validators.required, AppValidators.numberSpace]]
       }
     );
+
+    this.form.controls.status.valueChanges
+    .takeUntil(this.unsubscribe)
+    .subscribe(newValue => {
+      if (newValue === 'Bulk Wine') {
+        this.form.controls.boxes.clearValidators();
+      } else {
+        this.form.controls.boxes.setValidators([Validators.required, , AppValidators.numberSpace]);
+      }
+    });
 
     this.route.params.subscribe(pamams => {
       this.service.getProduct(pamams.id)
@@ -57,6 +72,10 @@ export class BottlerProductComponent implements OnInit {
           }
         });
     });
+  }
+
+  showBoxQuestion() {
+    return ['12 pk boxes', '6 pk boxes'].includes(this.form.controls.status.value);
   }
 
   public showCard() {

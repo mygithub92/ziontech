@@ -82,10 +82,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       case Roles.Warehouse:
         this.populateWarehouseMetaData();
         break;
-      // default:
-      //   this.populateGrowerMetaData();
     }
-    /** Column definitions in order */
     this.displayedColumns = this.columns.map(x => x.columnDef);
   }
 
@@ -98,9 +95,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${Product.grapeValue(row, 'rowRange')}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
-      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.grapeValue(row, 'actualWeight')}` }
+      { columnDef: 'bins', header: 'Numbers of Bin', cell: (row: Product) => `${Product.grapeValue(row, 'bins')}` },
+      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.grapeValue(row, 'status')}` },
+      { columnDef: 'estimatedWeight', header: 'Estimated Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` }
     ];
+    if (this.authService.transaction) {
+      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` }
+    );
+    }
     if (!this.authService.transaction) {
       this.columns.push({ columnDef: 'action', header: 'Action', cell: (row: Product) => 'Transfer' });
     }
@@ -111,9 +113,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
-      { columnDef: 'estimatedWeight', header: 'Estimated Weight', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.grapeValue(row, 'actualWeight')}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` }
+      { columnDef: 'estimatedWeight', header: 'Estimated Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` },
+      { columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` },
+      { columnDef: 'volume', header: 'Volume(L)', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
+      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineryValue(row, 'status')}` }
     ];
     if (!this.authService.transaction) {
       this.columns.push({
@@ -132,9 +135,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
+      { columnDef: 'lcode', header: 'L Code', cell: (row: Product) => `${Product.wineValue(row, 'lcode')}` },
       { columnDef: 'label', header: 'Label', cell: (row: Product) => `${Product.wineValue(row, 'label')}` },
       { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${Product.wineValue(row, 'corkCap')}` },
-      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineValue(row, 'status')}` }
+      { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineValue(row, 'status')}` },
+      { columnDef: 'boxes', header: 'Number of box', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` }
     ];
     if (!this.authService.transaction) {
       this.columns.push({
@@ -150,13 +155,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'region', header: 'Region', cell: (row: Product) => `${Product.grapeValue(row, 'region')}` },
       { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${Product.grapeValue(row, 'vineyard')}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.grapeValue(row, 'actualWeight')}` },
+      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` },
       { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
-      { columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.transportValue(row, 'from')}` },
-      { columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.transportValue(row, 'to')}` },
-      { columnDef: 'start', header: 'Start', cell: (row: Product) => `${Product.transportValue(row, 'start', true)}` },
-      { columnDef: 'end', header: 'End', cell: (row: Product) => `${Product.transportValue(row, 'end', true)}` },
       { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
       { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` },
     ];
@@ -169,13 +170,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
   }
 
-  
   populateWarehouseMetaData() {
     this.columns = [
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
+      { columnDef: 'boxes', header: 'Number of box', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` },
     ];
     if (!this.authService.transaction) {
       this.columns.push({

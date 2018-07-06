@@ -68,8 +68,9 @@ export class Grape {
   rowRange: string;
   variety: string;
   vintage: string;
+  bins: number;
+  status: string;
   estimatedWeight: string;
-  actualWeight: string;
 
   public static isValid(grape: Grape): boolean {
     return grape.region != null && grape.vineyard != null && grape.block != null
@@ -80,6 +81,8 @@ export class Grape {
 export class Winery {
   id: string;
   volume: number;
+  status: string;
+  actualWeight: string;
 
   public static isValid(winery: Winery): boolean {
     return winery.volume != null;
@@ -92,6 +95,7 @@ export class Wine {
   label: string;
   corkCap: string;
   status: string;
+  boxes: number;
 
   public static isValid(wine: Wine): boolean {
     return wine.brand != null && wine.label != null && wine.corkCap != null && wine.status != null;
@@ -113,6 +117,6 @@ export class Transport {
   plateNumber: string;
 
   public static isValid(transport: Transport): boolean {
-    return transport.from != null && transport.to != null && transport.start != null && transport.end != null && transport.driverId != null && transport.plateNumber != null;
+    return transport.driverId != null && transport.plateNumber != null;
   }
 }

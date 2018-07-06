@@ -12,6 +12,13 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <mat-form-field>
+              <mat-label>L Code</mat-label>
+              <input matInput placeholder="L Code" formControlName="lcode">
+              <mat-error *ngIf="form.get('lcode').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
               <mat-label>Label</mat-label>
               <input matInput placeholder="Label" formControlName="label">
               <mat-error *ngIf="form.get('label').invalid">{{getErrorMessage()}}</mat-error>
@@ -19,9 +26,15 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <mat-form-field>
-              <mat-label>Cork Cap</mat-label>
-              <input matInput placeholder="Cork Cap" formControlName="corkCap">
-              <mat-error *ngIf="form.get('corkCap').invalid">{{getErrorMessage()}}</mat-error>
+              <mat-label>
+                <mat-icon>domain</mat-icon>
+                <i> Cork Cap </i>
+              </mat-label>
+              <mat-select formControlName="corkCap" required>
+                <mat-option>-- None --</mat-option>
+                <mat-option *ngFor="let corkCap of corkCaps" [value]="corkCap">{{ corkCap }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('corkCap').hasError('required')">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -35,6 +48,14 @@
                 <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('status').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="showBoxQuestion()">
+            <mat-form-field>
+              <mat-label>Number of box</mat-label>
+              <input matInput placeholder="Number of box" formControlName="boxes">
+              <mat-error *ngIf="form.get('boxes').hasError('required')">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="form.get('boxes').hasError('numberSpace')">Please entre a number</mat-error>
             </mat-form-field>
           </mat-grid-tile>
         </mat-grid-list>

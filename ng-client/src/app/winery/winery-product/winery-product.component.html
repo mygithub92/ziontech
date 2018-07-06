@@ -5,19 +5,34 @@
         <mat-grid-list cols="1" rowHeight="70px" gutterSize="20px">
           <mat-grid-tile>
             <mat-form-field>
-              <mat-label>Actual Weight</mat-label>
-              <input matInput placeholder="Actual Weight" formControlName="actualWeight">
-              <mat-error *ngIf="form.get('actualWeight').invalid">{{getErrorMessage()}}</mat-error>
+              <mat-label>Actual Weight(T)</mat-label>
+              <input matInput placeholder="Actual Weight(T)" formControlName="actualWeight">
+              <mat-error *ngIf="form.get('actualWeight').hasError('required')">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="form.get('actualWeight').hasError('float')">Number with 2 decimals</mat-error>
+                </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-label>Volume(L)</mat-label>
+              <input matInput placeholder="Volume" formControlName="volume">
+              <mat-error *ngIf="form.get('volume').hasError('required')">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="form.get('volume').hasError('numberSpace')">Please entre a number</mat-error>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
             <mat-form-field>
-              <mat-label>Volume</mat-label>
-              <input matInput placeholder="Volume" formControlName="volume">
-              <mat-error *ngIf="form.get('volume').invalid">{{getErrorMessage()}}</mat-error>
+              <mat-label>
+                <mat-icon>domain</mat-icon>
+                <i> Status </i>
+              </mat-label>
+              <mat-select formControlName="status" required>
+                <mat-option>-- None --</mat-option>
+                <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('status').hasError('required')">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </mat-grid-tile>
-        </mat-grid-list>
+            </mat-grid-list>
       </div>
       <div class="col" *ngIf="showCard()">
         <div class="card" style="width: 20rem;">

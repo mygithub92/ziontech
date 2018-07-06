@@ -18,6 +18,12 @@ export default class User extends Model<User> {
     @Column
     password: string;
 
+    @Column
+    location: string;
+
+    @Column({ field: "org_name" })
+    orgnizationName: string;
+
     @BelongsToMany(() => Role, () => UserRole)
     roles: Role[];
 }

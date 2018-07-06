@@ -155,7 +155,7 @@ export class HyperledgerService {
             .catch(this.handleError);
     }
 
-    transportProduct(productId: string) {
+    transportProduct(productId: string, data?: any) {
         switch (this.authService.currentRole) {
             case Roles.Grower:
                 return this.http.post(this.baseUrl + '/api/grape/transport', { productId })

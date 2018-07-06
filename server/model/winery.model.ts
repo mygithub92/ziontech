@@ -15,6 +15,12 @@ export default class Winery extends Model<Winery> {
     name: string;
 
     @Column
+    status: string;
+
+    @Column({ field: "actual_weight" })
+    actualWeight: number;
+    
+    @Column
     transferred: boolean;
 
     @ForeignKey(() => User)

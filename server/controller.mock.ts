@@ -9,6 +9,7 @@ import Transport from "./model/transport.model";
 import * as qr from 'qr-image';
 import * as fs from 'fs';
 import { config } from "./config";
+import Warehouse from "./model/warehouse.model";
 
 export default class Controller {
 
@@ -17,22 +18,22 @@ export default class Controller {
         User.findOne({
             where: { email: body.email, password: body.password },
             include: [{ model: Role }]
-        }).then(user => {
+        }).then(u => {
             let token;
-            if (user) {
-                const roles = user.getDataValue('roles').map(role => {
+            if (u) {
+                const user: User = u.get({ plain: true });
+                const roles = user.roles.map(role => {
                     return { id: role.id, name: role.name };
                 });
                 const payload = {
-                    id: user.getDataValue('id'),
-                    name: user.getDataValue('name'),
+                    id: user.id,
+                    name: user.name,
                     roles
                 };
                 token = jwt.sign(payload, 'JIOwld*232f&l', {
                     expiresIn: '2h'
                 });
             }
-
             res.json({ token });
         });
     }
@@ -107,10 +108,8 @@ export default class Controller {
     }
 
     updateWinery = (req, res) => {
-        Grape.update({ actualWeight: req.body.actualWeight }, { where: { productId: req.body.productId } }).then(() => {
-            Winery.update({ volume: req.body.volume }, { where: { id: req.body.wineryId } }).then(winery => {
-                res.json(winery);
-            });
+        Winery.update(req.body, { where: { id: req.body.wineryId } }).then(winery => {
+            res.json(winery);
         });
     }
 
@@ -152,16 +151,20 @@ export default class Controller {
     }
 
     updateBottler = (req, res) => {
-        Wine.update(req.body, { where: { id: req.body.wineId } }).then(wine => res.json(wine));
+        Wine.update(req.body, { where: { id: req.body.wineId } }).then(() => {
+            Warehouse.update({ remaining: req.body.boxes }, { where: { productId: req.body.productId } }).then(() => res.json('Done'));
+        });
     }
 
     createBottler = (req, res) => {
         const t = { ...req.body, userId: req.body.userId };
-        Wine.create(t).then(wine => res.json(wine));
+        Wine.create(t).then(() => {
+            Warehouse.create({ remaining: t.boxes, productId: t.productId }).then(() => res.json('Done'));
+        });
     }
 
     transportBottler = (req, res) => {
-        Wine.update({ transferred: true }, { where: { productId: req.body.productId } }).then(() => {
+        Wine.update({ transferred: true }, { where: { productId: req.body.productId } }).then((wine) => {
             Product.update({ stageId: 60 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
         });
     }
@@ -248,8 +251,8 @@ export default class Controller {
                 {
                     model: Grape,
                     attributes: ['region', 'vineyard', 'variety', 'vintage']
-                }, 
-                { 
+                },
+                {
                     model: Transport,
                     attributes: ['from', 'to', 'start', 'end']
                 }
@@ -259,14 +262,15 @@ export default class Controller {
     }
 
     genereate = (req, res) => {
-        for (let i=1;i<21;i++) {
+        for (let i = 1; i < 31; i++) {
             this.genereateQR(i);
         }
         res.json('done');
     }
 
     genereateQR = (id) => {
-        const ip = '18.221.40.162';
+        const ip = '52.14.119.82';
+        //const ip = '18.221.40.162';
         qr.image(`http://${ip}/wine/${id}`)
             .pipe(fs.createWriteStream(config.qr(id)));
     }

@@ -6,6 +6,7 @@ import { Product, Grape } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
 import { AuthService } from '../../services/auth.service';
 import { NoAuthError } from '../../common/no-auth-error';
+import { AppValidators } from '../../shared/app.validators';
 
 @Component({
   selector: 'app-winery-product',
@@ -16,6 +17,7 @@ export class WineryProductComponent implements OnInit {
 
   form;
   bottlingCompanies = ['Best Bottlers', 'Liquid Goods'];
+  statuses = ['Grape', 'Juice', 'Grape Must', 'Unfinished Wine', 'Bottle Ready Wine'];
   componentDestroyed$: Subject<boolean> = new Subject();
   product: Product = new Object() as Product;
   grape: Grape;
@@ -32,8 +34,9 @@ export class WineryProductComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        actualWeight: ['', Validators.required],
-        volume: ['', Validators.required]
+        actualWeight: [null, [Validators.required, AppValidators.float]],
+        volume: [null, [Validators.required, AppValidators.numberSpace]],
+        status: [null, Validators.required],
       }
     );
 
@@ -66,7 +69,8 @@ export class WineryProductComponent implements OnInit {
       const obj = {
         productId: this.product.id,
         actualWeight: data.actualWeight,
-        volume: data.volume
+        volume: data.volume,
+        status: data.status
       };
 
       if (this.product.wineries && this.product.wineries.length) {

@@ -29,10 +29,6 @@ export class DriverComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        from: ['', Validators.required],
-        to: ['', Validators.required],
-        start: ['', Validators.required],
-        end: ['', Validators.required],
         driverId: ['', Validators.required],
         plateNumber: ['', Validators.required],
       }

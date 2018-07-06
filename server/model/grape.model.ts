@@ -36,11 +36,14 @@ export default class Grape extends Model<Grape> {
     @Column({ field: "estimated_weight" })
     estimatedWeight: number;
 
-    @Column({ field: "actual_weight" })
-    actualWeight: number;
-
     @Column({ field: "transferred" })
     transferred: boolean;
+
+    @Column({ field: "bins" })
+    bins: number;
+
+    @Column({ field: "status" })
+    status: string;
 
     @ForeignKey(() => User)
     @Column({ field: "user_id" })
