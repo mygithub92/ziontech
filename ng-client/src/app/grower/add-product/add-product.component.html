@@ -53,14 +53,16 @@
         <mat-form-field>
           <mat-label>Vintage</mat-label>
           <input matInput placeholder="Vintage" formControlName="vintage">
-          <mat-error *ngIf="form.get('vintage').invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="form.get('vintage').hasError('required')">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="form.get('vintage').hasError('numberSpace')">Please enter a number.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
           <mat-label>Number of Bins</mat-label>
           <input matInput placeholder="Number of Bins" formControlName="bins">
-          <mat-error *ngIf="form.get('bins').invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="form.get('bins').hasError('required')">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="form.get('bins').hasError('numberSpace')">Please enter a number.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -82,7 +84,7 @@
           <mat-label>Estimated weight(T)</mat-label>
           <input matInput placeholder="Estimated weight(T)" formControlName="estimatedWeight">
           <mat-error *ngIf="form.get('estimatedWeight').hasError('required')">{{getErrorMessage()}}</mat-error>
-          <mat-error *ngIf="form.get('estimatedWeight').hasError('pattern')">Number with 2 decimals</mat-error>
+          <mat-error *ngIf="form.get('estimatedWeight').hasError('float')">Number with 2 decimals</mat-error>
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>

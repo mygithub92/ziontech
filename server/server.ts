@@ -10,6 +10,7 @@ const app = express();
 const checkIfAuthenticated = expressJwt({
   secret: 'JIOwld*232f&l'
 });
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.use(cors());
 
 setRoutes(app, checkIfAuthenticated);
 
+app.use(express.static(path.join(__dirname, '/views/assets')));
 app.use(express.static(path.join(__dirname, '/../ng-client/dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../ng-client/dist/index.html'));

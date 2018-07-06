@@ -27,7 +27,7 @@
                 <mat-option>-- None --</mat-option>
                 <mat-option *ngFor="let corkCap of corkCaps" [value]="corkCap">{{ corkCap }}</mat-option>
               </mat-select>
-              <mat-error *ngIf="form.get('corkCap').invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="form.get('corkCap').hasError('required')">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -47,7 +47,8 @@
             <mat-form-field>
               <mat-label>Number of box</mat-label>
               <input matInput placeholder="Number of box" formControlName="boxes">
-              <mat-error *ngIf="form.get('boxes').invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="form.get('boxes').hasError('required')">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="form.get('boxes').hasError('numberSpace')">Please entre a number</mat-error>
             </mat-form-field>
           </mat-grid-tile>
         </mat-grid-list>

@@ -15,4 +15,14 @@ export class ConfirmDialogComponent {
     this.product = data;
   }
 
+  get remainingBoxNumber() {
+    if (this.showBoxNumber()) {
+      return 10;
+    }
+    return 0;
+  }
+
+  showBoxNumber() {
+    return this.product.wines && this.product.wines[0] && this.product.wines[0].boxes;
+  }
 }

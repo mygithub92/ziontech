@@ -175,6 +175,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
+      { columnDef: 'boxes', header: 'Number of box', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` },
     ];
     if (!this.authService.transaction) {
       this.columns.push({

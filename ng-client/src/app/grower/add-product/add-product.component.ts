@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { Product } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
 import { NoAuthError } from '../../common/no-auth-error';
+import { AppValidators } from '../../shared/app.validators';
 
 @Component({
   selector: 'app-add-product',
@@ -38,16 +39,16 @@ export class AddProductComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        companyName: ['', Validators.required],
-        region: ['', Validators.required],
-        vineyard: ['', Validators.required],
-        block: ['', Validators.required],
-        rowRange: ['', Validators.required],
-        variety: ['', Validators.required],
-        vintage: ['', Validators.required],
-        bins: ['', Validators.required],
-        status: ['', Validators.required],
-        estimatedWeight: ['', [Validators.required, Validators.pattern(this.numberPattern)]]
+        companyName: [null, Validators.required],
+        region: [null, Validators.required],
+        vineyard: [null, Validators.required],
+        block: [null, Validators.required],
+        rowRange: [null, Validators.required],
+        variety: [null, Validators.required],
+        vintage: [null, [Validators.required, AppValidators.numberSpace]],
+        bins: [null, [Validators.required, AppValidators.numberSpace]],
+        status: [null, Validators.required],
+        estimatedWeight: [null, [Validators.required, AppValidators.float]]
       }
     );
     this.route.params.subscribe(params => {
@@ -104,6 +105,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getErrorMessage() {
+    const e = this.form.controls.vintage.errors;
     return 'You must enter a value';
   }
 }

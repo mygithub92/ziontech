@@ -5,6 +5,7 @@ import Winery from "./winery.model";
 import Wine from "./wine.model";
 import Transport from "./transport.model";
 import Stage from "./stage.model";
+import Warehouse from "./warehouse.model";
 
 @Scopes({
     grapes: {
@@ -77,6 +78,9 @@ export default class Product extends Model<Product> {
 
     @HasMany(() => Wine)
     wines: Wine[];
+
+    @HasMany(() => Warehouse)
+    warehouses: Warehouse[];
 
     @HasMany(() => Transport)
     transports: Transport[];

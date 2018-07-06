@@ -1,37 +1,45 @@
 <h2 mat-dialog-title>Please confirm...</h2>
 <mat-dialog-content>
-    <mat-grid-list cols="2" rowHeight="30px" class="confirm-tranfer-grid">
-        <mat-grid-tile>
-          ID:
-        </mat-grid-tile>
-        <mat-grid-tile>
-            {{ product.id}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-          Company Name:
-        </mat-grid-tile>
-        <mat-grid-tile>
-            {{ product.companyName}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-          Region:
-        </mat-grid-tile>
-        <mat-grid-tile>
-            {{ product.grapes[0].region}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-          Variety:
-        </mat-grid-tile>
-        <mat-grid-tile>
-            {{ product.grapes[0].variety}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-          Vintage:
-        </mat-grid-tile>
-        <mat-grid-tile>
-            {{ product.grapes[0].vintage}}
-        </mat-grid-tile>
-      </mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="30px" class="confirm-tranfer-grid">
+    <mat-grid-tile>
+      ID:
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{ product.id}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Company Name:
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{ product.companyName}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Region:
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{ product.grapes[0].region}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Variety:
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{ product.grapes[0].variety}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Vintage:
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{ product.grapes[0].vintage}}
+    </mat-grid-tile>
+    <ng-container *ngIf="product.wines && product.wines[0] && product.wines[0].boxes">
+      <mat-grid-tile>
+        Number Box Remaining:
+      </mat-grid-tile>
+      <mat-grid-tile>
+        {{ product.wines[0].boxes}}
+      </mat-grid-tile>
+    </ng-container>
+  </mat-grid-list>
   <p>Are you sure you want to transfer this product?</p>
 </mat-dialog-content>
 <mat-dialog-actions>

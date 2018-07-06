@@ -1,31 +1,23 @@
 html
-  head
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(href='https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css')
-	link(rel="stylesheet" href="css/reset.css")
-	link(rel="stylesheet" href="css/style.css")
-	link(rel="stylesheet" href="css/demo.css")
-
-  body(style="padding: 30px;")
-    div.container
-        table.table.table-striped
-            tbody
-                tr
-                    td Company Name:
-                    td= companyName
-                tr
-                    td Region:
-                    td= region
-                tr
-                    td Brand:
-                    td= brand
-                tr
-                    td Winery:
-                    td= vinery
-                tr
-                    td Vintage:
-                    td= vintage
-                tr
-                    td Variety:
-                    td= variety
-    script(src="js/main.js")
+    head
+        link(rel='stylesheet',href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(href='https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700',rel='stylesheet',type='text/css')
+        link(rel="stylesheet",href="/css/reset.css")
+        link(rel="stylesheet",href="/css/style.css")
+        link(rel="stylesheet",href="/css/demo.css")
+        title #{product.companyName}
+    body
+        header
+            h1 #{product.brand}
+        section(class='cd-timeline js-cd-timeline')
+            div(class='cd-timeline__container')
+                each item in product.items
+                    div(class='cd-timeline__block js-cd-block')
+                        div(class='cd-timeline__img cd-timeline__img--picture js-cd-img')
+                            img(src=item.icon)
+                        div(class='cd-timeline__content js-cd-content')
+                            h2 #{item.title}
+                            each i in item.info
+                                p #{i.key}: #{i.value}
+                            span(class='cd-timeline__date') #{item.date}
+        script(src="/js/main.js")

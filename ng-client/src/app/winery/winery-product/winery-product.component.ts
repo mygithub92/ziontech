@@ -6,6 +6,7 @@ import { Product, Grape } from '../../model/Product';
 import { HyperledgerService } from '../../services/hyperledger.service';
 import { AuthService } from '../../services/auth.service';
 import { NoAuthError } from '../../common/no-auth-error';
+import { AppValidators } from '../../shared/app.validators';
 
 @Component({
   selector: 'app-winery-product',
@@ -33,9 +34,9 @@ export class WineryProductComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        actualWeight: ['', Validators.required],
-        volume: ['', Validators.required],
-        status: ['', Validators.required],
+        actualWeight: [null, [Validators.required, AppValidators.float]],
+        volume: [null, [Validators.required, AppValidators.numberSpace]],
+        status: [null, Validators.required],
       }
     );
 

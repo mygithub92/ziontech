@@ -7,6 +7,7 @@ import { Product, Grape } from '../../model/Product';
 import { Subject } from 'rxjs/Subject';
 import { AuthService } from '../../services/auth.service';
 import { NoAuthError } from '../../common/no-auth-error';
+import { AppValidators } from '../../shared/app.validators';
 
 @Component({
   selector: 'app-bottler-product',
@@ -18,7 +19,7 @@ export class BottlerProductComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
   sellers = ['Liquid Shop', 'BWS'];
   statuses = ['Bulk Wine', '12 pk boxes', '6 pk boxes'];
-  corkCaps = ['corkCaps'];
+  corkCaps = ['Cork', 'Caps'];
   product: Product;
   grape: Grape;
   unsubscribe = new Subject<void>();
@@ -34,11 +35,11 @@ export class BottlerProductComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        brand: ['', Validators.required],
-        label: ['', Validators.required],
-        corkCap: ['', Validators.required],
+        brand: [null, Validators.required],
+        label: [null, Validators.required],
+        corkCap: [null, Validators.required],
         status: [null, Validators.required],
-        boxes: ['', Validators.required]
+        boxes: [null, [Validators.required, AppValidators.numberSpace]]
       }
     );
 
@@ -48,8 +49,7 @@ export class BottlerProductComponent implements OnInit {
       if (newValue === 'Bulk Wine') {
         this.form.controls.boxes.clearValidators();
       } else {
-        this.form.controls.boxes.setValidators(Validators.required);
-
+        this.form.controls.boxes.setValidators([Validators.required, , AppValidators.numberSpace]);
       }
     });
 
