@@ -269,7 +269,8 @@ export default class Controller {
     }
 
     genereateQR = (id) => {
-        const ip = '18.221.40.162';
+        const ip = '52.14.119.82';
+        //const ip = '18.221.40.162';
         qr.image(`http://${ip}/wine/${id}`)
             .pipe(fs.createWriteStream(config.qr(id)));
     }
