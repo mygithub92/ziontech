@@ -21,7 +21,7 @@ export default class Controller {
         }).then(u => {
             let token;
             if (u) {
-                const user: User = u.get({plain: true});
+                const user: User = u.get({ plain: true });
                 const roles = user.roles.map(role => {
                     return { id: role.id, name: role.name };
                 });
@@ -108,10 +108,8 @@ export default class Controller {
     }
 
     updateWinery = (req, res) => {
-        Grape.update({ actualWeight: req.body.actualWeight }, { where: { productId: req.body.productId } }).then(() => {
-            Winery.update(req.body, { where: { id: req.body.wineryId } }).then(winery => {
-                res.json(winery);
-            });
+        Winery.update(req.body, { where: { id: req.body.wineryId } }).then(winery => {
+            res.json(winery);
         });
     }
 
@@ -154,14 +152,14 @@ export default class Controller {
 
     updateBottler = (req, res) => {
         Wine.update(req.body, { where: { id: req.body.wineId } }).then(() => {
-            Warehouse.update({remaining: req.body.boxes}, { where: { productId: req.body.productId } }).then(() => res.json('Done'));
+            Warehouse.update({ remaining: req.body.boxes }, { where: { productId: req.body.productId } }).then(() => res.json('Done'));
         });
     }
 
     createBottler = (req, res) => {
         const t = { ...req.body, userId: req.body.userId };
         Wine.create(t).then(() => {
-            Warehouse.create({remaining: t.boxes, productId: t.productId }).then(() => res.json('Done'));
+            Warehouse.create({ remaining: t.boxes, productId: t.productId }).then(() => res.json('Done'));
         });
     }
 

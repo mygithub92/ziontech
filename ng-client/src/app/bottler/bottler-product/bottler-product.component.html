@@ -12,6 +12,13 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <mat-form-field>
+              <mat-label>L Code</mat-label>
+              <input matInput placeholder="L Code" formControlName="lcode">
+              <mat-error *ngIf="form.get('lcode').invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field>
               <mat-label>Label</mat-label>
               <input matInput placeholder="Label" formControlName="label">
               <mat-error *ngIf="form.get('label').invalid">{{getErrorMessage()}}</mat-error>

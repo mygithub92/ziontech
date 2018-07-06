@@ -25,7 +25,7 @@ app.get('*', (req, res) => {
 });
 
 // Save our port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 sequelize.sync(
   // { force: true }

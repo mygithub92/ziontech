@@ -27,22 +27,22 @@ export default class TimelineController {
                 {
                     model: Winery,
                     attributes: ['volume', 'creationDate', 'updatedDate'],
-                    include: [{model: User, attributes: ['name']}]
+                    include: [{model: User}]
                 },
                 {
                     model: Wine,
                     attributes: ['brand', 'boxes', 'creationDate', 'updatedDate'],
-                    include: [{model: User, attributes: ['name']}]
+                    include: [{model: User}]
                 },
                 {
                     model: Warehouse,
                     attributes: ['remaining', 'creationDate', 'updatedDate'],
-                    include: [{model: User, attributes: ['name']}]
+                    include: [{model: User}]
                 },
                 {
                     model: Transport,
                     attributes: ['driverId', 'plateNumber', 'creationDate', 'updatedDate'],
-                    include: [{model: User, attributes: ['name']}]
+                    include: [{model: User}]
                 }
             ],
             attributes: ['companyName']
@@ -52,21 +52,18 @@ export default class TimelineController {
             const items = new Array();
             if (plainProduct.grapes && plainProduct.grapes.length) {
                 items.push({
-                    title: plainProduct.grapes[0].user.name,
+                    title: plainProduct.grapes[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.grapes[0].creationDate),
                     icon: '/img/cd-icon-picture.svg',
                     info: [
-                        { key: 'Region', value: plainProduct.grapes[0].region },
-                        { key: 'Vineyard', value: plainProduct.grapes[0].vineyard },
-                        { key: 'Variety', value: plainProduct.grapes[0].variety },
-                        { key: 'Vintage', value: plainProduct.grapes[0].vintage }
+                        { key: '', value: plainProduct.grapes[0].user.location + ', ' + plainProduct.grapes[0].region + ', ' + plainProduct.grapes[0].vineyard }
                     ]
                 });
             }
 
             if (plainProduct.transports && plainProduct.transports.length > 0) {
                 items.push({
-                    title: plainProduct.transports[0].user.name,
+                    title: plainProduct.transports[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.transports[0].creationDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
@@ -78,18 +75,18 @@ export default class TimelineController {
 
             if (plainProduct.wineries && plainProduct.wineries.length) {
                 items.push({
-                    title: plainProduct.wineries[0].user.name,
+                    title: plainProduct.wineries[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.wineries[0].creationDate),
                     icon: '/img/cd-icon-location.svg',
                     info: [
-                        { key: 'Volume', value: plainProduct.wineries[0].volume }
+                        { key: 'Volume', value: plainProduct.wineries[0].user.location }
                     ]
                 });
             }
 
             if (plainProduct.transports && plainProduct.transports.length > 1) {
                 items.push({
-                    title: plainProduct.transports[1].user.name,
+                    title: plainProduct.transports[1].user.orgnizationName,
                     date: this.formatDate(plainProduct.transports[1].creationDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
@@ -101,18 +98,18 @@ export default class TimelineController {
 
             if (plainProduct.wines && plainProduct.wines.length) {
                 items.push({
-                    title: plainProduct.wines[0].user.name,
+                    title: plainProduct.wines[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.wines[0].creationDate),
                     icon: '/img/cd-icon-location.svg',
                     info: [
-                        { key: 'Number of box', value: plainProduct.wines[0].boxes }
+                        { key: 'Number of box', value: plainProduct.wines[0].user.location }
                     ]
                 });
             }
 
             if (plainProduct.transports && plainProduct.transports.length > 2) {
                 items.push({
-                    title: plainProduct.transports[2].user.name,
+                    title: plainProduct.transports[2].user.orgnizationName,
                     date: this.formatDate(plainProduct.transports[2].creationDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
@@ -124,11 +121,11 @@ export default class TimelineController {
 
             if (plainProduct.warehouses && plainProduct.warehouses.length) {
                 items.push({
-                    title: plainProduct.warehouses[0].user ? plainProduct.warehouses[0].user.name : '',
+                    title: plainProduct.warehouses[0].user ? plainProduct.warehouses[0].user.orgnizationName : '',
                     date: this.formatDate(plainProduct.warehouses[0].creationDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
-                        { key: 'Number of box', value: plainProduct.warehouses[0].boxes }
+                        { key: 'Number of box', value: plainProduct.warehouses[0].user ? plainProduct.warehouses[0].user.location : ''}
                     ]
                 });
             }

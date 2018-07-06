@@ -71,7 +71,6 @@ export class Grape {
   bins: number;
   status: string;
   estimatedWeight: string;
-  actualWeight: string;
 
   public static isValid(grape: Grape): boolean {
     return grape.region != null && grape.vineyard != null && grape.block != null
@@ -83,6 +82,7 @@ export class Winery {
   id: string;
   volume: number;
   status: string;
+  actualWeight: string;
 
   public static isValid(winery: Winery): boolean {
     return winery.volume != null;

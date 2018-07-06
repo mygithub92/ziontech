@@ -17,6 +17,9 @@ export default class Wine extends Model<Wine> {
     @Column({ field: "cork_cap" })
     corkCap: string;
 
+    @Column({ field: "lcode" })
+    lcode: string;
+
     @Column({ field: "status" })
     status: string;
 

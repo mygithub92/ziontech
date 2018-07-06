@@ -17,6 +17,9 @@ export default class Winery extends Model<Winery> {
     @Column
     status: string;
 
+    @Column({ field: "actual_weight" })
+    actualWeight: number;
+    
     @Column
     transferred: boolean;
 

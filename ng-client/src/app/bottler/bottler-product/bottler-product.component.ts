@@ -36,6 +36,7 @@ export class BottlerProductComponent implements OnInit {
     this.form = this.fb.group(
       {
         brand: [null, Validators.required],
+        lcode: [null, Validators.required],
         label: [null, Validators.required],
         corkCap: [null, Validators.required],
         status: [null, Validators.required],

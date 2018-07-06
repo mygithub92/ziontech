@@ -100,7 +100,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'estimatedWeight', header: 'Estimated Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` }
     ];
     if (this.authService.transaction) {
-      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'actualWeight')}` }
+      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` }
     );
     }
     if (!this.authService.transaction) {
@@ -114,7 +114,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'estimatedWeight', header: 'Estimated Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'actualWeight')}` },
+      { columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` },
       { columnDef: 'volume', header: 'Volume(L)', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineryValue(row, 'status')}` }
     ];
@@ -135,6 +135,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
+      { columnDef: 'lcode', header: 'L Code', cell: (row: Product) => `${Product.wineValue(row, 'lcode')}` },
       { columnDef: 'label', header: 'Label', cell: (row: Product) => `${Product.wineValue(row, 'label')}` },
       { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${Product.wineValue(row, 'corkCap')}` },
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineValue(row, 'status')}` },
@@ -154,7 +155,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
       { columnDef: 'region', header: 'Region', cell: (row: Product) => `${Product.grapeValue(row, 'region')}` },
       { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${Product.grapeValue(row, 'vineyard')}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.grapeValue(row, 'actualWeight')}` },
+      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` },
       { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
       { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
