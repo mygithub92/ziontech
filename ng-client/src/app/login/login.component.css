@@ -34,7 +34,7 @@
   border-top-right-radius: 0;
 }
 
-.form-signin .form-ziontech-logo, .form-forgot-password{
+.form-signin .form-ziontech-text, .form-forgot-password{
   text-align: center;
   padding:20px;
   font-size: small;
@@ -44,4 +44,8 @@
   display: block;
   width: 70%;
   margin: auto;
+}
+
+.form-signin .form-ziontech-logo{
+  padding-top: 5px;
 }
