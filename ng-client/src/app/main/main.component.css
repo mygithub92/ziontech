@@ -8,16 +8,35 @@
 }
 
 .top-banner {
-    background-color: rgb(140, 161, 189);
+    background-color: #00305B);
 }
 
 .nav > .nav-item > .nav-link.active {
     color: rgb(14, 126, 116);
 }
 
+.nav-bar-link{
+  color: white;
+}
+
+.nav-bar-link:hover{
+  color: #0487B7;
+}
+
 .nav-divider {
     padding-right: 15px;
     margin-right: 15px;
+}
+
+.blue-icon{
+  color: #0487B7;
+}
+
+.nav-text{
+  color:whtie;
+  vertical-align: middle;
+  margin:auto;
+  font-weight:bold;
 }
 
 .collapse.navbar-collapse > .nav-link {

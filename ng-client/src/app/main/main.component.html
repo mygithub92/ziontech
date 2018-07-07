@@ -1,8 +1,8 @@
-<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light top-banner">
-  <a class="navbar-brand" href="https://www.ziontech.com.au/" target="_blank"><i class="fa fa-leaf" aria-hidden="true">
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light top-banner">
+  <a class="navbar-brand" href="https://www.ziontech.com.au/" target="_blank">
       <img src="/assets/ziontech.png" width="30" height="30" class="d-inline-block align-top" alt="">
-      Ziontech</i></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+      <img src="/assets/ZionTechLogoTextSmall.png" width="150" class="d-inline-block align-top" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
     (click)="toggleMenu()"
     [attr.aria-expanded]="!isCollapsed">
@@ -10,11 +10,11 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item"><a class="nav-link" href="https://www.ziontech.com.au/" target="_blank">About Us</a></li>
-      <li class="nav-item"><mat-icon color="warn">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></li>
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-bar-link" href="https://www.ziontech.com.au/" target="_blank">About Us</a></li>
     </ul>
-    <a class="nav-link" (click)="logout()"><mat-icon color="warn">exit_to_app</mat-icon>Logout</a>
+    <div class="nav-text"><mat-icon class="blue-icon">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></div>
+    <a class="nav-bar-link nav-link" (click)="logout()"><mat-icon class="blue-icon">exit_to_app</mat-icon>Logout</a>
   </div>
 </nav>
 
