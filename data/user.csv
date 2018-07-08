@@ -1,6 +1,7 @@
 id,name,email,password,location,org_name,role_id
 1,Gavin Hogg,gavin.hogg@titaniumthread.com,1234,Coonawarra SA,Hoggies Estate,1
-2,David Stokoe,david.stokoe@titaniumthread.com,1234,Penola SA,Hoggies Estate,2
+2,David Stokoe,david.stokoe@titaniumthread.com,1234,Penola SA,Good Winery,2
 3,Chris Hogg,chris.hogg@titaniumthread.com,1234,Casterton VIC,Good Bottler,3
 4,Sean Gould,sean.gould@titaniumthread.com,1234,Naracoorte SA,Good Driver,4
 5,Sean Gould,david.wang@titaniumthread.com,1234,Victor Harbor SA,Good Warehouse,5
+6,Lery Wang,leroy.wang@titaniumthread.com,1234,Victor Harbor SA,Legal Driver,6

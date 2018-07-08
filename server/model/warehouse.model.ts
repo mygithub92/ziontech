@@ -11,6 +11,9 @@ export default class Warehouse extends Model<Warehouse> {
     @Column
     remaining: number;
 
+    @Column({ field: "transfer_date" })
+    transferDate: Date;
+
     @Column
     transferred: boolean;
 

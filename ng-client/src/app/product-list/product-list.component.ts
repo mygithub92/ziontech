@@ -77,7 +77,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.populateBottlerMetaData();
         break;
       case Roles.Logistic:
-        this.populateDriverMetaData();
+        this.populateLogistic1MetaData();
+        break;
+      case Roles.Logistic2:
+        this.populateLogistic2MetaData();
         break;
       case Roles.Warehouse:
         this.populateWarehouseMetaData();
@@ -95,13 +98,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${Product.grapeValue(row, 'rowRange')}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
-      { columnDef: 'bins', header: 'Numbers of Bin', cell: (row: Product) => `${Product.grapeValue(row, 'bins')}` },
+      { columnDef: 'bins', header: 'Numbers of Bins', cell: (row: Product) => `${Product.grapeValue(row, 'bins')}` },
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.grapeValue(row, 'status')}` },
       { columnDef: 'estimatedWeight', header: 'Estimated Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` }
     ];
     if (this.authService.transaction) {
-      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` }
-    );
+      this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` });
     }
     if (!this.authService.transaction) {
       this.columns.push({ columnDef: 'action', header: 'Action', cell: (row: Product) => 'Transfer' });
@@ -139,7 +141,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'label', header: 'Label', cell: (row: Product) => `${Product.wineValue(row, 'label')}` },
       { columnDef: 'corkCap', header: 'Cork Cap', cell: (row: Product) => `${Product.wineValue(row, 'corkCap')}` },
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineValue(row, 'status')}` },
-      { columnDef: 'boxes', header: 'Number of box', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` }
+      { columnDef: 'boxes', header: 'Number of Boxes', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` }
     ];
     if (!this.authService.transaction) {
       this.columns.push({
@@ -150,14 +152,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
   }
 
-  populateDriverMetaData() {
+  populateLogistic1MetaData() {
     this.columns = [
       { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
-      { columnDef: 'region', header: 'Region', cell: (row: Product) => `${Product.grapeValue(row, 'region')}` },
-      { columnDef: 'vineyard', header: 'Vineyard', cell: (row: Product) => `${Product.grapeValue(row, 'vineyard')}` },
-      { columnDef: 'actualWeight', header: 'Actual Weight', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` },
-      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
-      { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
+      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
+      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
+      { columnDef: 'estimatedWeight', header: 'Weight', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` },
       { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
       { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` },
     ];
@@ -167,6 +167,34 @@ export class ProductListComponent implements OnInit, OnDestroy {
         header: 'Action',
         cell: (row: Product) => Product.isValidTansport(row) ? 'Transfer' : ''
       });
+    } else {
+      this.columns.push({ columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.grapeValue(row, 'user').location}` })
+      this.columns.push({ columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.wineryValue(row, 'user').location}` })
+      this.columns.push({ columnDef: 'loadDate', header: 'Load Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+      this.columns.push({ columnDef: 'deliveryDate', header: 'Delivery Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+    }
+  }
+
+  populateLogistic2MetaData() {
+    this.columns = [
+      { columnDef: 'companyName', header: 'Company Name', cell: (row: Product) => `${row.companyName}` },
+      { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
+      { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
+      { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
+      { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
+      { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` },
+    ];
+    if (!this.authService.transaction) {
+      this.columns.push({
+        columnDef: 'action',
+        header: 'Action',
+        cell: (row: Product) => Product.isValidTansport(row) ? 'Transfer' : ''
+      });
+    } else {
+      this.columns.push({ columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+      this.columns.push({ columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+      this.columns.push({ columnDef: 'loadDate', header: 'Load Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+      this.columns.push({ columnDef: 'deliveryDate', header: 'Delivery Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
     }
   }
 
@@ -178,13 +206,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
       { columnDef: 'boxes', header: 'Number of box', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` },
     ];
-    if (!this.authService.transaction) {
-      this.columns.push({
-        columnDef: 'action',
-        header: 'Action',
-        cell: (row: Product) => Product.isValidWine(row) ? 'Transfer' : ''
-      });
-    }
 
   }
 
@@ -203,10 +224,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        if (result === 'yes') {
+        if (result) {
           this.records = this.records.filter(e => e.id !== row.id);
           this.dataSource = new MatTableDataSource(this.records);
-          this.service.transportProduct(row.id)
+          this.service.transportProduct(row.id, result)
             .subscribe(res => res);
         }
       });

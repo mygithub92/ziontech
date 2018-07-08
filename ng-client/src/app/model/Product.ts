@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 export class Product {
   id: number;
   companyName: string;
+  transferDate: Date;
   grapes: Grape[];
   wineries: Winery[];
   wines: Wine[];
@@ -71,6 +72,8 @@ export class Grape {
   bins: number;
   status: string;
   estimatedWeight: string;
+  user: User;
+  transferDate: Date;
 
   public static isValid(grape: Grape): boolean {
     return grape.region != null && grape.vineyard != null && grape.block != null
@@ -83,6 +86,7 @@ export class Winery {
   volume: number;
   status: string;
   actualWeight: string;
+  transferDate: Date;
 
   public static isValid(winery: Winery): boolean {
     return winery.volume != null;
@@ -96,6 +100,7 @@ export class Wine {
   corkCap: string;
   status: string;
   boxes: number;
+  transferDate: Date;
 
   public static isValid(wine: Wine): boolean {
     return wine.brand != null && wine.label != null && wine.corkCap != null && wine.status != null;
@@ -109,14 +114,18 @@ export interface Stage {
 
 export class Transport {
   id: number;
-  from: string;
-  to: string;
-  start: Date;
-  end: Date;
+  transferDate: Date;
   driverId: string;
   plateNumber: string;
 
   public static isValid(transport: Transport): boolean {
     return transport.driverId != null && transport.plateNumber != null;
   }
+}
+
+export class User {
+  name: string;
+  emial: string;
+  location: string;
+  orgnizationName: string;
 }

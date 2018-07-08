@@ -10,17 +10,8 @@ import Stage from "./stage.model";
 @Table
 export default class Transport extends Model<Transport> {
 
-    @Column
-    from: string;
-
-    @Column
-    to: string;
-
-    @Column
-    start: Date;
-
-    @Column
-    end: Date;
+    @Column({ field: "transfer_date" })
+    transferDate: Date;
 
     @Column({ field: "transferred" })
     transferred: boolean;

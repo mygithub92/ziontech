@@ -14,7 +14,7 @@ import Warehouse from "./warehouse.model";
     },
     hGrapes: {
         where: { stageId: {$gt: 10 }},
-        include: [() => Grape]
+        include: [() => Grape, () => Winery]
     },
     wineries: {
         where: { stageId: 30 },

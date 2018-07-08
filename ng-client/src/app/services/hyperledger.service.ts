@@ -36,8 +36,9 @@ export class HyperledgerService {
                 return this.http.get(`${this.baseUrl}/api/warehouse`, { params: { history } })
                     .map(res => res.json())
                     .catch(this.handleError);
-            case Roles.Logistic:
-                if (history) {
+                    case Roles.Logistic:
+                    case Roles.Logistic2:
+                    if (history) {
                     return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
                         .map(res => {
                             const result = [];
@@ -88,6 +89,7 @@ export class HyperledgerService {
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Logistic:
+            case Roles.Logistic2:
                 return this.http.get(`${this.baseUrl}/api/transport`, { params: { productId } })
                     .map(res => {
                         const ps = res.json();
@@ -136,6 +138,7 @@ export class HyperledgerService {
                         .catch(this.handleError);
                 }
             case Roles.Logistic:
+            case Roles.Logistic2:
                 if (data.transportId) {
                     return this.http.post(this.baseUrl + '/api/transport/update/', data)
                         .map(res => res.json())
@@ -155,26 +158,28 @@ export class HyperledgerService {
             .catch(this.handleError);
     }
 
-    transportProduct(productId: string, data?: any) {
+    transportProduct(productId: string, transferDate: Date) {
+        const transfer = {productId, transferDate}
         switch (this.authService.currentRole) {
             case Roles.Grower:
-                return this.http.post(this.baseUrl + '/api/grape/transport', { productId })
+                return this.http.post(this.baseUrl + '/api/grape/transport', transfer)
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Winery:
-                return this.http.post(this.baseUrl + '/api/winery/transport', { productId })
+                return this.http.post(this.baseUrl + '/api/winery/transport', transfer)
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Bottler:
-                return this.http.post(this.baseUrl + '/api/bottler/transport', { productId })
+                return this.http.post(this.baseUrl + '/api/bottler/transport', transfer)
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Warehouse:
-                return this.http.post(this.baseUrl + '/api/warehouse/transport', { productId })
+                return this.http.post(this.baseUrl + '/api/warehouse/transport', transfer)
                     .map(res => res.json())
                     .catch(this.handleError);
             case Roles.Logistic:
-                return this.http.post(this.baseUrl + '/api/transport/transport', { productId })
+            case Roles.Logistic2:
+                return this.http.post(this.baseUrl + '/api/transport/transport', transfer)
                     .map(res => res.json())
                     .catch(this.handleError);
 

@@ -40,9 +40,13 @@
       </mat-grid-tile>
     </ng-container>
   </mat-grid-list>
-  <p>Are you sure you want to transfer this product?</p>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="product.transferDate" placeholder="Choose a transfer date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+  </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close="yes" color="primary">Yes</button>
-  <button mat-raised-button mat-dialog-close="no" color="warn">No</button>
+  <button mat-raised-button [mat-dialog-close]="product.transferDate" [disabled]="!isValid()" color="primary">Yes</button>
+  <button mat-raised-button (click)="onNoClick()" color="warn">No</button>
 </mat-dialog-actions>

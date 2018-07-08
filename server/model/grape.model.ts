@@ -36,6 +36,9 @@ export default class Grape extends Model<Grape> {
     @Column({ field: "estimated_weight" })
     estimatedWeight: number;
 
+    @Column({ field: "transfer_date" })
+    transferDate: Date;
+
     @Column({ field: "transferred" })
     transferred: boolean;
 

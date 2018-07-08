@@ -3,5 +3,6 @@ export enum Roles {
     Winery,
     Bottler,
     Logistic,
+    Logistic2,
     Warehouse
 }

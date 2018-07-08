@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Product } from '../../model/Product';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -9,10 +10,17 @@ import { Product } from '../../model/Product';
 })
 export class ConfirmDialogComponent {
 
-  product: Product;
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public product: Product) {
+  }
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: Product) {
-    this.product = data;
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  isValid(): boolean {
+    return this.product.transferDate instanceof Date;
   }
 
   get remainingBoxNumber() {
@@ -24,5 +32,13 @@ export class ConfirmDialogComponent {
 
   showBoxNumber() {
     return this.product.wines && this.product.wines[0] && this.product.wines[0].boxes;
+  }
+
+  get startDate() {
+    return new Date();
+  }
+
+  get minDate() {
+    return new Date();
   }
 }

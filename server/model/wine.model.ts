@@ -29,6 +29,9 @@ export default class Wine extends Model<Wine> {
     @Column
     boxes: number;
     
+    @Column({ field: "transfer_date" })
+    transferDate: Date;
+
     @Column
     transferred: boolean;
 

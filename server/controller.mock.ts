@@ -83,7 +83,7 @@ export default class Controller {
         });
     }
     transportGrape = (req, res) => {
-        Grape.update({ transferred: true }, { where: { productId: req.body.productId } }).then(() => {
+        Grape.update({ transferred: true, transferDate: req.body.transferDate}, { where: { productId: req.body.productId } }).then(() => {
             Product.update({ stageId: 20 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
         });
     }
@@ -114,15 +114,13 @@ export default class Controller {
     }
 
     createWinery = (req, res) => {
-        Grape.update({ actualWeight: req.body.actualWeight }, { where: { productId: req.body.productId } }).then(() => {
-            Winery.create({ volume: req.body.volume, userId: req.body.userId, productId: req.body.productId }).then(winery => {
-                res.json(winery);
-            });
+        Winery.create(req.body).then(() => {
+            res.json('Winery Created');
         });
     }
 
     transportWinery = (req, res) => {
-        Winery.update({ transferred: true }, { where: { productId: req.body.productId } }).then(() => {
+        Winery.update({ transferred: true, transferDate: req.body.transferDate }, { where: { productId: req.body.productId } }).then(() => {
             Product.update({ stageId: 40 }, { where: { id: req.body.productId } }).then(() => {
                 res.json('Done');
             });
@@ -164,8 +162,8 @@ export default class Controller {
     }
 
     transportBottler = (req, res) => {
-        Wine.update({ transferred: true }, { where: { productId: req.body.productId } }).then((wine) => {
-            Product.update({ stageId: 60 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
+        Wine.update({ transferred: true, transferDate: req.body.transferDate }, { where: { productId: req.body.productId } }).then((wine) => {
+            Product.update({ stageId: 70 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
         });
     }
     // Distributor
@@ -173,8 +171,9 @@ export default class Controller {
         if (req.query.history === 'true') {
             Product.findAll({
                 include: [
-                    { model: Grape },
-                    { model: Winery }, { model: Wine },
+                    { model: Grape, include: [{ model: User}]},
+                    { model: Winery, include: [{ model: User}]}, 
+                    { model: Wine, include: [{ model: User}]},
                     {
                         model: Transport,
                         where: { transferred: true }
@@ -219,7 +218,7 @@ export default class Controller {
     }
 
     transport = (req, res) => {
-        Transport.update({ transferred: true }, { where: { productId: req.body.productId } }).then(() => {
+        Transport.update({ transferred: true, transferDate: req.body.transferDate }, { where: { productId: req.body.productId } }).then(() => {
             Product.findOne({ where: { id: req.body.productId } }).then(product => {
                 if (product) {
                     Product.update({ stageId: product.stageId + 10 }, { where: { id: product.id } }).then(() => res.json('Done'));

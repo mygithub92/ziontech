@@ -53,7 +53,7 @@
           <mat-grid-tile *ngIf="showBoxQuestion()">
             <mat-form-field>
               <mat-label>Number of box</mat-label>
-              <input matInput placeholder="Number of box" formControlName="boxes">
+              <input matInput placeholder="Number of Boxes" formControlName="boxes">
               <mat-error *ngIf="form.get('boxes').hasError('required')">{{getErrorMessage()}}</mat-error>
               <mat-error *ngIf="form.get('boxes').hasError('numberSpace')">Please entre a number</mat-error>
             </mat-form-field>
