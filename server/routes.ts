@@ -29,6 +29,7 @@ export default function setRoutes(app, checkIfAuthenticated) {
   app.route('/api/bottler/transport').post(checkIfAuthenticated, controller.transportBottler);
   
   app.route('/api/transports').get(checkIfAuthenticated, controller.getTransports);
+  app.route('/api/transports2').get(checkIfAuthenticated, controller.getTransports2);
   app.route('/api/transport').get(checkIfAuthenticated, controller.getTransportById);
   app.route('/api/transport/create').put(checkIfAuthenticated, controller.createTransport);
   app.route('/api/transport/update').post(checkIfAuthenticated, controller.updateTransport);

@@ -38,4 +38,6 @@ INTO TABLE `grape`
 FIELDS OPTIONALLY ENCLOSED BY '"'
 TERMINATED BY ',' 
 LINES TERMINATED BY '\r\n'
-IGNORE 1 ROWS;
+IGNORE 1 ROWS
+(id,name,region,vineyard,variety,block,row_range,vintage,estimated_weight,transfer_date,transferred,bins,status,user_id,product_id,@var_creation_date,updated_date)
+set creation_date = STR_TO_DATE(@var_creation_date,"%Y-%m-%d")

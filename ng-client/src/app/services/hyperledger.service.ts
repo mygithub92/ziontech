@@ -36,9 +36,8 @@ export class HyperledgerService {
                 return this.http.get(`${this.baseUrl}/api/warehouse`, { params: { history } })
                     .map(res => res.json())
                     .catch(this.handleError);
-                    case Roles.Logistic:
-                    case Roles.Logistic2:
-                    if (history) {
+            case Roles.Logistic:
+                if (history) {
                     return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
                         .map(res => {
                             const result = [];
@@ -57,6 +56,40 @@ export class HyperledgerService {
                         .catch(this.handleError);
                 }
                 return this.http.get(`${this.baseUrl}/api/transports`, { params: { history } })
+                    .map(res => {
+                        const ps = res.json();
+
+                        ps.products.forEach(product => {
+                            product.transports = product.transports || [];
+                            ps.transports.forEach(transport => {
+                                if (product.id === transport.productId) {
+                                    product.transports.push(transport);
+                                }
+                            });
+                        });
+                        return ps.products;
+                    })
+                    .catch(this.handleError);
+            case Roles.Logistic2:
+                if (history) {
+                    return this.http.get(`${this.baseUrl}/api/transports2`, { params: { history } })
+                        .map(res => {
+                            const result = [];
+                            res.json().forEach(product => {
+                                product.transports.forEach(transport => {
+                                    const temp = { ...product };
+                                    delete temp.transports;
+                                    temp.transports = [];
+                                    temp.transports.push(transport);
+
+                                    result.push(temp);
+                                });
+                            });
+                            return result;
+                        })
+                        .catch(this.handleError);
+                }
+                return this.http.get(`${this.baseUrl}/api/transports2`, { params: { history } })
                     .map(res => {
                         const ps = res.json();
 
@@ -159,7 +192,7 @@ export class HyperledgerService {
     }
 
     transportProduct(productId: string, transferDate: Date) {
-        const transfer = {productId, transferDate}
+        const transfer = { productId, transferDate };
         switch (this.authService.currentRole) {
             case Roles.Grower:
                 return this.http.post(this.baseUrl + '/api/grape/transport', transfer)

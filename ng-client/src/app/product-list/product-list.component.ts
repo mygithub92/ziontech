@@ -168,10 +168,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         cell: (row: Product) => Product.isValidTansport(row) ? 'Transfer' : ''
       });
     } else {
-      this.columns.push({ columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.grapeValue(row, 'user').location}` })
-      this.columns.push({ columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.wineryValue(row, 'user').location}` })
-      this.columns.push({ columnDef: 'loadDate', header: 'Load Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
-      this.columns.push({ columnDef: 'deliveryDate', header: 'Delivery Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+      this.columns.push({ columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.grapeValue(row, 'user').location}` });
+      this.columns.push({ columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.wineryValue(row, 'user').location}` });
+      this.columns.push({ columnDef: 'loadDate', header: 'Load Date', cell: (row: Product) => `${this.formatedDate(Product.grapeValue(row, 'transferDate'))}` });
+      this.columns.push({ columnDef: 'deliveryDate', header: 'Delivery Date', cell: (row: Product) => `${this.formatedDate(Product.transportValue(row, 'transferDate'))}` });
     }
   }
 
@@ -191,11 +191,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
         cell: (row: Product) => Product.isValidTansport(row) ? 'Transfer' : ''
       });
     } else {
-      this.columns.push({ columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
-      this.columns.push({ columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
-      this.columns.push({ columnDef: 'loadDate', header: 'Load Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
-      this.columns.push({ columnDef: 'deliveryDate', header: 'Delivery Date', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` })
+      this.columns.push({ columnDef: 'from', header: 'From', cell: (row: Product) => `${Product.grapeValue(row, 'user').location}` });
+      this.columns.push({ columnDef: 'to', header: 'To', cell: (row: Product) => `${Product.wineryValue(row, 'user').location}` });
+      this.columns.push({ columnDef: 'loadDate', header: 'Load Date', cell: (row: Product) => `${this.formatedDate(Product.grapeValue(row, 'transferDate'))}` });
+      this.columns.push({ columnDef: 'deliveryDate', header: 'Delivery Date', cell: (row: Product) => `${this.formatedDate(Product.transportValue(row, 'transferDate'))}` });
     }
+  }
+
+  formatedDate(date: any): string {
+    return this.datePipe.transform(date, 'dd MMM yyyy');
   }
 
   populateWarehouseMetaData() {
@@ -260,6 +264,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(`/home/bottler/product/${row.id}`);
         break;
       case Roles.Logistic:
+      case Roles.Logistic2:
         this.router.navigateByUrl(`/home/driver/product/${row.id}`);
         break;
     }

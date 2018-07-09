@@ -1,3 +1,3 @@
 id,name,region,vineyard,variety,block,rowRange,vintage,estimated_weight,transfer_date,transferred,bins,status,user_id,product_id,creation_date,updated_date
-1,,Merbein,Thompson,Muscat of Alexandria,2,1-3,2018,20,NULL,0,0,Grapes,1,1,'2017-06-12','2017-06-14'
-2,,Coonawarra,Ladbroke,Shiraz,3,4-10,2016,35,NULL,0,20,Grapes,1,2,'2018-06-12','2018-06-14'
+1,,Merbein,Thompson,Muscat of Alexandria,2,1-3,2018,20,NULL,0,0,Grapes,1,1,2017-03-04,NULL
+2,,Coonawarra,Ladbroke,Shiraz,3,4-10,2016,35,NULL,0,20,Grapes,1,2,2018-07-04,NULL

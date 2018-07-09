@@ -33,7 +33,11 @@ import Warehouse from "./warehouse.model";
         include: [() => Grape, () => Winery, () => Wine]
     },
     distributor: {
-        where: {stageId: {$in: [20, 40, 60, 80]}},
+        where: {stageId: 20 },
+        include: [() => Grape, () => Winery, () => Wine]
+    },
+    distributor2: {
+        where: {stageId: 40 },
         include: [() => Grape, () => Winery, () => Wine]
     },
     warehouse: {

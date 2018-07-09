@@ -8,10 +8,13 @@ import User from "./model/user.model";
 import * as df from "dateformat";
 
 export default class TimelineController {
-    pattern = 'yyyy-mm-dd';
 
     formatDate = (date: string) => {
-        return df(new Date(date), this.pattern);
+        return df(new Date(date), 'yyyy-mm-dd');
+    }
+
+    formatDateTime = (date: string) => {
+        return df(new Date(date), 'yyyy-mm-dd hh:MM:ss');
     }
 
     getWineJourney = (req, res) => {
@@ -21,54 +24,53 @@ export default class TimelineController {
             include: [
                 {
                     model: Grape,
-                    attributes: ['region', 'vineyard', 'variety', 'vintage', 'creationDate', 'updatedDate'],
+                    attributes: ['region', 'vineyard', 'transferDate', 'creationDate', 'updatedDate'],
                     include: [{model: User}]
                 },
                 {
                     model: Winery,
-                    attributes: ['volume', 'creationDate', 'updatedDate'],
+                    attributes: ['transferDate', 'updatedDate'],
                     include: [{model: User}]
                 },
                 {
                     model: Wine,
-                    attributes: ['brand', 'boxes', 'creationDate', 'updatedDate'],
+                    attributes: ['transferDate', 'updatedDate'],
                     include: [{model: User}]
                 },
                 {
                     model: Warehouse,
-                    attributes: ['remaining', 'creationDate', 'updatedDate'],
+                    attributes: ['transferDate', 'creationDate', 'updatedDate'],
                     include: [{model: User}]
                 },
                 {
                     model: Transport,
-                    attributes: ['driverId', 'plateNumber', 'creationDate', 'updatedDate'],
+                    attributes: ['transferDate', 'updatedDate'],
                     include: [{model: User}]
                 }
-            ],
-            attributes: ['companyName']
+            ]
         }).then((product: Product) => {
             const plainProduct = product.get({ plain: true });
 
             const items = new Array();
             if (plainProduct.grapes && plainProduct.grapes.length) {
                 items.push({
-                    title: plainProduct.grapes[0].user.orgnizationName,
+                    title: '',
                     date: this.formatDate(plainProduct.grapes[0].creationDate),
                     icon: '/img/cd-icon-picture.svg',
                     info: [
-                        { key: '', value: plainProduct.grapes[0].user.location + ', ' + plainProduct.grapes[0].region + ', ' + plainProduct.grapes[0].vineyard }
+                        { key: '', value: `Picked at ${plainProduct.grapes[0].vineyard} from ${plainProduct.grapes[0].region}` }
                     ]
                 });
             }
 
             if (plainProduct.transports && plainProduct.transports.length > 0) {
                 items.push({
-                    title: plainProduct.transports[0].user.orgnizationName,
-                    date: this.formatDate(plainProduct.transports[0].creationDate),
+                    title: '',
+                    date: this.formatDate(plainProduct.grapes[0].transferDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
-                        { key: 'Driver Id', value: plainProduct.transports[0].driverId },
-                        { key: 'Plate Number', value: plainProduct.transports[0].plateNumber }
+                        { key: '', value: `Transferred to ${plainProduct.transports[0].user.orgnizationName}.` },
+                        { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.transports[0].updatedDate)}.` }
                     ]
                 });
             }
@@ -76,22 +78,23 @@ export default class TimelineController {
             if (plainProduct.wineries && plainProduct.wineries.length) {
                 items.push({
                     title: plainProduct.wineries[0].user.orgnizationName,
-                    date: this.formatDate(plainProduct.wineries[0].creationDate),
+                    date: this.formatDate(plainProduct.transports[0].transferDate),
                     icon: '/img/cd-icon-location.svg',
                     info: [
-                        { key: 'Volume', value: plainProduct.wineries[0].user.location }
-                    ]
+                        { key: '', value: `Transferred to ${plainProduct.wineries[0].user.orgnizationName} ${plainProduct.wineries[0].user.location}.` },
+                        { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.wineries[0].updatedDate)}.` }
+                     ]
                 });
             }
 
             if (plainProduct.transports && plainProduct.transports.length > 1) {
                 items.push({
                     title: plainProduct.transports[1].user.orgnizationName,
-                    date: this.formatDate(plainProduct.transports[1].creationDate),
+                    date: this.formatDate(plainProduct.wineries[0].transferDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
-                        { key: 'Driver Id', value: plainProduct.transports[1].driverId },
-                        { key: 'Plate Number', value: plainProduct.transports[1].plateNumber }
+                        { key: '', value: `Transferred to ${plainProduct.transports[1].user.orgnizationName}.` },
+                        { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.transports[1].updatedDate)}.` }
                     ]
                 });
             }
@@ -99,22 +102,11 @@ export default class TimelineController {
             if (plainProduct.wines && plainProduct.wines.length) {
                 items.push({
                     title: plainProduct.wines[0].user.orgnizationName,
-                    date: this.formatDate(plainProduct.wines[0].creationDate),
+                    date: this.formatDate(plainProduct.transports[1].transferDate),
                     icon: '/img/cd-icon-location.svg',
                     info: [
-                        { key: 'Number of box', value: plainProduct.wines[0].user.location }
-                    ]
-                });
-            }
-
-            if (plainProduct.transports && plainProduct.transports.length > 2) {
-                items.push({
-                    title: plainProduct.transports[2].user.orgnizationName,
-                    date: this.formatDate(plainProduct.transports[2].creationDate),
-                    icon: '/img/cd-icon-movie.svg',
-                    info: [
-                        { key: 'Driver Id', value: plainProduct.transports[2].driverId },
-                        { key: 'Plate Number', value: plainProduct.transports[2].plateNumber }
+                        { key: '', value: `Transferred to ${plainProduct.wines[0].user.orgnizationName} ${plainProduct.wines[0].user.location}.` },
+                        { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.wines[0].updatedDate)}.` }
                     ]
                 });
             }
@@ -122,10 +114,11 @@ export default class TimelineController {
             if (plainProduct.warehouses && plainProduct.warehouses.length) {
                 items.push({
                     title: plainProduct.warehouses[0].user ? plainProduct.warehouses[0].user.orgnizationName : '',
-                    date: this.formatDate(plainProduct.warehouses[0].creationDate),
+                    date: this.formatDate(plainProduct.wines[0].transferDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
-                        { key: 'Number of box', value: plainProduct.warehouses[0].user ? plainProduct.warehouses[0].user.location : ''}
+                        { key: '', value: `The product is at ${plainProduct.warehouses[0].user.location}.` },
+                        { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.warehouses[0].creationDate)}.` }
                     ]
                 });
             }

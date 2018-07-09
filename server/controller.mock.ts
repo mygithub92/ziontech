@@ -157,7 +157,7 @@ export default class Controller {
     createBottler = (req, res) => {
         const t = { ...req.body, userId: req.body.userId };
         Wine.create(t).then(() => {
-            Warehouse.create({ remaining: t.boxes, productId: t.productId }).then(() => res.json('Done'));
+            Warehouse.create({ remaining: t.boxes, productId: t.productId, userId: req.body.userId}).then(() => res.json('Done'));
         });
     }
 
@@ -176,12 +176,36 @@ export default class Controller {
                     { model: Wine, include: [{ model: User}]},
                     {
                         model: Transport,
-                        where: { transferred: true }
+                        where: { transferred: true, fromStage: 20 }
                     }
                 ]
             }).then(products => res.json(products));
         } else {
             Product.scope("distributor").findAll().then(products => {
+                const productIds = products.map(product => product.id);
+                Transport.findAll({
+                    where: { productId: { $in: productIds }, transferred: { $not: true } }
+                }).then(transports => res.json({ products, transports }));
+
+            });
+        }
+    }
+
+    getTransports2 = (req, res) => {
+        if (req.query.history === 'true') {
+            Product.findAll({
+                include: [
+                    { model: Grape, include: [{ model: User}]},
+                    { model: Winery, include: [{ model: User}]}, 
+                    { model: Wine, include: [{ model: User}]},
+                    {
+                        model: Transport,
+                        where: { transferred: true, fromStage: 40 }
+                    }
+                ]
+            }).then(products => res.json(products));
+        } else {
+            Product.scope("distributor2").findAll().then(products => {
                 const productIds = products.map(product => product.id);
                 Transport.findAll({
                     where: { productId: { $in: productIds }, transferred: { $not: true } }
@@ -269,7 +293,7 @@ export default class Controller {
 
     genereateQR = (id) => {
         const ip = '52.14.119.82';
-        //const ip = '18.221.40.162';
+        // const ip = '18.221.40.162';
         qr.image(`http://${ip}/wine/${id}`)
             .pipe(fs.createWriteStream(config.qr(id)));
     }
