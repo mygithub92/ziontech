@@ -54,7 +54,7 @@ export default class TimelineController {
             const items = new Array();
             if (plainProduct.grapes && plainProduct.grapes.length) {
                 items.push({
-                    title: '',
+                    title: plainProduct.grapes[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.grapes[0].creationDate),
                     icon: '/img/cd-icon-picture.svg',
                     info: [
@@ -65,7 +65,7 @@ export default class TimelineController {
 
             if (plainProduct.transports && plainProduct.transports.length > 0) {
                 items.push({
-                    title: '',
+                    title: plainProduct.transports[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.grapes[0].transferDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
@@ -123,7 +123,7 @@ export default class TimelineController {
                 });
             }
 
-            res.render('index', {product: {companyName: plainProduct.companyName, brand: plainProduct.wines[0].brand, items}});
+            res.render('index', {product: {companyName: plainProduct.companyName, items}});
         });
     }
 }
