@@ -20,8 +20,8 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-11 col-md-1 sidebar bg-dark" id="sidebar" role="navigation">
-        <ul class="nav flex-column sidebar">
+    <div class="col-11 col-md-1 sidebar" id="sidebar" role="navigation">
+        <ul class="nav flex-column">
           <li class="nav-item active" *ngIf="authService.isAuth(roles.Grower)" >
               <a class="nav-link" (click)="navigateTo(roles.Grower)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Grower</a>
           </li>
