@@ -1,7 +1,7 @@
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light top-banner">
   <a class="navbar-brand" href="https://www.ziontech.com.au/" target="_blank">
-      <img src="/assets/ziontech.png" width="30" height="30" class="d-inline-block align-top" alt="">
-      <img src="/assets/ZionTechLogoTextSmall.png" width="150" class="d-inline-block align-top" alt=""></a>
+      <img src="/assets/ziontech.png" width="30" height="30" class="d-inline-block" alt="">
+      <img src="/assets/ZionTechLogoTextSmall.png" width="150" class="d-inline-block" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
     (click)="toggleMenu()"
@@ -14,7 +14,7 @@
       <li class="nav-item"><a class="nav-bar-link" href="https://www.ziontech.com.au/" target="_blank">About Us</a></li>
     </ul>
     <div class="nav-text"><mat-icon class="blue-icon">person</mat-icon><strong>{{authService.currentUser.name}} as {{authService.currentRoleName()}}</strong></div>
-    <a class="nav-bar-link nav-link" (click)="logout()"><mat-icon class="blue-icon">exit_to_app</mat-icon>Logout</a>
+    <a class="logout-link nav-link" (click)="logout()"><mat-icon class="blue-icon">exit_to_app</mat-icon>Logout</a>
   </div>
 </nav>
 

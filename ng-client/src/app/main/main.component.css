@@ -20,9 +20,18 @@
 
 .nav-bar-link{
   color: white;
+  padding-left: 10px;
 }
 
 .nav-bar-link:hover{
+  color: #0487B7;
+}
+
+.navbar a.logout-link{
+  color: white;
+}
+
+.navbar a.logout-link:hover{
   color: #0487B7;
 }
 
@@ -38,13 +47,12 @@
 
 .blue-icon{
   color: #0487B7;
+  vertical-align: middle;
 }
 
 .nav-text{
-  color:whtie;
-  vertical-align: middle;
+  color:white;
   margin:auto;
-  font-weight:bold;
 }
 
 .collapse.navbar-collapse > .nav-link {
