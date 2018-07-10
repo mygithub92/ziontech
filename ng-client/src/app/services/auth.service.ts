@@ -9,7 +9,7 @@ import { Roles } from '../shared/Roles.enum';
 export class AuthService {
   private baseUrl = baseUrl;
 
-  currentUser: { id: number, name: string, roles: { id: number, name: string }[], roleIds: number[] };
+  currentUser: { id: number, name: string, partener: {id: number, name: string}, roles: { id: number, name: string }[], roleIds: number[] };
   currentRole;
   transaction;
 

@@ -17,7 +17,7 @@ export class WineryProductComponent implements OnInit {
 
   form;
   bottlingCompanies = ['Best Bottlers', 'Liquid Goods'];
-  statuses = ['Grape', 'Juice', 'Grape Must', 'Unfinished Wine', 'Bottle Ready Wine'];
+  statuses = ['Grapes', 'Juice', 'Grape Must', 'Unfinished Wine', 'Bottle Ready Wine'];
   componentDestroyed$: Subject<boolean> = new Subject();
   product: Product = new Object() as Product;
   grape: Grape;

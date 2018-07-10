@@ -8,6 +8,7 @@ export default function setRoutes(app, checkIfAuthenticated) {
   app.route('/wine/create/:id').get(controller.genereate);
 
   app.route('/api/login').post(controller.login);
+  app.route('/api/partener').get(checkIfAuthenticated, controller.getPartener);
   app.route('/api/grapes').get(checkIfAuthenticated, controller.getGrapes);
   app.route('/api/grape').get(checkIfAuthenticated, controller.getGrapeById);
   app.route('/api/grape/create').put(checkIfAuthenticated, controller.createGrape); // create

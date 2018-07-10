@@ -28,7 +28,7 @@
             <mat-form-field>
               <mat-label>
                 <mat-icon>domain</mat-icon>
-                <i> Cork Cap </i>
+                <i> Cork/Cap </i>
               </mat-label>
               <mat-select formControlName="corkCap" required>
                 <mat-option>-- None --</mat-option>
@@ -52,7 +52,7 @@
           </mat-grid-tile>
           <mat-grid-tile *ngIf="showBoxQuestion()">
             <mat-form-field>
-              <mat-label>Number of box</mat-label>
+              <mat-label>Number of Boxes</mat-label>
               <input matInput placeholder="Number of Boxes" formControlName="boxes">
               <mat-error *ngIf="form.get('boxes').hasError('required')">{{getErrorMessage()}}</mat-error>
               <mat-error *ngIf="form.get('boxes').hasError('numberSpace')">Please entre a number</mat-error>

@@ -6,14 +6,14 @@
         <mat-grid-list cols="1" rowHeight="70px" gutterSize="20px">
           <mat-grid-tile>
             <mat-form-field>
-              <mat-label>Driver licence</mat-label>
+              <mat-label>Driver's license</mat-label>
               <input matInput placeholder="Driver licence" formControlName="driverId">
               <mat-error *ngIf="form.get('driverId').invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
             <mat-form-field>
-              <mat-label>Truck Plate Number</mat-label>
+              <mat-label>Registration Number</mat-label>
               <input matInput placeholder="Truck Plate Number" formControlName="plateNumber">
               <mat-error *ngIf="form.get('plateNumber').invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>

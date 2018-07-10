@@ -25,17 +25,42 @@ export default class Controller {
                 const roles = user.roles.map(role => {
                     return { id: role.id, name: role.name };
                 });
-                const payload = {
-                    id: user.id,
-                    name: user.name,
-                    roles
-                };
-                token = jwt.sign(payload, 'JIOwld*232f&l', {
-                    expiresIn: '2h'
-                });
+
+                this.getPartener(u.id).then(partener => {
+                    const payload = {
+                        id: user.id,
+                        name: user.name,
+                        roles,
+                        partener: {id: partener.id, name: partener.name}
+                    };
+                    token = jwt.sign(payload, 'JIOwld*232f&l', {
+                        expiresIn: '2h'
+                    });
+                    res.json({ token });
+                })
             }
-            res.json({ token });
         });
+    }
+
+    getPartener = (userId): any => {
+        let nextUserId;
+        switch (userId) {
+            case 1:
+                nextUserId = 4;
+                break;
+            case 2:
+                nextUserId = 6;
+                break;
+            case 3:
+                nextUserId = 5;
+                break;
+            case 4:
+                nextUserId = 2;
+                break;
+            case 6:
+                nextUserId = 3;
+        }
+        return User.findOne({ where: { id: nextUserId } });
     }
 
     getGrapes = (req, res) => {
@@ -83,7 +108,7 @@ export default class Controller {
         });
     }
     transportGrape = (req, res) => {
-        Grape.update({ transferred: true, transferDate: req.body.transferDate}, { where: { productId: req.body.productId } }).then(() => {
+        Grape.update({ transferred: true, transferDate: req.body.transferDate }, { where: { productId: req.body.productId } }).then(() => {
             Product.update({ stageId: 20 }, { where: { id: req.body.productId } }).then(() => res.json('Done'));
         });
     }
@@ -157,7 +182,7 @@ export default class Controller {
     createBottler = (req, res) => {
         const t = { ...req.body, userId: req.body.userId };
         Wine.create(t).then(() => {
-            Warehouse.create({ remaining: t.boxes, productId: t.productId, userId: req.body.userId}).then(() => res.json('Done'));
+            Warehouse.create({ remaining: t.boxes, productId: t.productId, userId: req.body.userId }).then(() => res.json('Done'));
         });
     }
 
@@ -171,9 +196,9 @@ export default class Controller {
         if (req.query.history === 'true') {
             Product.findAll({
                 include: [
-                    { model: Grape, include: [{ model: User}]},
-                    { model: Winery, include: [{ model: User}]}, 
-                    { model: Wine, include: [{ model: User}]},
+                    { model: Grape, include: [{ model: User }] },
+                    { model: Winery, include: [{ model: User }] },
+                    { model: Wine, include: [{ model: User }] },
                     {
                         model: Transport,
                         where: { transferred: true, fromStage: 20 }
@@ -195,9 +220,9 @@ export default class Controller {
         if (req.query.history === 'true') {
             Product.findAll({
                 include: [
-                    { model: Grape, include: [{ model: User}]},
-                    { model: Winery, include: [{ model: User}]}, 
-                    { model: Wine, include: [{ model: User}]},
+                    { model: Grape, include: [{ model: User }] },
+                    { model: Winery, include: [{ model: User }] },
+                    { model: Wine, include: [{ model: User }] },
                     {
                         model: Transport,
                         where: { transferred: true, fromStage: 40 }

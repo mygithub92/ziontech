@@ -20,25 +20,11 @@ export class ConfirmDialogComponent {
   }
 
   isValid(): boolean {
-    return this.product.transferDate instanceof Date;
-  }
-
-  get remainingBoxNumber() {
-    if (this.showBoxNumber()) {
-      return 10;
-    }
-    return 0;
-  }
-
-  showBoxNumber() {
-    return this.product.wines && this.product.wines[0] && this.product.wines[0].boxes;
+    return this.product.transferDate instanceof Date && this.product.transferTo !== undefined;
   }
 
   get startDate() {
     return new Date();
   }
 
-  get minDate() {
-    return new Date();
-  }
 }

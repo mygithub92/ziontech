@@ -1,7 +1,7 @@
 id,name,email,password,location,org_name,role_id
-1,Gavin Hogg,gavin.hogg@titaniumthread.com,1234,Coonawarra Chardonnay,Hoggies Estate Wines,1
+1,Gavin Hogg,gavin.hogg@titaniumthread.com,1234,Coonawarra SA,Hoggies Estate Wines,1
 2,David Stokoe,david.stokoe@titaniumthread.com,1234,Riddoch Highway Padthaway SA,LIMESTONE COAST WINES,2
-3,Chris Hogg,chris.hogg@titaniumthread.com,1234,Cowra Ave Mildura VIC,BEST BOTTLERS,3
-4,Sean Gould,sean.gould@titaniumthread.com,1234,Naracoorte SA,A & K HUTCHESSON,4
-5,Sean Gould,david.wang@titaniumthread.com,1234,Victor Harbor SA,BEST BOTTLERS,5
-6,Lery Wang,leroy.wang@titaniumthread.com,1234,Victor Harbor SA,HAHN CORPORATION,6
+3,Chris Hogg,chris.hogg@titaniumthread.com,1234,MILDURA VICTORIA,BEST BOTTLERS,3
+4,Sean Gould,sean.gould@titaniumthread.com,1234,,A & K HUTCHESSON,4
+5,Sean Gould,david.wang@titaniumthread.com,1234,MILDURA VICTORIA,BEST BOTTLERS,5
+6,Lery Wang,leroy.wang@titaniumthread.com,1234,,HAHN CORPORATION,6

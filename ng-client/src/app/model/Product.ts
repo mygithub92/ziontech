@@ -5,6 +5,7 @@ export class Product {
   id: number;
   companyName: string;
   transferDate: Date;
+  transferTo: string;
   grapes: Grape[];
   wineries: Winery[];
   wines: Wine[];

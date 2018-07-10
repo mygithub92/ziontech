@@ -1,50 +1,52 @@
-<h2 mat-dialog-title>Please confirm...</h2>
+<h2 mat-dialog-title>Transfering...</h2>
 <mat-dialog-content>
-  <mat-grid-list cols="2" rowHeight="30px" class="confirm-tranfer-grid">
-    <mat-grid-tile>
-      ID:
-    </mat-grid-tile>
-    <mat-grid-tile>
-      {{ product.id}}
-    </mat-grid-tile>
-    <mat-grid-tile>
-      Company Name:
-    </mat-grid-tile>
-    <mat-grid-tile>
-      {{ product.companyName}}
-    </mat-grid-tile>
-    <mat-grid-tile>
-      Region:
-    </mat-grid-tile>
-    <mat-grid-tile>
-      {{ product.grapes[0].region}}
-    </mat-grid-tile>
-    <mat-grid-tile>
-      Variety:
-    </mat-grid-tile>
-    <mat-grid-tile>
-      {{ product.grapes[0].variety}}
-    </mat-grid-tile>
-    <mat-grid-tile>
-      Vintage:
-    </mat-grid-tile>
-    <mat-grid-tile>
-      {{ product.grapes[0].vintage}}
-    </mat-grid-tile>
-    <ng-container *ngIf="product.wines && product.wines[0] && product.wines[0].boxes">
-      <mat-grid-tile>
-        Number Box Remaining:
-      </mat-grid-tile>
-      <mat-grid-tile>
-        {{ product.wines[0].boxes}}
-      </mat-grid-tile>
-    </ng-container>
-  </mat-grid-list>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="product.transferDate" placeholder="Choose a transfer date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
-  </mat-form-field>
+  <div class="row">
+    <div class="col-6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="product.transferDate" placeholder="Choose a transfer date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+          <mat-label>
+            <i> Transfer to </i>
+          </mat-label>
+          <mat-select [(ngModel)]="product.transferTo" required>
+            <mat-option>-- None --</mat-option>
+            <mat-option *ngFor="let user of product.parteners" [value]="user.name">{{ user.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-grid-list cols="2" rowHeight="30px" class="confirm-tranfer-grid">
+        <mat-grid-tile>
+          Company Name:
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{ product.companyName}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Region:
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{ product.grapes[0].region}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Variety:
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{ product.grapes[0].variety}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          Vintage:
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{ product.grapes[0].vintage}}
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button [mat-dialog-close]="product.transferDate" [disabled]="!isValid()" color="primary">Yes</button>

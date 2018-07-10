@@ -19,7 +19,7 @@ export class BottlerProductComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
   sellers = ['Liquid Shop', 'BWS'];
   statuses = ['Bulk Wine', '12 pk boxes', '6 pk boxes'];
-  corkCaps = ['Cork', 'Caps'];
+  corkCaps = ['Cork', 'Cap'];
   product: Product;
   grape: Grape;
   unsubscribe = new Subject<void>();
