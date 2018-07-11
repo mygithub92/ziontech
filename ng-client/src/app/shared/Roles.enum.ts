@@ -1,8 +1,8 @@
 export enum Roles {
     Grower = 1,
-    Winery,
-    Bottler,
     Logistic,
+    Winery,
     Logistic2,
+    Bottler,
     Warehouse
 }

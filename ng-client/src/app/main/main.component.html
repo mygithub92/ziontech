@@ -34,7 +34,7 @@
           <li class="nav-item" *ngIf="authService.isAuth(roles.Logistic)">
             <a class="nav-link" (click)="navigateTo(roles.Logistic)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Logistic</a>
           </li>
-          <li class="nav-item" *ngIf="authService.isAuth(roles.Logistic)">
+          <li class="nav-item" *ngIf="authService.isAuth(roles.Logistic2)">
             <a class="nav-link" (click)="navigateTo(roles.Logistic2)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Logistic2</a>
           </li>
           <li class="nav-item" *ngIf="authService.isAuth(roles.Warehouse)">

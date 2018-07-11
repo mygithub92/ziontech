@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Transfering...</h2>
 <mat-dialog-content>
   <div class="row">
-    <div class="col-6">
+    <div class="col-5">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="product.transferDate" placeholder="Choose a transfer date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -9,16 +9,16 @@
       </mat-form-field>
       <br/>
       <mat-form-field>
-          <mat-label>
-            <i> Transfer to </i>
-          </mat-label>
-          <mat-select [(ngModel)]="product.transferTo" required>
-            <mat-option>-- None --</mat-option>
-            <mat-option *ngFor="let user of product.parteners" [value]="user.name">{{ user.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-label>
+          <i> Transfer to </i>
+        </mat-label>
+        <mat-select [(ngModel)]="product.transferTo" required>
+          <mat-option>-- None --</mat-option>
+          <mat-option *ngFor="let user of product.parteners" [value]="user.orgnizationName">{{ user.orgnizationName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="col-6">
+    <div class="col-7">
       <mat-grid-list cols="2" rowHeight="30px" class="confirm-tranfer-grid">
         <mat-grid-tile>
           Company Name:
@@ -44,6 +44,22 @@
         <mat-grid-tile>
           {{ product.grapes[0].vintage}}
         </mat-grid-tile>
+        <ng-container *ngIf="product.showWeight">
+          <mat-grid-tile>
+            Estimate Weight:
+          </mat-grid-tile>
+          <mat-grid-tile>
+            {{ product.grapes[0].estimatedWeight}}
+          </mat-grid-tile>
+        </ng-container>
+        <ng-container *ngIf="product.showVolume">
+          <mat-grid-tile>
+            Volume:
+          </mat-grid-tile>
+          <mat-grid-tile>
+            {{ product.wineries[0].volume}}
+          </mat-grid-tile>
+        </ng-container>
       </mat-grid-list>
     </div>
   </div>

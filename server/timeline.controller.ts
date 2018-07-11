@@ -117,7 +117,7 @@ export default class TimelineController {
                     date: this.formatDate(plainProduct.wines[0].transferDate),
                     icon: '/img/cd-icon-movie.svg',
                     info: [
-                        { key: '', value: `The product is at ${plainProduct.warehouses[0].user.location}.` },
+                        { key: '', value: `The product was last recorded at ${plainProduct.warehouses[0].user.location}.` },
                         { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.warehouses[0].creationDate)}.` }
                     ]
                 });

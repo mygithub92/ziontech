@@ -25,14 +25,15 @@ export default class Controller {
                 const roles = user.roles.map(role => {
                     return { id: role.id, name: role.name };
                 });
-
-                this.getPartener(u.id).then(partener => {
+                User.findOne({ where: {id: u.id + 1 }}).then(partener => {
                     const payload = {
                         id: user.id,
                         name: user.name,
                         roles,
-                        partener: {id: partener.id, name: partener.name}
                     };
+                    if (partener) {
+                        payload['partener'] = {id: partener.id, name: partener.name, orgnizationName: partener.orgnizationName }
+                    }
                     token = jwt.sign(payload, 'JIOwld*232f&l', {
                         expiresIn: '2h'
                     });
@@ -40,27 +41,6 @@ export default class Controller {
                 })
             }
         });
-    }
-
-    getPartener = (userId): any => {
-        let nextUserId;
-        switch (userId) {
-            case 1:
-                nextUserId = 4;
-                break;
-            case 2:
-                nextUserId = 6;
-                break;
-            case 3:
-                nextUserId = 5;
-                break;
-            case 4:
-                nextUserId = 2;
-                break;
-            case 6:
-                nextUserId = 3;
-        }
-        return User.findOne({ where: { id: nextUserId } });
     }
 
     getGrapes = (req, res) => {

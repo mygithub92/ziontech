@@ -208,7 +208,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'brand', header: 'Brand', cell: (row: Product) => `${Product.wineValue(row, 'brand')}` },
-      { columnDef: 'boxes', header: 'Number of box', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` },
+      { columnDef: 'boxes', header: 'Number of Boxes', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` },
     ];
 
   }
@@ -222,8 +222,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   transfer($event, row, cell) {
     if (cell.header === 'Action') {
       row.parteners = [this.authService.currentUser.partener];
+      row.showWeight = this.authService.isAuth(Roles.Grower);
+      row.showVolume = this.authService.isAuth(Roles.Winery);
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        width: '650px',
+        width: '750px',
         disableClose: true,
         data: row
       });
