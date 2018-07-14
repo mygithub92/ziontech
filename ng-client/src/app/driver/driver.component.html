@@ -43,10 +43,16 @@
                   <div class="col">{{ grape.vintage }}</div>
                 </div>
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item" *ngIf="authService.isAuth(roles.Logistic)">
                 <div class="row">
-                  <div class="col">Weight:</div>
+                  <div class="col">Estimated Weight:</div>
                   <div class="col">{{ grape.estimatedWeight }}</div>
+                </div>
+              </li>
+              <li class="list-group-item" *ngIf="authService.isAuth(roles.Logistic2) && product.wineries && product.wineries.length">
+                <div class="row">
+                  <div class="col">Volume:</div>
+                  <div class="col">{{ product.wineries[0].volume }}</div>
                 </div>
               </li>
             </ul>

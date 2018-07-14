@@ -20,7 +20,7 @@ export class AddProductComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
 
   form: FormGroup;
-  companies = ['Penley', 'Hoggies Estate'];
+  companies = ['Hoggies Estate'];
   statuses = ['Grapes'];
   id: string;
   prodcut: Product;

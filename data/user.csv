@@ -1,6 +1,6 @@
 id,name,email,password,location,org_name
-1,Gavin Hogg,gavin.hogg@titaniumthread.com,1234,"Coonawarra,SOUTH AUSTRALIA",HOGGIES ESTATE WINES
-2,Paul.Saigar,paul.saigar@titaniumthread.com,1234,,A & K HUTCHESSON
-3,David Stokoe,david.stokoe@titaniumthread.com,1234,"Padthaway,SOUTH AUSTRALIA",LIMESTONE COAST WINES
+1,Gavin Hogg,gavin.hogg@titaniumthread.com,1234,"COONAWARRA, SOUTH AUSTRALIA",HOGGIES ESTATE WINES
+2,Paul.Saigar,paul.saigar@titaniumthread.com,1234,,A & K HUTCHESSON,4
+3,David Stokoe,david.stokoe@titaniumthread.com,1234,"PADTHAWAY, SOUTH AUSTRALIA",LIMESTONE COAST WINES
 4,Sean Gould,sean.gould@titaniumthread.com,1234,,HAHN CORPORATION
 5,Chris Hogg,chris.hogg@titaniumthread.com,1234,"MILDURA,VICTORIA",BEST BOTTLERS

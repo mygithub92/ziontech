@@ -29,6 +29,7 @@ export default class Controller {
                     const payload = {
                         id: user.id,
                         name: user.name,
+                        orgnizationName: user.orgnizationName,
                         roles,
                     };
                     if (partener) {

@@ -1,7 +1,7 @@
 id,name
 1,Grower
-2,Winery
-3,Bottler
-4,Logistic
-5,Warehouse
-6,Logistic2
+2,Logistic
+3,Winery
+4,Logistic2
+5,Bottler
+6,Warehouse

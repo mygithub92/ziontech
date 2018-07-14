@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/finally';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HyperledgerService } from '../../services/hyperledger.service';
@@ -48,9 +48,9 @@ export class BottlerProductComponent implements OnInit {
     .takeUntil(this.unsubscribe)
     .subscribe(newValue => {
       if (newValue === 'Bulk Wine') {
-        this.form.controls.boxes.clearValidators();
+        this.form.removeControl('boxes');
       } else {
-        this.form.controls.boxes.setValidators([Validators.required, , AppValidators.numberSpace]);
+        this.form.addControl('boxes', new FormControl(null, [Validators.required, AppValidators.numberSpace]));
       }
     });
 

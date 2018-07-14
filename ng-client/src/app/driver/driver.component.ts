@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { Grape, Product } from '../model/Product';
 import { AuthService } from '../services/auth.service';
 import { NoAuthError } from '../common/no-auth-error';
+import { Roles } from '../shared/Roles.enum';
 
 @Component({
   selector: 'app-driver',
@@ -18,6 +19,8 @@ export class DriverComponent implements OnInit {
   componentDestroyed$: Subject<boolean> = new Subject();
   grape: Grape;
   product: Product;
+  roles = Roles;
+
   constructor(
     private service: HyperledgerService,
     private route: ActivatedRoute,

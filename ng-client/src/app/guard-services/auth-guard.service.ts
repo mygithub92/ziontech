@@ -62,7 +62,7 @@ export class DriverAuthGuard extends AuthGuard {
       return false;
     }
 
-    if (this.authService.isAuth(Roles.Logistic)) {
+    if (this.authService.isAuth(Roles.Logistic) || this.authService.isAuth(Roles.Logistic2)) {
       return true;
     }
 

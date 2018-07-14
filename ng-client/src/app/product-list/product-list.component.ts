@@ -98,14 +98,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'rowRange', header: 'Row Range', cell: (row: Product) => `${Product.grapeValue(row, 'rowRange')}` },
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
-      { columnDef: 'bins', header: 'Numbers of Bins', cell: (row: Product) => `${Product.grapeValue(row, 'bins')}` },
+      { columnDef: 'bins', header: 'Number of Bins', cell: (row: Product) => `${Product.grapeValue(row, 'bins')}` },
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.grapeValue(row, 'status')}` },
       { columnDef: 'estimatedWeight', header: 'Estimated Weight(T)', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` }
     ];
     if (this.authService.transaction) {
       this.columns.push({ columnDef: 'actualWeight', header: 'Actual Weight(T)', cell: (row: Product) => `${Product.wineryValue(row, 'actualWeight')}` });
-    }
-    if (!this.authService.transaction) {
+      this.columns.push({ columnDef: 'transferDate', header: 'Transfered Date', cell: (row: Product) => `${this.formatedDate(Product.grapeValue(row, 'transferDate'))}` });
+    } else {
       this.columns.push({ columnDef: 'action', header: 'Action', cell: (row: Product) => 'Transfer' });
     }
   }
@@ -120,7 +120,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'volume', header: 'Volume(L)', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineryValue(row, 'status')}` }
     ];
-    if (!this.authService.transaction) {
+    if (this.authService.transaction) {
+      this.columns.push({ columnDef: 'transferDate', header: 'Transfered Date', cell: (row: Product) => `${this.formatedDate(Product.wineryValue(row, 'transferDate'))}` });
+    } else {
       this.columns.push({
         columnDef: 'action',
         header: 'Action',
@@ -143,7 +145,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'status', header: 'Status', cell: (row: Product) => `${Product.wineValue(row, 'status')}` },
       { columnDef: 'boxes', header: 'Number of Boxes', cell: (row: Product) => `${Product.wineValue(row, 'boxes')}` }
     ];
-    if (!this.authService.transaction) {
+    if (this.authService.transaction) {
+      this.columns.push({ columnDef: 'transferDate', header: 'Transfered Date', cell: (row: Product) => `${this.formatedDate(Product.wineValue(row, 'transferDate'))}` });
+    } else {
       this.columns.push({
         columnDef: 'action',
         header: 'Action',
@@ -158,7 +162,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'estimatedWeight', header: 'Weight', cell: (row: Product) => `${Product.grapeValue(row, 'estimatedWeight')}` },
-      { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
+      { columnDef: 'driverId', header: 'Driver\'s ID', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
       { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` },
     ];
     if (!this.authService.transaction) {
@@ -181,7 +185,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       { columnDef: 'variety', header: 'Variety', cell: (row: Product) => `${Product.grapeValue(row, 'variety')}` },
       { columnDef: 'vintage', header: 'Vintage', cell: (row: Product) => `${Product.grapeValue(row, 'vintage')}` },
       { columnDef: 'volume', header: 'Volume', cell: (row: Product) => `${Product.wineryValue(row, 'volume')}` },
-      { columnDef: 'driverId', header: 'Driver Id', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
+      { columnDef: 'driverId', header: 'Driver\'s ID', cell: (row: Product) => `${Product.transportValue(row, 'driverId')}` },
       { columnDef: 'plateNumber', header: 'Plate Number', cell: (row: Product) => `${Product.transportValue(row, 'plateNumber')}` },
     ];
     if (!this.authService.transaction) {
@@ -223,7 +227,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if (cell.header === 'Action') {
       row.parteners = [this.authService.currentUser.partener];
       row.showWeight = this.authService.isAuth(Roles.Grower);
-      row.showVolume = this.authService.isAuth(Roles.Winery);
+      row.showVolume = this.authService.isAuth(Roles.Winery) && row.wineries && row.wineries.length;
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '750px',
         disableClose: true,
