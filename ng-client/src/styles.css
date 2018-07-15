@@ -36,3 +36,7 @@ form .example-container .mat-form-field {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+.mat-raised-button.mat-primary{
+  background-color: #004e93;
+}
