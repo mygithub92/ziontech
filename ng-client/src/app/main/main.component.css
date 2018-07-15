@@ -58,3 +58,12 @@
     display: inline-flex;
     vertical-align: middle;
 }
+
+.footer{
+  padding-top: 50px;
+}
+
+.footer img{
+    display: block;
+    margin: 0 auto;
+}
