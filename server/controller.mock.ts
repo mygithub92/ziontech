@@ -34,6 +34,8 @@ export default class Controller {
                     };
                     if (partener) {
                         payload['partener'] = {id: partener.id, name: partener.name, orgnizationName: partener.orgnizationName }
+                    } else {
+                        payload['partener'] = {id: user.id, name: user.name, orgnizationName: user.orgnizationName }
                     }
                     token = jwt.sign(payload, 'JIOwld*232f&l', {
                         expiresIn: '2h'
