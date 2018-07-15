@@ -9,6 +9,10 @@
     padding-top: 10px;
   }
 
+  .example-container {
+    border-radius: 5px;
+  }
+
   .clickable-row {
     cursor: pointer;
   }
@@ -20,4 +24,21 @@
 
   .mat-cell.mat-column-action.mat-raised-button {
     padding: 0px;
+  }
+
+  .mat-row:nth-child(even){
+    background-color:#e6f3ff;
+  }
+
+  .mat-row:nth-child(odd){
+    background-color:#c2e1fd;
+  }
+
+  .mat-row:hover{
+    background-color: #6ab9ff;
+  }
+
+  .mat-header-cell{
+    color: #00305B;
+    font-weight: bold;
   }
