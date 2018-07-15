@@ -6,7 +6,7 @@ body {
 }
 
 .mat-table, .mat-paginator {
-    background-color: rgb(223, 233, 243);
+    background-color: #d6ecff;
 }
 
 .button-row {
@@ -35,4 +35,8 @@ form .example-container .mat-form-field {
 .mat-paginator {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.mat-raised-button.mat-primary{
+  background-color: #004e93;
 }
