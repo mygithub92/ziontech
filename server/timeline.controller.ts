@@ -56,7 +56,7 @@ export default class TimelineController {
                 items.push({
                     title: plainProduct.grapes[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.grapes[0].creationDate),
-                    icon: '/img/cd-icon-picture.svg',
+                    icon: '/img/cd-icon-grower.svg',
                     info: [
                         { key: '', value: `Picked at ${plainProduct.grapes[0].vineyard} from ${plainProduct.grapes[0].region}` }
                     ]
@@ -67,7 +67,7 @@ export default class TimelineController {
                 items.push({
                     title: plainProduct.transports[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.grapes[0].transferDate),
-                    icon: '/img/cd-icon-movie.svg',
+                    icon: '/img/cd-icon-logistics.svg',
                     info: [
                         { key: '', value: `Transferred to ${plainProduct.transports[0].user.orgnizationName}.` },
                         { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.transports[0].updatedDate)}.` }
@@ -79,7 +79,7 @@ export default class TimelineController {
                 items.push({
                     title: plainProduct.wineries[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.transports[0].transferDate),
-                    icon: '/img/cd-icon-location.svg',
+                    icon: '/img/cd-icon-winery.svg',
                     info: [
                         { key: '', value: `Transferred to ${plainProduct.wineries[0].user.orgnizationName} ${plainProduct.wineries[0].user.location}.` },
                         { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.wineries[0].updatedDate)}.` }
@@ -91,7 +91,7 @@ export default class TimelineController {
                 items.push({
                     title: plainProduct.transports[1].user.orgnizationName,
                     date: this.formatDate(plainProduct.wineries[0].transferDate),
-                    icon: '/img/cd-icon-movie.svg',
+                    icon: '/img/cd-icon-logistics.svg',
                     info: [
                         { key: '', value: `Transferred to ${plainProduct.transports[1].user.orgnizationName}.` },
                         { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.transports[1].updatedDate)}.` }
@@ -103,7 +103,7 @@ export default class TimelineController {
                 items.push({
                     title: plainProduct.wines[0].user.orgnizationName,
                     date: this.formatDate(plainProduct.transports[1].transferDate),
-                    icon: '/img/cd-icon-location.svg',
+                    icon: '/img/cd-icon-bottler.svg',
                     info: [
                         { key: '', value: `Transferred to ${plainProduct.wines[0].user.orgnizationName} ${plainProduct.wines[0].user.location}.` },
                         { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.wines[0].updatedDate)}.` }
@@ -115,7 +115,7 @@ export default class TimelineController {
                 items.push({
                     title: plainProduct.warehouses[0].user ? plainProduct.warehouses[0].user.orgnizationName : '',
                     date: this.formatDate(plainProduct.wines[0].transferDate),
-                    icon: '/img/cd-icon-movie.svg',
+                    icon: '/img/cd-icon-warehouse.svg',
                     info: [
                         { key: '', value: `The product was last recorded at ${plainProduct.warehouses[0].user.location}.` },
                         { key: '', value: `Recorded on ${this.formatDateTime(plainProduct.warehouses[0].creationDate)}.` }
